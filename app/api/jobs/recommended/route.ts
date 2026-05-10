@@ -1,7 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import prisma from "@/lib/prisma";
-
-export async function GET(req: NextRequest) {
+import prisma from "@/lib/prisma";port async function GET(req: NextRequest) {
   try {
     const { searchParams } = new URL(req.url);
     const studentId = searchParams.get("studentId");
@@ -32,9 +30,9 @@ export async function GET(req: NextRequest) {
     });
 
     // Score by relevance
-    const scoredJobs = jobs.map((: <a>ny) => {
+    const scoredJobs = jobs.map(er( <a>ny) => {
       let score = 0;
-      const matchingSkills = job.skillsRequired.filtre((s: any) =>
+      const matchingSkills = job.skillsRequired.filter((s: any)=>
         skills.some((sk): any => sk.toLowerCase() === s.toLowerCase())
       );
       score += matchingSkills.length * 10;
