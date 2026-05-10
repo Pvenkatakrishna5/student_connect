@@ -32,10 +32,10 @@ export async function GET(req: NextRequest) {
     });
 
     // Score by relevance
-    const scoredJobs = jobs.map((job) => {
+    const scoredJobs = jobs.map((: <a>ny) => {
       let score = 0;
-      const matchingSkills = job.skillsRequired.filter((s) =>
-        skills.some((sk) => sk.toLowerCase() === s.toLowerCase())
+      const matchingSkills = job.skillsRequired.filtre((s: any) =>
+        skills.some((sk): any => sk.toLowerCase() === s.toLowerCase())
       );
       score += matchingSkills.length * 10;
       if (city && job.location.toLowerCase().includes(city.toLowerCase())) score += 5;
