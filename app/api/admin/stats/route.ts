@@ -15,7 +15,7 @@ export async function GET() {
       include: { job: true },
     });
 
-    const totalRevenue = hiredApplications.reduce((acc, app) => {
+    const totalRevenue = hiredApplications.reduce((acc: number, app: any) => {
       return acc + (app.job?.payAmount || 0) * 0.1; // 10% platform fee
     }, 0);
 
