@@ -31,7 +31,7 @@ export async function GET() {
       activeJobs: activeJobsCount,
       totalApplicants,
       hiredStudents: hiredCount,
-      recentJobs: recentJobs.map((j) => ({ ...j, timeAgo: "Recently" })),
+      recentJobs: recentJobs.map((j: any) => ({ ...j, timeAgo: "Recently" })),
     });
   } catch (error) {
     console.error("Employer stats error:", error);
