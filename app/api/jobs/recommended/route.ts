@@ -1,50 +1,59 @@
 import { NextRequest, NextResponse } from "next/server";
-import prisma from "@/lib/prisma";port async function GET(req: NextRequest) {
-  try {
-    const { searchParams } = new URL(req.url);
-    const studentId = searchParams.get("studentId");
+import prisma from "@/lib/prisma";
 
-    if (!studentId) {
-      return NextResponse.json({ error: "Student ID required" }, { status: 400 });
+export async function GET(req: NextRequest) {
+    try {
+          const { searchParams } = new URL(req.url);
+          const userId = searchParams.get("userId");
+
+      if (!userId) {
+              return NextResponse.json(
+                { error: "User ID is required" },
+                { status: 400 }
+                      );
+      }
+
+      const user = await prisma.user.findUnique({
+              where: { id: userId },
+              select: { skills: true },
+      });
+
+      if (!user) {
+              return NextResponse.json({ error: "User not found" }, { status: 404 });
+      }
+
+      const { skills } = user;
+
+      const jobs = await prisma.job.findMany({
+              where: {
+                        status: "OPEN",
+              },
+      });
+
+      const scoredJobs = jobs.map((job: any) => {
+              let score = 0;
+              const matchingSkills = job.skillsRequired.filter((s: any) =>
+                        skills.some((sk: any) => sk.toLowerCase() === s.toLowerCase())
+                                                                     );
+
+                                        score = matchingSkills.length;
+
+                                        return {
+                                                  ...job,
+                                                  matchingSkillsCount: score,
+                                                  matchingSkills,
+                                        };
+      });
+
+      const recommendedJobs = scoredJobs
+            .filter((job: any) => job.matchingSkillsCount > 0)
+            .sort((a: any, b: any) => b.matchingSkillsCount - a.matchingSkillsCount);
+
+      return NextResponse.json(recommendedJobs);
+    } catch (err: any) {
+          return NextResponse.json(
+            { error: err.message },
+            { status: 500 }
+                );
     }
-
-    const student = await prisma.student.findUnique({ where: { userId: studentId } });
-    if (!student) {
-      return NextResponse.json({ error: "Student not found" }, { status: 404 });
-    }
-
-    const skills = student.skills || [];
-    const city = student.city || "";
-
-    // Find jobs matching skills or city
-    const jobs = await prisma.job.findMany({
-      where: {
-        status: "active",
-        OR: [
-          { skillsRequired: { hasSome: skills } },
-          { location: { contains: city, mode: "insensitive" } },
-          { isRemote: true },
-        ],
-      },
-      include: { employer: true },
-    });
-
-    // Score by relevance
-    const scoredJobs = jobs.map(er( <a>ny) => {
-      let score = 0;
-      const matchingSkills = job.skillsRequired.filter((s: any)=>
-        skills.some((sk): any => sk.toLowerCase() === s.toLowerCase())
-      );
-      score += matchingSkills.length * 10;
-      if (city && job.location.toLowerCase().includes(city.toLowerCase())) score += 5;
-      if (job.isRemote) score += 2;
-      return { ...job, score };
-    });
-
-    scoredJobs.sort((a, b) => b.score - a.score);
-
-    return NextResponse.json(scoredJobs.slice(0, 10));
-  } catch (err: any) {
-    return NextResponse.json({ error: err.message || "Server error" }, { status: 500 });
-  }
 }
