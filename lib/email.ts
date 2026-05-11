@@ -12,7 +12,7 @@ export async function sendEmail({
   html: string;
 }) {
   try {
-    const { data, error } = await resend.emails.send({
+    const { error } = await resend.emails.send({
       from: "StudentConnect <noreply@studentconnect.app>",
       to: [to],
       subject,

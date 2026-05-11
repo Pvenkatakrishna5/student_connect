@@ -62,6 +62,7 @@ export default function VerifyPage() {
         setError(data.error || "Verification failed");
       }
     } catch (err) {
+      console.error(err);
       setError("Something went wrong. Please try again.");
     } finally {
       setLoading(false);

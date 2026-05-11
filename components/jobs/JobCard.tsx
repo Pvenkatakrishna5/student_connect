@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import { Bookmark, BookmarkCheck, MapPin, Clock, Star, ChevronRight } from "lucide-react";
+import { Bookmark, MapPin, Clock, Star, ChevronRight } from "lucide-react";
 import { useState } from "react";
 import { cn, timeAgo } from "@/lib/utils";
 import { JOB_CATEGORY_ICONS } from "@/lib/data";
@@ -32,8 +32,8 @@ export default function JobCard({ job, compact, showApplyButton = true, onApply 
   const [saved, setSaved] = useState(false);
   const icon = JOB_CATEGORY_ICONS[job.category] || "💼";
   const payDisplay = formatPay(job.payType, job.payAmount);
-  const jobId = job.id || (job as any)._id;
-  const employer = job.employer || (job as any).employerId || {};
+  const jobId = job.id;
+  const employer = job.employer || {};
 
   return (
     <div className={cn(

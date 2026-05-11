@@ -1,23 +1,39 @@
 {
   "name": "StudentConnect",
   "short_name": "StudentConnect",
-  "description": "Skill-Based Part-Time Job Platform",
-  "theme_color": "#6C63FF",
-  "background_color": "#0A0A0F",
+  "description": "India's Premier Skill-Based Part-Time Job Platform for Students",
+  "theme_color": "#10b981",
+  "background_color": "#050508",
   "display": "standalone",
   "orientation": "portrait",
   "scope": "/",
   "start_url": "/",
+  "categories": ["business", "education", "productivity"],
+  "screenshots": [],
   "icons": [
     {
       "src": "/icons/icon-192.png",
       "sizes": "192x192",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
     },
     {
       "src": "/icons/icon-512.png",
       "sizes": "512x512",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
     }
   ]
 }

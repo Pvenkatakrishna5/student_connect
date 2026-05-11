@@ -1,8 +1,7 @@
 "use client";
 import Link from "next/link";
 import { useState } from "react";
-import { Menu, X, Bell, Search, Moon, Sun, ChevronDown } from "lucide-react";
-import { cn } from "@/lib/utils";
+import { Menu, X, Bell, Search, ChevronDown } from "lucide-react";
 
 interface NavbarProps {
   role?: "student" | "employer" | "admin" | null;
@@ -11,8 +10,6 @@ interface NavbarProps {
 
 export default function Navbar({ role, userName }: NavbarProps) {
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [dark, setDark] = useState(true);
-  const [searchOpen, setSearchOpen] = useState(false);
 
   const navLinks = [
     { label: "Browse Jobs", href: "/student/jobs" },

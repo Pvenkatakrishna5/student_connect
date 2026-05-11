@@ -1,12 +1,22 @@
 "use client";
 import { useState, useEffect } from "react";
-import { Bell, X, CheckCircle, Info, AlertTriangle, XCircle, Loader2, ArrowRight } from "lucide-react";
+import { Bell, CheckCircle, Info, AlertTriangle, XCircle, Loader2, ArrowRight } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 
+interface Notification {
+  _id: string;
+  type: "success" | "warning" | "error" | "info";
+  title: string;
+  message: string;
+  link?: string;
+  read: boolean;
+  createdAt: string;
+}
+
 export default function NotificationCenter() {
   const [isOpen, setIsOpen] = useState(false);
-  const [notifications, setNotifications] = useState<any[]>([]);
+  const [notifications, setNotifications] = useState<Notification[]>([]);
   const [loading, setLoading] = useState(false);
   const [unreadCount, setUnreadCount] = useState(0);
 
@@ -17,7 +27,7 @@ export default function NotificationCenter() {
       if (res.ok) {
         const data = await res.json();
         setNotifications(data);
-        setUnreadCount(data.filter((n: any) => !n.read).length);
+        setUnreadCount(data.filter((n: Notification) => !n.read).length);
       }
     } catch (err) {
       console.error(err);
@@ -30,10 +40,14 @@ export default function NotificationCenter() {
 
   useEffect(() => {
     setMounted(true);
+  }, []);
+
+  useEffect(() => {
+    if (!mounted) return;
     fetchNotifications();
     const interval = setInterval(fetchNotifications, 60000); // Polling every minute
     return () => clearInterval(interval);
-  }, []);
+  }, [mounted]);
 
   if (!mounted) return null;
 

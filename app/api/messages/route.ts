@@ -104,3 +104,28 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: "Internal server error" }, { status: 500 });
   }
 }
+
+export async function PATCH(req: Request) {
+  try {
+    const session = await auth();
+    if (!session?.user?.id) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+
+    const { otherUserId } = await req.json();
+    if (!otherUserId) return NextResponse.json({ error: "Missing userId" }, { status: 400 });
+
+    await prisma.message.updateMany({
+      where: {
+        senderId: otherUserId,
+        receiverId: session.user.id,
+        isRead: false,
+      },
+      data: { isRead: true },
+    });
+
+    return NextResponse.json({ success: true });
+  } catch (error: any) {
+    console.error("Message PATCH Error:", error);
+    return NextResponse.json({ error: "Internal server error" }, { status: 500 });
+  }
+}
+

@@ -5,7 +5,6 @@ import { Pool } from "pg";
 const connectionString = process.env.DATABASE_URL!;
 
 declare global {
-  // eslint-disable-next-line no-var
   var prismaGlobal: PrismaClient | undefined;
 }
 
