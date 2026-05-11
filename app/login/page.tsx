@@ -1,11 +1,49 @@
 "use client";
 import Image from "next/image";
 import { Suspense, useState } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { signIn } from "next-auth/react";
-import { Eye, EyeOff, ArrowRight, Loader2, Zap, ShieldCheck, Sparkles, KeyRound, Mail, Briefcase } from "lucide-react";
-import { motion } from "framer-motion";
+import { ArrowRight, Loader2, Zap, ShieldCheck, Sparkles, Briefcase } from "lucide-react";
+
+const ROLES = [
+  {
+    id: "student",
+    title: "Student Login",
+    desc: "Access your student dashboard to find jobs, apply, and track earnings.",
+    icon: <Sparkles className="w-6 h-6 text-emerald-400" />,
+    email: "arjun@iitm.ac.in",
+    pass: "demo1234",
+    path: "/student/dashboard",
+    color: "from-emerald-500/20 to-teal-500/5",
+    border: "border-emerald-500/30",
+    hover: "hover:border-emerald-400 hover:shadow-[0_0_30px_rgba(16,185,129,0.15)]"
+  },
+  {
+    id: "employer",
+    title: "Employer Login",
+    desc: "Post jobs, manage applicants, and hire top student talent.",
+    icon: <Briefcase className="w-6 h-6 text-indigo-400" />,
+    email: "suresh@creativeedge.in",
+    pass: "demo1234",
+    path: "/employer/dashboard",
+    color: "from-indigo-500/20 to-blue-500/5",
+    border: "border-indigo-500/30",
+    hover: "hover:border-indigo-400 hover:shadow-[0_0_30px_rgba(99,102,241,0.15)]"
+  },
+  {
+    id: "admin",
+    title: "Admin Login",
+    desc: "Manage platform operations, users, and approve jobs.",
+    icon: <ShieldCheck className="w-6 h-6 text-rose-400" />,
+    email: "admin@studentconnect.in",
+    pass: "admin1234",
+    path: "/admin/dashboard",
+    color: "from-rose-500/20 to-orange-500/5",
+    border: "border-rose-500/30",
+    hover: "hover:border-rose-400 hover:shadow-[0_0_30px_rgba(244,63,94,0.15)]"
+  }
+];
 
 function LoginForm() {
   const router = useRouter();
@@ -16,7 +54,6 @@ function LoginForm() {
     setLoadingRole(role);
     setError("");
     
-    // Use NextAuth to sign in using the sandbox credentials
     const res = await signIn("credentials", { email, password: pass, redirect: false });
     
     if (res?.error) { 
@@ -25,48 +62,8 @@ function LoginForm() {
       return; 
     }
     
-    // Redirect immediately to the correct dashboard to avoid hitting DB-dependent APIs right now
     router.push(redirectPath);
   }
-
-  const roles = [
-    {
-      id: "student",
-      title: "Student Login",
-      desc: "Access your student dashboard to find jobs, apply, and track earnings.",
-      icon: <Sparkles className="w-6 h-6 text-emerald-400" />,
-      email: "arjun@iitm.ac.in",
-      pass: "demo1234",
-      path: "/student/dashboard",
-      color: "from-emerald-500/20 to-teal-500/5",
-      border: "border-emerald-500/30",
-      hover: "hover:border-emerald-400 hover:shadow-[0_0_30px_rgba(16,185,129,0.15)]"
-    },
-    {
-      id: "employer",
-      title: "Employer Login",
-      desc: "Post jobs, manage applicants, and hire top student talent.",
-      icon: <Briefcase className="w-6 h-6 text-indigo-400" />,
-      email: "suresh@creativeedge.in",
-      pass: "demo1234",
-      path: "/employer/dashboard",
-      color: "from-indigo-500/20 to-blue-500/5",
-      border: "border-indigo-500/30",
-      hover: "hover:border-indigo-400 hover:shadow-[0_0_30px_rgba(99,102,241,0.15)]"
-    },
-    {
-      id: "admin",
-      title: "Admin Login",
-      desc: "Manage platform operations, users, and approve jobs.",
-      icon: <ShieldCheck className="w-6 h-6 text-rose-400" />,
-      email: "admin@studentconnect.in",
-      pass: "admin1234",
-      path: "/admin/dashboard",
-      color: "from-rose-500/20 to-orange-500/5",
-      border: "border-rose-500/30",
-      hover: "hover:border-rose-400 hover:shadow-[0_0_30px_rgba(244,63,94,0.15)]"
-    }
-  ];
 
   return (
     <div className="w-full max-w-lg space-y-8">
@@ -76,22 +73,15 @@ function LoginForm() {
       </div>
 
       {error && (
-        <motion.div 
-          initial={{ opacity: 0, y: -10 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="p-4 rounded-2xl bg-rose-500/10 border border-rose-500/20 text-rose-500 text-sm font-bold text-center flex items-center justify-center gap-2"
-        >
+        <div className="p-4 rounded-2xl bg-rose-500/10 border border-rose-500/20 text-rose-500 text-sm font-bold text-center flex items-center justify-center gap-2">
           <ShieldCheck className="w-4 h-4" /> {error}
-        </motion.div>
+        </div>
       )}
 
       <div className="space-y-4">
-        {roles.map((r, i) => (
-          <motion.button
+        {ROLES.map((r) => (
+          <button
             key={r.id}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: i * 0.1 }}
             onClick={() => handleRoleLogin(r.id, r.email, r.pass, r.path)}
             disabled={loadingRole !== null}
             className={`w-full p-6 text-left rounded-3xl border bg-gradient-to-br ${r.color} ${r.border} ${r.hover} transition-all duration-300 group relative overflow-hidden`}
@@ -113,7 +103,7 @@ function LoginForm() {
               <span className="text-xs font-bold text-white uppercase tracking-wider">Access</span>
               <ArrowRight className="w-4 h-4 text-white" />
             </div>
-          </motion.button>
+          </button>
         ))}
       </div>
 
@@ -146,11 +136,7 @@ export default function LoginPage() {
         </Link>
 
         <div className="relative z-10">
-          <motion.div 
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6 }}
-          >
+          <div>
             <h2 className="text-6xl font-black text-white leading-[0.95] tracking-tighter mb-8">
               The Future of <br />
               <span className="bg-gradient-to-r from-emerald-400 to-teal-400 bg-clip-text text-transparent italic">Student Work.</span>
@@ -158,7 +144,7 @@ export default function LoginPage() {
             <p className="text-lg text-slate-400 max-w-md mb-12 leading-relaxed">
               Access India's premier skill-based marketplace. Secure high-quality gigs and build your professional legacy.
             </p>
-          </motion.div>
+          </div>
 
           <div className="space-y-6">
             {[
@@ -166,18 +152,15 @@ export default function LoginPage() {
               { icon: <ShieldCheck className="w-4 h-4" />, text: "Direct employer-student payouts" },
               { icon: <Sparkles className="w-4 h-4" />, text: "Verified professional portfolios" },
             ].map((item, i) => (
-              <motion.div 
+              <div 
                 key={i}
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.3 + i * 0.1 }}
                 className="flex items-center gap-3 text-sm text-slate-500"
               >
                 <div className="w-8 h-8 rounded-xl bg-white/[0.03] border border-white/[0.06] flex items-center justify-center text-emerald-400">
                   {item.icon}
                 </div>
                 {item.text}
-              </motion.div>
+              </div>
             ))}
           </div>
         </div>
@@ -198,4 +181,3 @@ export default function LoginPage() {
     </div>
   );
 }
-
