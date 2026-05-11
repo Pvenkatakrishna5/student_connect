@@ -18,10 +18,12 @@ import {
 import { motion } from "framer-motion";
 import Link from "next/link";
 
+import { Job, Application } from "@/types";
+
 export default function StudentDashboard() {
   const { data: session } = useSession();
-  const [applications, setApplications] = useState<any[]>([]);
-  const [recommendedJobs, setRecommendedJobs] = useState<any[]>([]);
+  const [applications, setApplications] = useState<Application[]>([]);
+  const [recommendedJobs, setRecommendedJobs] = useState<Job[]>([]);
   const [earningsData, setEarningsData] = useState<{ totalEarned: number } | null>(null);
   const [loading, setLoading] = useState(true);
 

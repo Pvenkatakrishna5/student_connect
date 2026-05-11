@@ -7,10 +7,12 @@ import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer, PieChart, 
 import { useSession } from "next-auth/react";
 import { motion, AnimatePresence } from "framer-motion";
 
+import { Job } from "@/types";
+
 export default function AdminDashboard() {
   const { data: session } = useSession();
-  const [stats, setStats] = useState<any>(null);
-  const [pendingJobs, setPendingJobs] = useState<any[]>([]);
+  const [stats, setStats] = useState<{ students: number; employers: number; jobs: number; applications: number; revenue: string } | null>(null);
+  const [pendingJobs, setPendingJobs] = useState<Job[]>([]);
   const [activities, setActivities] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [rejectModal, setRejectModal] = useState<string | null>(null);

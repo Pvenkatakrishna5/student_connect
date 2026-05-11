@@ -19,23 +19,6 @@ export default function NotificationCenter() {
   const [notifications, setNotifications] = useState<Notification[]>([]);
   const [loading, setLoading] = useState(false);
   const [unreadCount, setUnreadCount] = useState(0);
-
-  const fetchNotifications = async () => {
-    setLoading(true);
-    try {
-      const res = await fetch("/api/notifications");
-      if (res.ok) {
-        const data = await res.json();
-        setNotifications(data);
-        setUnreadCount(data.filter((n: Notification) => !n.read).length);
-      }
-    } catch (err) {
-      console.error(err);
-    } finally {
-      setLoading(false);
-    }
-  };
-
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -44,8 +27,25 @@ export default function NotificationCenter() {
 
   useEffect(() => {
     if (!mounted) return;
-    fetchNotifications();
-    const interval = setInterval(fetchNotifications, 60000); // Polling every minute
+
+    const fetchDirect = async () => {
+      setLoading(true);
+      try {
+        const res = await fetch("/api/notifications");
+        if (res.ok) {
+          const data = await res.json();
+          setNotifications(data);
+          setUnreadCount(data.filter((n: Notification) => !n.read).length);
+        }
+      } catch (err) {
+        console.error(err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchDirect();
+    const interval = setInterval(fetchDirect, 60000); // Polling every minute
     return () => clearInterval(interval);
   }, [mounted]);
 

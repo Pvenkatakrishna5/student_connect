@@ -6,12 +6,14 @@ import { Check, X, Plus, Loader2, Users, Briefcase, Star, TrendingUp, Search, Fi
 import { useSession } from "next-auth/react";
 import { motion, AnimatePresence } from "framer-motion";
 
+import { Job, Application } from "@/types";
+
 export default function EmployerDashboard() {
   const { data: session } = useSession();
   const [activeTab, setActiveTab] = useState<"jobs" | "applicants">("jobs");
   const [postModal, setPostModal] = useState(false);
-  const [jobs, setJobs] = useState<any[]>([]);
-  const [applicants, setApplicants] = useState<any[]>([]);
+  const [jobs, setJobs] = useState<Job[]>([]);
+  const [applicants, setApplicants] = useState<Application[]>([]);
   const [loading, setLoading] = useState(true);
   const [submitting, setSubmitting] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");

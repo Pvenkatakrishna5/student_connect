@@ -7,6 +7,8 @@ import { Search, X, Filter, MapPin, Briefcase, ChevronRight, Loader2, Sparkles }
 import { useSession } from "next-auth/react";
 import { motion, AnimatePresence } from "framer-motion";
 
+import { Job } from "@/types";
+
 export default function JobsPage() {
   const { data: session } = useSession();
   const [search, setSearch] = useState("");
@@ -15,7 +17,7 @@ export default function JobsPage() {
   const [remoteOnly, setRemoteOnly] = useState(false);
   const [applyJobId, setApplyJobId] = useState<string | null>(null);
   const [coverNote, setCoverNote] = useState("");
-  const [jobs, setJobs] = useState<any[]>([]);
+  const [jobs, setJobs] = useState<Job[]>([]);
   const [loading, setLoading] = useState(true);
   const [submitting, setSubmitting] = useState(false);
 
