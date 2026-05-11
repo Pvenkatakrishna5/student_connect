@@ -39,7 +39,7 @@ export default function AdminJobs() {
         body: JSON.stringify({ id, status, rejectionReason: status === "closed" ? rejectionReason : undefined }),
       });
       if (res.ok) {
-        setJobs(prev => prev.filter(j => j._id !== id));
+        setJobs(prev => prev.filter(j => j.id !== id));
         setRejectModal(null);
         setRejectionReason("");
       }
@@ -50,7 +50,7 @@ export default function AdminJobs() {
 
   const filteredJobs = jobs.filter(job => 
     job.title.toLowerCase().includes(searchTerm.toLowerCase()) || 
-    job.employerId?.companyName?.toLowerCase().includes(searchTerm.toLowerCase())
+    job.employer?.companyName?.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   return (
@@ -115,7 +115,7 @@ export default function AdminJobs() {
               <AnimatePresence mode="popLayout">
                 {filteredJobs.map((job, i) => (
                   <motion.div
-                    key={job._id}
+                    key={job.id}
                     initial={{ opacity: 0, scale: 0.95 }}
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ delay: i * 0.05 }}
@@ -128,7 +128,7 @@ export default function AdminJobs() {
                         </div>
                         <div>
                           <h4 className="text-lg font-bold text-white group-hover:text-amber-400 transition-colors">{job.title}</h4>
-                          <p className="text-xs text-slate-500 mt-0.5">by {job.employerId?.companyName || "Unknown Employer"}</p>
+                          <p className="text-xs text-slate-500 mt-0.5">by {job.employer?.companyName || "Unknown Employer"}</p>
                         </div>
                       </div>
                       <div className="text-right">
@@ -149,13 +149,13 @@ export default function AdminJobs() {
 
                     <div className="flex gap-3">
                       <button 
-                        onClick={() => handleAction(job._id, "active")}
+                        onClick={() => handleAction(job.id, "active")}
                         className="flex-1 py-3 rounded-2xl bg-emerald-500/10 text-emerald-400 text-xs font-bold hover:bg-emerald-500 hover:text-black border border-emerald-500/20 transition-all flex items-center justify-center gap-2"
                       >
                         <CheckCircle className="w-4 h-4" /> Approve Listing
                       </button>
                       <button 
-                        onClick={() => setRejectModal(job._id)}
+                        onClick={() => setRejectModal(job.id)}
                         className="flex-1 py-3 rounded-2xl bg-rose-500/10 text-rose-400 text-xs font-bold hover:bg-rose-500 hover:text-white border border-rose-500/20 transition-all flex items-center justify-center gap-2"
                       >
                         <XCircle className="w-4 h-4" /> Reject Post

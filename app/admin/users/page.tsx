@@ -22,9 +22,9 @@ export default function AdminUsers() {
         } else {
           // Mock data if API doesn't exist yet
           setUsers([
-            { _id: "1", name: "Rahul Sharma", email: "rahul@example.com", role: "student", createdAt: "2024-03-01" },
-            { _id: "2", name: "Pixel Studio", email: "contact@pixel.com", role: "employer", createdAt: "2024-02-15" },
-            { _id: "3", name: "Admin User", email: "admin@studentconnect.com", role: "admin", createdAt: "2024-01-01" },
+            { id: "1", name: "Rahul Sharma", email: "rahul@example.com", role: "student", createdAt: "2024-03-01" },
+            { id: "2", name: "Pixel Studio", email: "contact@pixel.com", role: "employer", createdAt: "2024-02-15" },
+            { id: "3", name: "Admin User", email: "admin@studentconnect.com", role: "admin", createdAt: "2024-01-01" },
           ]);
         }
       } catch (err) {
@@ -106,7 +106,7 @@ export default function AdminUsers() {
                     </td>
                   </tr>
                 ) : filteredUsers.map((user) => (
-                  <tr key={user._id} className="group hover:bg-white/[0.01] transition-colors">
+                  <tr key={user.id} className="group hover:bg-white/[0.01] transition-colors">
                     <td className="px-6 py-5">
                       <div className="flex items-center gap-3">
                         <div className={`w-10 h-10 rounded-xl flex items-center justify-center font-bold text-white shadow-lg ${

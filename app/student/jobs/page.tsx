@@ -194,7 +194,7 @@ export default function JobsPage() {
             >
               {jobs.map(job => (
                 <JobCard 
-                  key={job.id || job._id} 
+                  key={job.id} 
                   job={job} 
                   onApply={setApplyJobId} 
                 />
@@ -224,7 +224,7 @@ export default function JobsPage() {
                   <div>
                     <h2 className="text-2xl font-bold text-white">Apply for Role</h2>
                     <p className="text-sm text-slate-500 mt-1">
-                      Applying for <span className="text-emerald-400 font-semibold">{jobs.find(j => (j.id || j._id) === applyJobId)?.title}</span>
+                      Applying for <span className="text-emerald-400 font-semibold">{jobs.find(j => j.id === applyJobId)?.title}</span>
                     </p>
                   </div>
                   <button onClick={() => setApplyJobId(null)} className="p-2 rounded-full hover:bg-white/[0.05] text-slate-500 hover:text-white transition-colors">

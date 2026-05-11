@@ -86,7 +86,7 @@ export default function EmployerDashboard() {
     }
   };
 
-  const updateAppStatus = async (appId: string, newStatus: string) => {
+  const updateAppStatus = async (appId: string, newStatus: Application["status"]) => {
     try {
       const res = await fetch("/api/applications", {
         method: "PATCH",
@@ -94,7 +94,7 @@ export default function EmployerDashboard() {
         body: JSON.stringify({ id: appId, status: newStatus }),
       });
       if (res.ok) {
-        setApplicants(prev => prev.map(a => a._id === appId ? { ...a, status: newStatus } : a));
+        setApplicants(prev => prev.map(a => a.id === appId ? { ...a, status: newStatus } : a));
       }
     } catch (err) {
       console.error(err);
@@ -103,8 +103,8 @@ export default function EmployerDashboard() {
 
   const filteredJobs = jobs.filter(j => j.title.toLowerCase().includes(searchQuery.toLowerCase()));
   const filteredApps = applicants.filter(a => 
-    a.jobId?.title?.toLowerCase().includes(searchQuery.toLowerCase()) || 
-    a.studentId?.name?.toLowerCase().includes(searchQuery.toLowerCase())
+    a.job?.title?.toLowerCase().includes(searchQuery.toLowerCase()) || 
+    a.student?.name?.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
   return (
@@ -189,7 +189,7 @@ export default function EmployerDashboard() {
                       <p className="text-slate-400">No jobs found matching your criteria</p>
                     </div>
                   ) : filteredJobs.map((job) => (
-                    <div key={job._id} className="p-6 bg-white/[0.02] border border-white/[0.04] rounded-3xl hover:bg-white/[0.04] transition-all group">
+                    <div key={job.id} className="p-6 bg-white/[0.02] border border-white/[0.04] rounded-3xl hover:bg-white/[0.04] transition-all group">
                       <div className="flex justify-between items-start mb-4">
                         <div>
                           <h3 className="text-lg font-bold text-white group-hover:text-emerald-400 transition-colors">{job.title}</h3>
@@ -233,48 +233,48 @@ export default function EmployerDashboard() {
                       <p className="text-slate-400">No applications received yet</p>
                     </div>
                   ) : filteredApps.map((app) => (
-                    <div key={app._id} className="p-5 bg-white/[0.02] border border-white/[0.04] rounded-2xl hover:border-white/[0.08] transition-all">
+                    <div key={app.id} className="p-5 bg-white/[0.02] border border-white/[0.04] rounded-2xl hover:border-white/[0.08] transition-all">
                       <div className="flex flex-wrap items-center justify-between gap-4">
                         <div className="flex items-center gap-4">
                           <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-emerald-500/20 to-blue-500/20 flex items-center justify-center border border-white/[0.06]">
-                            <span className="text-lg font-bold text-emerald-400">{app.studentId?.name?.charAt(0)}</span>
+                            <span className="text-lg font-bold text-emerald-400">{app.student?.name?.charAt(0)}</span>
                           </div>
                           <div>
                             <h4 className="font-bold text-white flex items-center gap-2">
-                              {app.studentId?.name} 
+                              {app.student?.name} 
                               <span className="text-[10px] px-1.5 py-0.5 rounded bg-blue-500/10 text-blue-400 uppercase tracking-tighter">Verified</span>
                             </h4>
                             <div className="flex flex-wrap gap-1 mt-1">
-                              {app.studentId?.skills?.slice(0, 3).map((skill: string) => (
+                              {app.student?.skills?.slice(0, 3).map((skill: string) => (
                                 <span key={skill} className="text-[9px] px-1.5 py-0.5 rounded-md bg-white/[0.04] text-slate-400 border border-white/[0.05]">
                                   {skill}
                                 </span>
                               ))}
-                              {app.studentId?.skills?.length > 3 && (
-                                <span className="text-[9px] text-slate-500">+{app.studentId.skills.length - 3} more</span>
+                              {app.student?.skills && app.student.skills.length > 3 && (
+                                <span className="text-[9px] text-slate-500">+{app.student.skills.length - 3} more</span>
                               )}
                             </div>
-                            <p className="text-xs text-slate-500 font-medium mt-1">Applied for <span className="text-emerald-400/80">{app.jobId?.title}</span></p>
+                            <p className="text-xs text-slate-500 font-medium mt-1">Applied for <span className="text-emerald-400/80">{app.job?.title}</span></p>
                           </div>
                         </div>
 
                         <div className="flex items-center gap-6">
                           <div className="hidden lg:flex items-center gap-4 text-xs text-slate-400">
                             <span className="flex items-center gap-1.5"><Calendar className="w-3.5 h-3.5" /> {new Date(app.appliedAt).toLocaleDateString()}</span>
-                            <span className="flex items-center gap-1.5"><Mail className="w-3.5 h-3.5" /> {app.studentId?.email || "N/A"}</span>
+                            <span className="flex items-center gap-1.5"><Mail className="w-3.5 h-3.5" /> {app.student?.user?.email || "N/A"}</span>
                           </div>
                           
                           <div className="flex items-center gap-2">
                             {app.status === "applied" && (
                               <>
                                 <button 
-                                  onClick={() => updateAppStatus(app._id, "shortlisted")}
+                                  onClick={() => updateAppStatus(app.id, "shortlisted")}
                                   className="px-3 py-1.5 rounded-lg bg-emerald-500/10 text-emerald-400 text-xs font-bold hover:bg-emerald-500/20 transition-all"
                                 >
                                   Shortlist
                                 </button>
                                 <button 
-                                  onClick={() => updateAppStatus(app._id, "rejected")}
+                                  onClick={() => updateAppStatus(app.id, "rejected")}
                                   className="px-3 py-1.5 rounded-lg bg-red-500/10 text-red-400 text-xs font-bold hover:bg-red-500/20 transition-all"
                                 >
                                   Reject
@@ -284,13 +284,13 @@ export default function EmployerDashboard() {
                             {app.status === "shortlisted" && (
                               <>
                                 <button 
-                                  onClick={() => updateAppStatus(app._id, "selected")}
+                                  onClick={() => updateAppStatus(app.id, "selected")}
                                   className="px-3 py-1.5 rounded-lg bg-blue-500/10 text-blue-400 text-xs font-bold hover:bg-blue-500/20 transition-all"
                                 >
                                   Select for Hire
                                 </button>
                                 <button 
-                                  onClick={() => updateAppStatus(app._id, "rejected")}
+                                  onClick={() => updateAppStatus(app.id, "rejected")}
                                   className="px-3 py-1.5 rounded-lg bg-red-500/10 text-red-400 text-xs font-bold hover:bg-red-500/20 transition-all"
                                 >
                                   Reject

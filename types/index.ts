@@ -9,9 +9,9 @@ export interface Student {
   id: string;
   userId: string;
   name: string;
-  email: string;
   skills: string[];
   city?: string;
+  user?: Partial<User>;
 }
 
 export interface Employer {
@@ -20,6 +20,9 @@ export interface Employer {
   companyName: string;
   logo?: string;
   isVerifiedBusiness: boolean;
+  city: string;
+  rating: number;
+  user?: Partial<User>;
 }
 
 export interface Job {
@@ -34,9 +37,12 @@ export interface Job {
   isRemote: boolean;
   status: "active" | "pending" | "closed";
   employerId: string;
-  employer?: Partial<Employer>;
+  employer: Employer;
   skillsRequired: string[];
   applicantsCount: number;
+  duration: string;
+  spotsAvailable: number;
+  startDate?: string;
   createdAt: string;
 }
 

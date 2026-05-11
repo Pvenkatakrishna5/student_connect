@@ -97,7 +97,7 @@ export default function JobDetailPage({ params }: { params: Promise<{ id: string
             <div>
               <h1 className="text-xl font-bold tracking-tight text-white">{job.title}</h1>
               <div className="flex items-center gap-2 text-xs text-slate-500 mt-1">
-                <span>{job.employerId?.companyName || job.employer?.companyName}</span>
+                <span>{job.employer?.companyName}</span>
                 <span>•</span>
                 <span className="flex items-center gap-1"><MapPin className="w-3 h-3" /> {job.isRemote ? "Remote" : job.location}</span>
               </div>
@@ -204,14 +204,14 @@ export default function JobDetailPage({ params }: { params: Promise<{ id: string
                     🏢
                   </div>
                   <div>
-                    <h4 className="font-bold text-white">{(job.employerId as any)?.companyName || job.employer?.companyName}</h4>
-                    <p className="text-xs text-slate-500">{(job.employerId as any)?.city || job.location}</p>
+                    <h4 className="font-bold text-white">{job.employer?.companyName}</h4>
+                    <p className="text-xs text-slate-500">{job.employer?.city || job.location}</p>
                   </div>
                 </div>
                 <div className="flex items-center justify-between p-4 rounded-2xl bg-white/[0.03] border border-white/[0.04]">
                   <div className="flex items-center gap-1.5 text-amber-400">
                     <Star className="w-4 h-4 fill-current" />
-                    <span className="text-sm font-bold">{(job.employerId as any)?.rating || "4.8"}</span>
+                    <span className="text-sm font-bold">{job.employer?.rating || "4.8"}</span>
                   </div>
                   <span className="text-[10px] font-bold text-slate-600 uppercase tracking-widest">Employer Rating</span>
                 </div>

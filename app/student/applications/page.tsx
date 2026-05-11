@@ -117,7 +117,7 @@ export default function StudentApplications() {
               <AnimatePresence mode="popLayout">
                 {filteredApps.map((app, i) => (
                   <motion.div
-                    key={app._id}
+                    key={app.id}
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, scale: 0.95 }}
@@ -125,13 +125,13 @@ export default function StudentApplications() {
                     className="group p-6 bg-white/[0.01] border border-white/[0.04] rounded-3xl hover:bg-white/[0.02] hover:border-white/[0.08] transition-all flex items-center gap-6"
                   >
                     <div className="w-16 h-16 rounded-2xl bg-white/[0.03] flex items-center justify-center text-2xl group-hover:scale-110 transition-transform">
-                      {app.jobId?.category?.[0] || "💼"}
+                      {app.job?.category?.[0] || "💼"}
                     </div>
                     
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center gap-3 mb-1">
                         <h4 className="text-lg font-bold text-white group-hover:text-emerald-400 transition-colors truncate">
-                          {app.jobId?.title || "Position Unavailable"}
+                          {app.job?.title || "Position Unavailable"}
                         </h4>
                         <span className={`px-2 py-0.5 rounded text-[9px] font-black uppercase tracking-tighter border ${getStatusStyle(app.status)}`}>
                           {app.status}
@@ -139,15 +139,15 @@ export default function StudentApplications() {
                       </div>
                       
                       <div className="flex items-center gap-4 text-xs text-slate-500">
-                        <span className="flex items-center gap-1.5"><Building2 className="w-3.5 h-3.5" /> {app.employerId?.companyName || "Employer"}</span>
-                        <span className="flex items-center gap-1.5"><MapPin className="w-3.5 h-3.5" /> {app.jobId?.location || "Remote"}</span>
+                        <span className="flex items-center gap-1.5"><Building2 className="w-3.5 h-3.5" /> {app.job?.employer?.companyName || "Employer"}</span>
+                        <span className="flex items-center gap-1.5"><MapPin className="w-3.5 h-3.5" /> {app.job?.location || "Remote"}</span>
                         <span className="flex items-center gap-1.5"><Clock className="w-3.5 h-3.5" /> Applied {new Date(app.appliedAt).toLocaleDateString()}</span>
                       </div>
                     </div>
 
                     <div className="text-right px-6 border-x border-white/[0.04] hidden md:block">
-                      <div className="text-sm font-black text-white">₹{app.jobId?.payAmount || "0"}</div>
-                      <div className="text-[10px] text-slate-600 uppercase font-bold tracking-widest">{app.jobId?.payType || "Fixed"}</div>
+                      <div className="text-sm font-black text-white">₹{app.job?.payAmount || "0"}</div>
+                      <div className="text-[10px] text-slate-600 uppercase font-bold tracking-widest">{app.job?.payType || "Fixed"}</div>
                     </div>
 
                     <div className="flex items-center gap-2">

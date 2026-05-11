@@ -126,7 +126,7 @@ export default function ManageJobs() {
               <AnimatePresence mode="popLayout">
                 {filteredJobs.map((job, i) => (
                   <motion.div
-                    key={job._id}
+                    key={job.id}
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: i * 0.05 }}
@@ -159,7 +159,7 @@ export default function ManageJobs() {
                     </div>
 
                     <div className="flex items-center gap-2">
-                      <Link href={`/employer/applicants?jobId=${job._id}`}>
+                      <Link href={`/employer/applicants?jobId=${job.id}`}>
                         <button className="p-3 rounded-xl bg-white/[0.03] border border-white/[0.06] text-slate-400 hover:text-white hover:bg-white/[0.06] transition-all" title="View Applicants">
                           <Users className="w-5 h-5" />
                         </button>

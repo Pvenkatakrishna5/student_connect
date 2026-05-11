@@ -176,7 +176,7 @@ export default function StudentDashboard() {
                         </div>
                       </div>
                       <div className="text-right">
-                        <div className="text-sm font-black text-white">₹{job.budget || job.pay}<span className="text-[10px] text-slate-500 font-normal ml-0.5">/hr</span></div>
+                        <div className="text-sm font-black text-white">₹{job.payAmount}<span className="text-[10px] text-slate-500 font-normal ml-0.5">/{job.payType}</span></div>
                         <Link 
                           href={`/student/jobs/${job.id}`}
                           className="mt-2 flex items-center gap-1 text-[10px] font-black uppercase tracking-widest text-emerald-400 hover:text-emerald-300 transition-colors"
@@ -225,7 +225,7 @@ export default function StudentDashboard() {
                            app.status === "selected" ? "Selected for " : 
                            app.status === "shortlisted" ? "Shortlisted for " : 
                            "Application update: "} 
-                          <span className="text-indigo-400">{app.jobId?.title || "Role"}</span>
+                          <span className="text-indigo-400">{app.job?.title || "Role"}</span>
                         </div>
                         <div className="text-[10px] text-slate-500 mt-1 flex items-center gap-2 uppercase font-bold tracking-wider">
                           {new Date(app.appliedAt).toLocaleDateString()} • {app.status}

@@ -51,7 +51,7 @@ export default function AdminDashboard() {
         body: JSON.stringify({ id: jobId, status }),
       });
       if (res.ok) {
-        setPendingJobs(prev => prev.filter(j => j._id !== jobId));
+        setPendingJobs(prev => prev.filter(j => j.id !== jobId));
         setRejectModal(null);
         setRejectionReason("");
       }
@@ -159,11 +159,11 @@ export default function AdminDashboard() {
                         <p className="text-slate-500">All caught up! No jobs pending review.</p>
                       </div>
                     ) : pendingJobs.map((job) => (
-                      <div key={job._id} className="p-5 bg-white/[0.02] border border-white/[0.04] rounded-2xl hover:border-white/[0.1] transition-all">
+                      <div key={job.id} className="p-5 bg-white/[0.02] border border-white/[0.04] rounded-2xl hover:border-white/[0.1] transition-all">
                         <div className="flex justify-between items-start mb-4">
                           <div>
                             <h4 className="font-bold text-white">{job.title}</h4>
-                            <p className="text-xs text-slate-500 mt-1">Posted by {job.employerId?.companyName || "Employer"}</p>
+                            <p className="text-xs text-slate-500 mt-1">Posted by {job.employer?.companyName || "Employer"}</p>
                           </div>
                           <div className="text-right">
                             <div className="text-sm font-bold text-emerald-400">₹{job.payAmount}</div>
@@ -173,13 +173,13 @@ export default function AdminDashboard() {
                         <p className="text-xs text-slate-400 line-clamp-2 mb-6">{job.description}</p>
                         <div className="flex gap-3">
                           <button 
-                            onClick={() => handleJobAction(job._id, "active")}
+                            onClick={() => handleJobAction(job.id, "active")}
                             className="flex-1 py-2 rounded-xl bg-emerald-500/10 text-emerald-400 text-xs font-bold hover:bg-emerald-500/20 border border-emerald-500/20 transition-all"
                           >
                             Approve
                           </button>
                           <button 
-                            onClick={() => setRejectModal(job._id)}
+                            onClick={() => setRejectModal(job.id)}
                             className="flex-1 py-2 rounded-xl bg-rose-500/10 text-rose-400 text-xs font-bold hover:bg-rose-500/20 border border-rose-500/20 transition-all"
                           >
                             Reject
@@ -199,7 +199,7 @@ export default function AdminDashboard() {
                       {activities.length === 0 ? (
                         <div className="p-12 text-center text-slate-500 italic">No recent activity found.</div>
                       ) : activities.map((act, i) => (
-                        <div key={act._id} className="p-4 hover:bg-white/[0.01] transition-colors flex gap-4">
+                        <div key={act.id} className="p-4 hover:bg-white/[0.01] transition-colors flex gap-4">
                           <div className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 ${
                             act.type === "user_registered" ? "bg-blue-500/10 text-blue-400" :
                             act.type === "job_posted" ? "bg-amber-500/10 text-amber-400" :
