@@ -160,7 +160,7 @@ export default function RegisterPage() {
             <div className="flex items-center justify-between">
               <h1 className="text-4xl font-black text-white">Create Account</h1>
               <div className="flex p-1 bg-white/[0.03] border border-white/[0.06] rounded-xl">
-                {(["student", "employer", "agent"] as Role[]).map(r => (
+                {(["student", "employer"] as Role[]).map(r => (
                   <button 
                     key={r} 
                     type="button"

@@ -24,7 +24,7 @@ export async function POST(req: NextRequest) {
       });
     } catch (dbErr) {
       console.error("Database connection failure in registration lookup:", dbErr);
-      return NextResponse.json({ error: "Database connection failure" }, { status: 500 });
+      return NextResponse.json({ error: "Database unavailable" }, { status: 500 });
     }
 
     if (existing) {
@@ -40,11 +40,12 @@ export async function POST(req: NextRequest) {
           email: emailLower,
           passwordHash,
           role,
+          isVerified: true, // Auto-verified for zero-friction production login
         },
       });
     } catch (dbErr) {
       console.error("Database connection failure during user creation in registration:", dbErr);
-      return NextResponse.json({ error: "Database connection failure" }, { status: 500 });
+      return NextResponse.json({ error: "Database unavailable" }, { status: 500 });
     }
 
     if (role === "student") {
@@ -84,8 +85,8 @@ export async function POST(req: NextRequest) {
     console.error("Registration server error:", err);
     const message = err instanceof Error ? err.message : "";
     if (message.includes("Database connection") || message.includes("tenant") || message.includes("pool") || message.includes("reach database")) {
-      return NextResponse.json({ error: "Database connection failure" }, { status: 500 });
+      return NextResponse.json({ error: "Database unavailable" }, { status: 500 });
     }
-    return NextResponse.json({ error: "Database connection failure" }, { status: 500 });
+    return NextResponse.json({ error: "Database unavailable" }, { status: 500 });
   }
 }

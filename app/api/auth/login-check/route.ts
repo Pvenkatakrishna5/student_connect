@@ -19,7 +19,7 @@ export async function POST(req: NextRequest) {
       });
     } catch (dbErr: any) {
       console.error("Database connection failure during login-check:", dbErr);
-      return NextResponse.json({ error: "Database connection failure" }, { status: 500 });
+      return NextResponse.json({ error: "Database unavailable" }, { status: 500 });
     }
 
     if (!user) {
@@ -30,14 +30,18 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "Account is inactive" }, { status: 403 });
     }
 
+    if (!user.isVerified) {
+      return NextResponse.json({ error: "Email not verified" }, { status: 403 });
+    }
+
     const isValid = await bcrypt.compare(password, user.passwordHash);
     if (!isValid) {
-      return NextResponse.json({ error: "Wrong password" }, { status: 401 });
+      return NextResponse.json({ error: "Invalid password" }, { status: 401 });
     }
 
     return NextResponse.json({ success: true }, { status: 200 });
   } catch (err: any) {
     console.error("Login check error:", err);
-    return NextResponse.json({ error: "Server error" }, { status: 500 });
+    return NextResponse.json({ error: "Database unavailable" }, { status: 500 });
   }
 }

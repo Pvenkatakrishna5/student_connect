@@ -42,7 +42,7 @@ function LoginForm() {
       
       if (res?.error) { 
         setLoading(false);
-        setError("Database connection failure"); 
+        setError("Database unavailable"); 
         return; 
       }
 
