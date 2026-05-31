@@ -61,6 +61,7 @@ export const viewport = {
 };
 
 import { Toaster } from "sonner";
+import JarvisBot from "@/components/JarvisBot";
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
@@ -68,6 +69,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body className="noise">
         <AuthProvider>{children}</AuthProvider>
         <Toaster position="top-right" richColors theme="dark" />
+        <JarvisBot />
       </body>
     </html>
   );
