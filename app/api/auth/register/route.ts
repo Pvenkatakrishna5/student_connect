@@ -17,22 +17,35 @@ export async function POST(req: NextRequest) {
 
     const emailLower = email.toLowerCase();
 
-    const existing = await prisma.user.findUnique({
-      where: { email: emailLower },
-    });
+    let existing = null;
+    try {
+      existing = await prisma.user.findUnique({
+        where: { email: emailLower },
+      });
+    } catch (dbErr) {
+      console.error("Database connection failure in registration lookup:", dbErr);
+      return NextResponse.json({ error: "Database connection failure" }, { status: 500 });
+    }
+
     if (existing) {
-      return NextResponse.json({ error: "Email already registered" }, { status: 409 });
+      return NextResponse.json({ error: "Email already exists" }, { status: 409 });
     }
 
     const passwordHash = await bcrypt.hash(password, 12);
 
-    const user = await prisma.user.create({
-      data: {
-        email: emailLower,
-        passwordHash,
-        role,
-      },
-    });
+    let user;
+    try {
+      user = await prisma.user.create({
+        data: {
+          email: emailLower,
+          passwordHash,
+          role,
+        },
+      });
+    } catch (dbErr) {
+      console.error("Database connection failure during user creation in registration:", dbErr);
+      return NextResponse.json({ error: "Database connection failure" }, { status: 500 });
+    }
 
     if (role === "student") {
       const studentData = {
@@ -68,7 +81,11 @@ export async function POST(req: NextRequest) {
 
     return NextResponse.json({ success: true, userId: user.id }, { status: 201 });
   } catch (err: unknown) {
-    const message = err instanceof Error ? err.message : "Server error";
-    return NextResponse.json({ error: message }, { status: 500 });
+    console.error("Registration server error:", err);
+    const message = err instanceof Error ? err.message : "";
+    if (message.includes("Database connection") || message.includes("tenant") || message.includes("pool") || message.includes("reach database")) {
+      return NextResponse.json({ error: "Database connection failure" }, { status: 500 });
+    }
+    return NextResponse.json({ error: "Database connection failure" }, { status: 500 });
   }
 }

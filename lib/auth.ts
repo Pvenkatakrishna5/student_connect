@@ -36,39 +36,53 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       async authorize(credentials) {
         if (!credentials?.email || !credentials?.password) return null;
 
-        const email = credentials.email as string;
+        const email = (credentials.email as string).toLowerCase().trim();
         const pass = credentials.password as string;
 
-        // Strictly query the PostgreSQL database via Prisma
-        const user = await prisma.user.findUnique({
-          where: { email: email.toLowerCase() },
-        });
+        try {
+          const user = await prisma.user.findUnique({
+            where: { email: email },
+          });
 
-        if (!user || !user.isActive) return null;
+          if (!user) {
+            console.error(`Authorize failed: User not found (${email})`);
+            return null;
+          }
 
-        // Perform standard secure bcrypt verification
-        const isValid = await bcrypt.compare(pass, user.passwordHash) || pass === "SC123456";
-        if (!isValid) return null;
+          if (!user.isActive) {
+            console.error(`Authorize failed: User is inactive (${email})`);
+            return null;
+          }
 
-        let profileName = "";
-        if (user.role === "student") {
-          const student = await prisma.student.findUnique({ where: { userId: user.id } }).catch(() => null);
-          profileName = student?.name || "Student";
-        } else if (user.role === "employer") {
-          const employer = await prisma.employer.findUnique({ where: { userId: user.id } }).catch(() => null);
-          profileName = employer?.companyName || "Employer";
-        } else if (user.role === "agent") {
-          profileName = "Verified Agent";
-        } else {
-          profileName = "Admin";
+          const isValid = await bcrypt.compare(pass, user.passwordHash);
+          if (!isValid) {
+            console.error(`Authorize failed: Wrong password (${email})`);
+            return null;
+          }
+
+          let profileName = "";
+          if (user.role === "student") {
+            const student = await prisma.student.findUnique({ where: { userId: user.id } }).catch(() => null);
+            profileName = student?.name || "Student";
+          } else if (user.role === "employer") {
+            const employer = await prisma.employer.findUnique({ where: { userId: user.id } }).catch(() => null);
+            profileName = employer?.companyName || "Employer";
+          } else if (user.role === "agent") {
+            profileName = "Verified Agent";
+          } else {
+            profileName = "Admin";
+          }
+
+          return {
+            id: user.id,
+            email: user.email,
+            name: profileName,
+            role: user.role,
+          };
+        } catch (dbErr) {
+          console.error("Database connection failure in NextAuth authorize callback:", dbErr);
+          throw new Error("Database connection failure");
         }
-
-        return {
-          id: user.id,
-          email: user.email,
-          name: profileName,
-          role: user.role,
-        };
       },
     }),
   ],

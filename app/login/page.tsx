@@ -19,19 +19,34 @@ function LoginForm() {
     setError("");
     
     try {
+      // 1. Pre-flight login credentials check
+      const checkRes = await fetch("/api/auth/login-check", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: email.toLowerCase().trim(), password: password }),
+      });
+      
+      const checkData = await checkRes.json();
+      if (!checkRes.ok) {
+        setLoading(false);
+        setError(checkData.error || "Invalid credentials. Please check your email and password.");
+        return;
+      }
+
+      // 2. Perform NextAuth signIn
       const res = await signIn("credentials", { 
-        email: email.toLowerCase(), 
+        email: email.toLowerCase().trim(), 
         password: password, 
         redirect: false 
       });
       
       if (res?.error) { 
         setLoading(false);
-        setError("Invalid credentials. Please check your email and password."); 
+        setError("Database connection failure"); 
         return; 
       }
 
-      // For custom login, we fetch the role to determine the dashboard
+      // 3. Navigate to appropriate role dashboard
       const meRes = await fetch("/api/auth/me");
       if (meRes.ok) {
         const userData = await meRes.json();
