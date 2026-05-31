@@ -60,10 +60,15 @@ export const viewport = {
   userScalable: false,
 };
 
+import { Toaster } from "sonner";
+
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className={`${syne.variable} ${dmSans.variable} ${jetbrains.variable}`}>
-      <body className="noise"><AuthProvider>{children}</AuthProvider></body>
+      <body className="noise">
+        <AuthProvider>{children}</AuthProvider>
+        <Toaster position="top-right" richColors theme="dark" />
+      </body>
     </html>
   );
 }

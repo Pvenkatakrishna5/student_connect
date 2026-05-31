@@ -36,9 +36,8 @@ export async function GET(req: NextRequest) {
       where.title = { contains: search, mode: "insensitive" };
     }
 
-    let jobs, total;
     try {
-      [total, jobs] = await prisma.$transaction([
+      const [total, jobs] = await prisma.$transaction([
         prisma.job.count({ where }),
         prisma.job.findMany({
           where,
@@ -48,16 +47,15 @@ export async function GET(req: NextRequest) {
           take: limit,
         }),
       ]);
+
+      return NextResponse.json({ jobs, total, page, pages: Math.ceil(total / limit) });
     } catch (dbErr) {
-      // DB unavailable — return filtered sample data so the UI never breaks
-      console.warn("DB unavailable, serving fallback jobs:", dbErr);
+      console.error("Supabase Postgres query failed, serving sample jobs:", dbErr);
       let fallback = FALLBACK_JOBS;
-      if (isRemote === "true") fallback = fallback.filter(j => j.isRemote);
-      if (search) fallback = fallback.filter(j => j.title.toLowerCase().includes((search as string).toLowerCase()));
+      if (isRemote === "true") fallback = fallback.filter((job) => job.isRemote);
+      if (search) fallback = fallback.filter((job) => job.title.toLowerCase().includes(search.toLowerCase()));
       return NextResponse.json({ jobs: fallback, total: fallback.length, page: 1, pages: 1, fallback: true });
     }
-
-    return NextResponse.json({ jobs, total, page, pages: Math.ceil((total as number) / limit) });
   } catch (err) {
     console.error("Jobs GET error:", err);
     return NextResponse.json({ jobs: FALLBACK_JOBS, total: FALLBACK_JOBS.length, page: 1, pages: 1, fallback: true });

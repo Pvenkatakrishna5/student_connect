@@ -1,47 +1,93 @@
-# 🚀 StudentConnect Production Deployment Guide
+# StudentConnect Supabase + Vercel Deployment Guide
 
-Your platform is now production-ready with **Real-Time Messaging** enabled. Follow these steps to take your application live.
+This app uses:
 
-## 1. Environment Variables Checklist
-When deploying to **Vercel**, you **MUST** add these environment variables in the dashboard:
+- Next.js on Vercel
+- Supabase Postgres as the backend database
+- Supabase Realtime for chat updates
+- Prisma for database access from API routes
+- NextAuth for app sessions
 
-| Variable Name | Description | Example / Source |
-| :--- | :--- | :--- |
-| `DATABASE_URL` | Supabase Connection String (with Pooler) | `postgresql://...:6543/postgres?pgbouncer=true` |
-| `DIRECT_URL` | Supabase Direct Connection String | `postgresql://...:5432/postgres` |
-| `NEXT_PUBLIC_SUPABASE_URL` | Supabase Project URL | `https://your-project-id.supabase.co` |
-| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Supabase Anon Public Key | From Supabase API Settings |
-| `NEXTAUTH_SECRET` | A secure random string for Auth | Run `openssl rand -base64 32` |
-| `NEXTAUTH_URL` | Your production URL | `https://your-domain.com` |
-| `STRIPE_SECRET_KEY` | Stripe API Secret Key | From Stripe Dashboard |
-| `RESEND_API_KEY` | Resend Email API Key | From Resend.com |
+## 1. Supabase Setup
 
-## 2. Activate Supabase Real-Time (MANDATORY)
-For the messaging to be real-time, you must enable it in your Supabase Dashboard:
-1. Go to your **Supabase Project** -> **Database** -> **Replication**.
-2. Click on the **'supabase_realtime'** publication.
-3. Click **'Edit'** and ensure the **'Message'** table is checked.
-4. Save changes.
+Create a Supabase project, then copy these values:
 
-## 3. Database Preparation
-Run this locally before your first deploy to ensure the schema is in sync:
+- Project URL -> `NEXT_PUBLIC_SUPABASE_URL`
+- Anon public key -> `NEXT_PUBLIC_SUPABASE_ANON_KEY`
+- Pooled database connection string -> `DATABASE_URL`
+- Direct database connection string -> `DIRECT_URL`
+
+Use the pooled connection string for `DATABASE_URL` because Vercel serverless functions open short-lived connections. Use the direct connection string for `DIRECT_URL` because Prisma schema pushes should connect directly.
+
+## 2. Local Environment
+
+Create `.env.local` from `.env.example` and fill in your Supabase values.
+
+Then sync the Prisma schema to Supabase:
+
 ```bash
-npx prisma db push
+npm run db:push
 ```
 
-## 4. Deployment Steps (Vercel)
-1. **Push to GitHub**:
-   ```bash
-   git add .
-   git commit -m "Final production release with Real-Time Messaging"
-   git push origin main
-   ```
-2. **Import to Vercel**: Connect your repo and add the variables from Step 1.
+Start locally:
 
-## 5. Verification Checklist
-- [ ] **OTP Registration**: Verify phone with a 6-digit code.
-- [ ] **Live Chat**: Open two browsers and send messages to see them appear instantly.
-- [ ] **Payments**: Verify that hiring a student triggers the Stripe flow.
+```bash
+npm run dev
+```
 
----
-**Congratulations! StudentConnect is ready for launch. 🌍**
+## 3. Enable Supabase Realtime for Messages
+
+In Supabase, enable realtime replication for the `Message` table:
+
+1. Open your Supabase project.
+2. Go to Database -> Replication.
+3. Edit the `supabase_realtime` publication.
+4. Enable the `Message` table.
+5. Save changes.
+
+The app already subscribes to inserts on `public.Message` from the student, employer, and agent message pages.
+
+## 4. Vercel Environment Variables
+
+Add these in Vercel Project Settings -> Environment Variables:
+
+```text
+DATABASE_URL
+DIRECT_URL
+NEXT_PUBLIC_SUPABASE_URL
+NEXT_PUBLIC_SUPABASE_ANON_KEY
+NEXTAUTH_SECRET
+NEXTAUTH_URL
+STRIPE_SECRET_KEY
+NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY
+STRIPE_WEBHOOK_SECRET
+RESEND_API_KEY
+ALLOW_MASTER_OTP
+```
+
+Set `NEXTAUTH_URL` to your deployed Vercel URL or custom domain, for example:
+
+```text
+https://student-connect.vercel.app
+```
+
+## 5. Deploy on Vercel
+
+Push the repository to GitHub, import it in Vercel, add the environment variables, and deploy.
+
+Vercel can use the default Next.js settings:
+
+- Install command: `npm install`
+- Build command: `npm run build`
+- Output directory: handled automatically by Vercel
+
+The `postinstall` script runs `prisma generate`, so Prisma Client is generated during Vercel installs.
+
+## 6. Production Checks
+
+- Registration creates users in Supabase Postgres.
+- Login works with the registered account.
+- Job creation writes to Supabase Postgres.
+- Messages are saved through `/api/messages`.
+- Realtime messages appear after enabling Supabase replication for `Message`.
+- Stripe and Resend features work only after their environment variables are set.

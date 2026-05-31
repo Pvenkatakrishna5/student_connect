@@ -9,9 +9,8 @@ const withPWA = withPWAInit({
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,
-  turbopack: {
-    root: ".",
-  },
+  turbopack: {},
+
   images: {
     remotePatterns: [
       { protocol: "https", hostname: "res.cloudinary.com" },
@@ -20,7 +19,12 @@ const nextConfig: NextConfig = {
     ],
   },
   experimental: {
-    serverActions: { allowedOrigins: ["localhost:3000"] },
+    serverActions: { 
+      allowedOrigins: [
+        "localhost:3000",
+        process.env.NEXT_PUBLIC_APP_URL?.replace("https://", "").replace("http://", "") || "*.vercel.app"
+      ] 
+    },
   },
 };
 

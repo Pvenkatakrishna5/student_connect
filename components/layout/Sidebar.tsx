@@ -11,9 +11,10 @@ import { cn } from "@/lib/utils";
 import { signOut } from "next-auth/react";
 import { motion } from "framer-motion";
 import NotificationCenter from "@/components/dashboard/NotificationCenter";
+import MobileNav from "./MobileNav";
 
 interface SidebarProps {
-  role: "student" | "employer" | "admin";
+  role: "student" | "employer" | "admin" | "agent";
   userName?: string;
 }
 
@@ -43,15 +44,28 @@ const adminLinks = [
   { href: "/admin/complaints", icon: AlertTriangle, label: "Complaints" },
   { href: "/admin/settings", icon: Settings, label: "Settings" },
 ];
+const agentLinks = [
+  { href: "/agent/dashboard", icon: LayoutDashboard, label: "Dashboard" },
+  { href: "/agent/verify", icon: Shield, label: "User Verification" },
+  { href: "/agent/jobs", icon: Briefcase, label: "Job Assignments" },
+  { href: "/agent/messages", icon: MessageSquare, label: "Messages" },
+  { href: "/agent/settings", icon: Settings, label: "Settings" },
+];
 
 
 export default function Sidebar({ role, userName }: SidebarProps) {
   const pathname = usePathname();
   const [collapsed, setCollapsed] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
-  const links = role === "student" ? studentLinks : role === "employer" ? employerLinks : adminLinks;
+  const links = role === "student" ? studentLinks : 
+                role === "employer" ? employerLinks : 
+                role === "agent" ? agentLinks : 
+                adminLinks;
 
-  const activeColor = role === "student" ? "text-emerald-400" : role === "employer" ? "text-indigo-400" : "text-amber-400";
+  const activeColor = role === "student" ? "text-emerald-400" : 
+                      role === "employer" ? "text-indigo-400" : 
+                      role === "agent" ? "text-amber-400" : 
+                      "text-amber-400";
   const activeBg = role === "student" ? "bg-emerald-500/5" : role === "employer" ? "bg-indigo-500/5" : "bg-amber-500/5";
   const activeBorder = role === "student" ? "border-emerald-500/20" : role === "employer" ? "border-indigo-500/20" : "border-amber-500/20";
 
@@ -126,9 +140,9 @@ export default function Sidebar({ role, userName }: SidebarProps) {
                     <p className="text-[10px] text-slate-500 uppercase tracking-widest">{role}</p>
                   </div>
                 </div>
-                <Link href={role === "student" ? "/student/profile" : "/employer/profile"} className="block">
+                <Link href={role === "student" ? "/student/profile" : role === "agent" ? "/agent/settings" : "/employer/profile"} className="block">
                   <button className="w-full py-2.5 rounded-xl bg-white/[0.04] text-[10px] font-black uppercase tracking-widest text-slate-400 hover:text-white hover:bg-white/[0.08] transition-all">
-                    View Profile
+                    {role === "agent" ? "Manage Settings" : "View Profile"}
                   </button>
                 </Link>
               </div>
@@ -153,6 +167,7 @@ export default function Sidebar({ role, userName }: SidebarProps) {
       </aside>
 
       <div className={cn("hidden md:block transition-all duration-500", collapsed ? "w-20" : "w-72")} />
+      <MobileNav role={role} />
     </>
   );
 }

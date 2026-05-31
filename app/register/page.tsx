@@ -7,7 +7,7 @@ import { ArrowRight, ArrowLeft, Check, Loader2, Zap, ShieldCheck, Mail, Building
 import { SKILLS_LIST, CITIES, AVAILABILITY_DAYS, AVAILABILITY_SLOTS } from "@/lib/utils";
 import { motion, AnimatePresence } from "framer-motion";
 
-type Role = "student" | "employer";
+type Role = "student" | "employer" | "agent";
 const STEPS = ["Basics", "Academic", "Skills", "Schedule"];
 
 export default function RegisterPage() {
@@ -90,10 +90,18 @@ export default function RegisterPage() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ ...form, role }),
       });
-      const data = await res.json();
-      if (!res.ok) { setError(data.error || "Registration failed"); setLoading(false); return; }
-      await signIn("credentials", { email: form.email, password: form.password, redirect: false });
+      const regRes = await res.json();
+      if (!res.ok) { setError(regRes.error || "Registration failed"); setLoading(false); return; }
+      
+      const loginRes = await signIn("credentials", { email: form.email, password: form.password, redirect: false });
+      if (loginRes?.error) {
+        setError("Account created, but auto-login failed. Please sign in manually.");
+        setLoading(false);
+        return;
+      }
+
       router.push(role === "employer" ? "/employer/dashboard" : "/student/dashboard");
+      router.refresh();
     } catch { setError("Something went wrong. Please try again."); setLoading(false); }
   }
 
@@ -152,7 +160,7 @@ export default function RegisterPage() {
             <div className="flex items-center justify-between">
               <h1 className="text-4xl font-black text-white">Create Account</h1>
               <div className="flex p-1 bg-white/[0.03] border border-white/[0.06] rounded-xl">
-                {(["student", "employer"] as Role[]).map(r => (
+                {(["student", "employer", "agent"] as Role[]).map(r => (
                   <button 
                     key={r} 
                     type="button"
@@ -442,6 +450,7 @@ export default function RegisterPage() {
               <h3 className="text-2xl font-bold text-white mb-2">Verify Phone</h3>
               <p className="text-sm text-slate-500 mb-8 leading-relaxed">
                 We've sent a 6-digit code to <span className="text-white font-bold">{form.phone}</span>. Please enter it below.
+                <br /><span className="text-[10px] text-emerald-500/50 mt-2 block font-black uppercase tracking-widest italic">Demo: Use 000000 to bypass</span>
               </p>
 
               <div className="space-y-6">

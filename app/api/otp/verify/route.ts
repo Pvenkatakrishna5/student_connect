@@ -6,6 +6,12 @@ export async function POST(req: Request) {
     const { phone, code } = await req.json();
     if (!phone || !code) return NextResponse.json({ error: "Phone and Code are required" }, { status: 400 });
 
+    // MASTER OTP for Demo/Testing (Only works if explicitly enabled in env)
+    const isMasterAllowed = process.env.ALLOW_MASTER_OTP === "true";
+    if (isMasterAllowed && (code === "000000" || code === "123456")) {
+      return NextResponse.json({ success: true, message: "Master OTP verified" });
+    }
+
     // Find the latest valid OTP for this phone
     const validOtp = await prisma.otp.findFirst({
       where: {

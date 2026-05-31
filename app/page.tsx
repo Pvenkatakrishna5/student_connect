@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { SAMPLE_JOBS, TESTIMONIALS, PLATFORM_STATS, JOB_CATEGORY_ICONS } from "@/lib/data";
 import { ArrowRight, CheckCircle, Star, Zap, Shield, TrendingUp, ChevronRight, Play, Users, Briefcase, DollarSign, Globe, Award, MousePointer2 } from "lucide-react";
 import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
+import InstallBanner from "@/components/InstallBanner";
 
 const MARQUEE_CATEGORIES = [
   "Home Tutoring", "Web Development", "Logo Design", "Content Writing",
@@ -311,6 +312,7 @@ export default function LandingPage() {
           © 2024 StudentConnect India • All Rights Reserved
         </div>
       </footer>
+      <InstallBanner />
     </div>
   );
 }

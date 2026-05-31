@@ -15,8 +15,11 @@ export async function POST(req: Request) {
       data: { phone, code, expiresAt }
     });
 
-    // In production, you would integrate an SMS provider like Twilio here.
-    // console.log(`[AUTH] OTP for ${phone}: ${code}`);
+    // In production, integrate an SMS provider. 
+    // Only log in development mode.
+    if (process.env.NODE_ENV === "development") {
+      console.log(`\n\n[AUTH] 🔐 OTP for ${phone}: ${code}\n\n`);
+    }
 
     return NextResponse.json({ success: true, message: "OTP sent successfully" });
   } catch (error: any) {

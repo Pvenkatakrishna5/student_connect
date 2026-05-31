@@ -15,8 +15,10 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
     }
 
+    const emailLower = email.toLowerCase();
+
     const existing = await prisma.user.findUnique({
-      where: { email: email.toLowerCase() },
+      where: { email: emailLower },
     });
     if (existing) {
       return NextResponse.json({ error: "Email already registered" }, { status: 409 });
@@ -26,40 +28,42 @@ export async function POST(req: NextRequest) {
 
     const user = await prisma.user.create({
       data: {
-        email: email.toLowerCase(),
+        email: emailLower,
         passwordHash,
         role,
       },
     });
 
     if (role === "student") {
-      await prisma.student.create({
-        data: {
-          userId: user.id,
-          name: name || "",
-          college: college || "",
-          branch: branch || "",
-          year: year || "",
-          city: city || "",
-          phone: phone || "",
-          aadhaarNumber: body.aadhaarNumber || "",
-          isAadhaarVerified: !!body.aadhaarNumber,
-          skills: skills || [],
-          availability: availability || {},
-        },
-      });
+      const studentData = {
+        userId: user.id,
+        name: name || "",
+        college: college || "",
+        branch: branch || "",
+        year: year || "",
+        city: city || "",
+        phone: phone || "",
+        aadhaarNumber: body.aadhaarNumber || "",
+        isAadhaarVerified: !!body.aadhaarNumber,
+        skills: skills || [],
+        availability: availability || {},
+      };
+      await prisma.student.create({ data: studentData });
+
       await logActivity("user_registered", `New student joined: ${name || email}`, user.id);
     } else if (role === "employer") {
-      await prisma.employer.create({
-        data: {
-          userId: user.id,
-          companyName: companyName || "",
-          contactName: contactName || "",
-          city: city || "",
-          phone: phone || "",
-        },
-      });
+      const employerData = {
+        userId: user.id,
+        companyName: companyName || "",
+        contactName: contactName || "",
+        city: city || "",
+        phone: phone || "",
+      };
+      await prisma.employer.create({ data: employerData });
+
       await logActivity("user_registered", `New employer joined: ${companyName || email}`, user.id);
+    } else if (role === "agent") {
+      await logActivity("user_registered", `New agent joined: ${email}`, user.id);
     }
 
     return NextResponse.json({ success: true, userId: user.id }, { status: 201 });

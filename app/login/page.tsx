@@ -4,7 +4,7 @@ import { Suspense, useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { signIn } from "next-auth/react";
-import { ArrowRight, Loader2, Zap, ShieldCheck, Sparkles, Briefcase } from "lucide-react";
+import { ArrowRight, Loader2, Zap, ShieldCheck, Sparkles, Briefcase, User } from "lucide-react";
 
 const ROLES = [
   {
@@ -42,6 +42,18 @@ const ROLES = [
     color: "from-rose-500/20 to-orange-500/5",
     border: "border-rose-500/30",
     hover: "hover:border-rose-400 hover:shadow-[0_0_30px_rgba(244,63,94,0.15)]"
+  },
+  {
+    id: "agent",
+    title: "Agent Login",
+    desc: "Verify users, manage assignments, and assist operations.",
+    icon: <User className="w-6 h-6 text-amber-400" />,
+    email: "agent@studentconnect.in",
+    pass: "agent1234",
+    path: "/agent/dashboard",
+    color: "from-amber-500/20 to-yellow-500/5",
+    border: "border-amber-500/30",
+    hover: "hover:border-amber-400 hover:shadow-[0_0_30px_rgba(245,158,11,0.15)]"
   }
 ];
 
@@ -49,27 +61,65 @@ function LoginForm() {
   const router = useRouter();
   const [loadingRole, setLoadingRole] = useState<string | null>(null);
   const [error, setError] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
-  async function handleRoleLogin(role: string, email: string, pass: string, redirectPath: string) {
-    setLoadingRole(role);
+  async function handleLogin(e?: React.FormEvent, demoCreds?: { email: string, pass: string, role: string, path: string }) {
+    if (e) e.preventDefault();
+    
+    const targetEmail = demoCreds ? demoCreds.email : email;
+    const targetPass = demoCreds ? demoCreds.pass : password;
+    const roleId = demoCreds ? demoCreds.role : "custom";
+
+    setLoadingRole(roleId);
     setError("");
     
-    const res = await signIn("credentials", { email, password: pass, redirect: false });
-    
-    if (res?.error) { 
+    try {
+      const res = await signIn("credentials", { 
+        email: targetEmail, 
+        password: targetPass, 
+        redirect: false 
+      });
+      
+      if (res?.error) { 
+        setLoadingRole(null);
+        setError("Invalid credentials. Please check your email and password."); 
+        return; 
+      }
+      
+      // If it's a demo account, we already know where to go
+      if (demoCreds?.path) {
+        router.push(demoCreds.path);
+        router.refresh();
+        return;
+      }
+
+      // For custom login, we fetch the role to determine the dashboard
+      const meRes = await fetch("/api/auth/me");
+      if (meRes.ok) {
+        const userData = await meRes.json();
+        const rolePath = userData.role === "admin" ? "/admin/dashboard" : 
+                         userData.role === "employer" ? "/employer/dashboard" : 
+                         userData.role === "agent" ? "/agent/dashboard" : 
+                         "/student/dashboard";
+        router.push(rolePath);
+        router.refresh();
+      } else {
+        // Fallback: If we can't get the role, try to go to student dashboard as default
+        router.push("/student/dashboard");
+        router.refresh();
+      }
+    } catch (err) {
       setLoadingRole(null);
-      setError("Failed to login. Please check configuration."); 
-      return; 
+      setError("An unexpected error occurred. Please try again.");
     }
-    
-    router.push(redirectPath);
   }
 
   return (
-    <div className="w-full max-w-lg space-y-8">
+    <div className="w-full max-w-lg space-y-10">
       <div className="text-center">
-        <h1 className="text-4xl md:text-5xl font-black tracking-tight text-white mb-4">Choose Your Path</h1>
-        <p className="text-slate-400 text-sm">Select your role to instantly access your dedicated workspace.</p>
+        <h1 className="text-4xl md:text-5xl font-black tracking-tight text-white mb-4">Welcome Back</h1>
+        <p className="text-slate-400 text-sm">Enter your credentials to access your account.</p>
       </div>
 
       {error && (
@@ -78,36 +128,69 @@ function LoginForm() {
         </div>
       )}
 
-      <div className="space-y-4">
+      {/* Primary Login Form */}
+      <form onSubmit={handleLogin} className="space-y-5">
+        <div className="space-y-2">
+          <label className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-500 px-1">Email Address</label>
+          <input 
+            type="email" 
+            required
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            placeholder="name@university.edu"
+            className="w-full px-5 py-4 bg-white/[0.03] border border-white/[0.06] rounded-2xl text-white outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500/40 transition-all placeholder:text-slate-700"
+          />
+        </div>
+        <div className="space-y-2">
+          <label className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-500 px-1">Password</label>
+          <input 
+            type="password" 
+            required
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            placeholder="••••••••"
+            className="w-full px-5 py-4 bg-white/[0.03] border border-white/[0.06] rounded-2xl text-white outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500/40 transition-all placeholder:text-slate-700"
+          />
+        </div>
+        <button 
+          type="submit"
+          disabled={loadingRole !== null}
+          className="w-full py-4 rounded-2xl bg-emerald-500 text-black font-black text-sm uppercase tracking-widest hover:bg-emerald-400 transition-all flex items-center justify-center gap-2 shadow-lg shadow-emerald-500/20 disabled:opacity-50"
+        >
+          {loadingRole === "custom" ? <Loader2 className="w-5 h-5 animate-spin" /> : "Sign In"}
+        </button>
+      </form>
+
+      <div className="relative py-4">
+        <div className="absolute inset-0 flex items-center" aria-hidden="true">
+          <div className="w-full border-t border-white/[0.05]"></div>
+        </div>
+        <div className="relative flex justify-center text-[10px] uppercase tracking-widest font-black">
+          <span className="bg-[#050508] px-4 text-slate-700">Quick Demo Access</span>
+        </div>
+      </div>
+
+      {/* Secondary Demo Buttons */}
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
         {ROLES.map((r) => (
           <button
             key={r.id}
-            onClick={() => handleRoleLogin(r.id, r.email, r.pass, r.path)}
+            type="button"
+            onClick={() => handleLogin(undefined, { email: r.email, pass: r.pass, role: r.id, path: r.path })}
             disabled={loadingRole !== null}
-            className={`w-full p-6 text-left rounded-3xl border bg-gradient-to-br ${r.color} ${r.border} ${r.hover} transition-all duration-300 group relative overflow-hidden`}
+            className={`flex flex-col items-center gap-2 p-4 rounded-2xl border bg-gradient-to-br ${r.color} ${r.border} ${r.hover} transition-all duration-300 group`}
           >
-            <div className="absolute top-0 right-0 p-6 opacity-10 group-hover:opacity-20 group-hover:scale-110 transition-all duration-500 text-white">
-              {r.icon}
+            <div className="w-8 h-8 rounded-lg bg-white/5 flex items-center justify-center backdrop-blur-md">
+              {loadingRole === r.id ? <Loader2 className="w-4 h-4 animate-spin text-white" /> : r.icon}
             </div>
-            
-            <div className="relative z-10 flex items-start gap-5">
-              <div className="w-12 h-12 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center backdrop-blur-md shrink-0">
-                {loadingRole === r.id ? <Loader2 className="w-6 h-6 animate-spin text-white" /> : r.icon}
-              </div>
-              <div>
-                <h3 className="text-xl font-bold text-white mb-1 group-hover:translate-x-1 transition-transform">{r.title}</h3>
-                <p className="text-sm text-slate-400 max-w-[280px]">{r.desc}</p>
-              </div>
-            </div>
-            <div className="absolute bottom-6 right-6 flex items-center gap-2 opacity-0 group-hover:opacity-100 group-hover:-translate-x-2 transition-all">
-              <span className="text-xs font-bold text-white uppercase tracking-wider">Access</span>
-              <ArrowRight className="w-4 h-4 text-white" />
-            </div>
+            <span className="text-[9px] font-black uppercase tracking-tight text-white/70 group-hover:text-white transition-colors">
+              {r.id === "admin" ? "Admin" : r.id === "employer" ? "Employer" : r.id === "agent" ? "Agent" : "Student"}
+            </span>
           </button>
         ))}
       </div>
 
-      <p className="text-center text-sm text-slate-500 pt-4">
+      <p className="text-center text-sm text-slate-500 pt-6">
         New to the community?{" "}
         <Link href="/register" className="font-bold text-emerald-400 hover:text-emerald-300 transition-colors">Join here</Link>
       </p>
