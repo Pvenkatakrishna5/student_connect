@@ -6,92 +6,29 @@ import Link from "next/link";
 import { signIn } from "next-auth/react";
 import { ArrowRight, Loader2, Zap, ShieldCheck, Sparkles, Briefcase, User } from "lucide-react";
 
-const ROLES = [
-  {
-    id: "student",
-    title: "Student Login",
-    desc: "Access your student dashboard to find jobs, apply, and track earnings.",
-    icon: <Sparkles className="w-6 h-6 text-emerald-400" />,
-    email: "arjun@iitm.ac.in",
-    pass: "demo1234",
-    path: "/student/dashboard",
-    color: "from-emerald-500/20 to-teal-500/5",
-    border: "border-emerald-500/30",
-    hover: "hover:border-emerald-400 hover:shadow-[0_0_30px_rgba(16,185,129,0.15)]"
-  },
-  {
-    id: "employer",
-    title: "Employer Login",
-    desc: "Post jobs, manage applicants, and hire top student talent.",
-    icon: <Briefcase className="w-6 h-6 text-indigo-400" />,
-    email: "suresh@creativeedge.in",
-    pass: "demo1234",
-    path: "/employer/dashboard",
-    color: "from-indigo-500/20 to-blue-500/5",
-    border: "border-indigo-500/30",
-    hover: "hover:border-indigo-400 hover:shadow-[0_0_30px_rgba(99,102,241,0.15)]"
-  },
-  {
-    id: "admin",
-    title: "Admin Login",
-    desc: "Manage platform operations, users, and approve jobs.",
-    icon: <ShieldCheck className="w-6 h-6 text-rose-400" />,
-    email: "admin@studentconnect.in",
-    pass: "admin1234",
-    path: "/admin/dashboard",
-    color: "from-rose-500/20 to-orange-500/5",
-    border: "border-rose-500/30",
-    hover: "hover:border-rose-400 hover:shadow-[0_0_30px_rgba(244,63,94,0.15)]"
-  },
-  {
-    id: "agent",
-    title: "Agent Login",
-    desc: "Verify users, manage assignments, and assist operations.",
-    icon: <User className="w-6 h-6 text-amber-400" />,
-    email: "agent@studentconnect.in",
-    pass: "agent1234",
-    path: "/agent/dashboard",
-    color: "from-amber-500/20 to-yellow-500/5",
-    border: "border-amber-500/30",
-    hover: "hover:border-amber-400 hover:shadow-[0_0_30px_rgba(245,158,11,0.15)]"
-  }
-];
-
 function LoginForm() {
   const router = useRouter();
-  const [loadingRole, setLoadingRole] = useState<string | null>(null);
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  async function handleLogin(e?: React.FormEvent, demoCreds?: { email: string, pass: string, role: string, path: string }) {
-    if (e) e.preventDefault();
-    
-    const targetEmail = demoCreds ? demoCreds.email : email;
-    const targetPass = demoCreds ? demoCreds.pass : password;
-    const roleId = demoCreds ? demoCreds.role : "custom";
-
-    setLoadingRole(roleId);
+  async function handleLogin(e: React.FormEvent) {
+    e.preventDefault();
+    setLoading(true);
     setError("");
     
     try {
       const res = await signIn("credentials", { 
-        email: targetEmail, 
-        password: targetPass, 
+        email: email.toLowerCase(), 
+        password: password, 
         redirect: false 
       });
       
       if (res?.error) { 
-        setLoadingRole(null);
+        setLoading(false);
         setError("Invalid credentials. Please check your email and password."); 
         return; 
-      }
-      
-      // If it's a demo account, we already know where to go
-      if (demoCreds?.path) {
-        router.push(demoCreds.path);
-        router.refresh();
-        return;
       }
 
       // For custom login, we fetch the role to determine the dashboard
@@ -110,7 +47,7 @@ function LoginForm() {
         router.refresh();
       }
     } catch (err) {
-      setLoadingRole(null);
+      setLoading(false);
       setError("An unexpected error occurred. Please try again.");
     }
   }
@@ -154,41 +91,12 @@ function LoginForm() {
         </div>
         <button 
           type="submit"
-          disabled={loadingRole !== null}
+          disabled={loading}
           className="w-full py-4 rounded-2xl bg-emerald-500 text-black font-black text-sm uppercase tracking-widest hover:bg-emerald-400 transition-all flex items-center justify-center gap-2 shadow-lg shadow-emerald-500/20 disabled:opacity-50"
         >
-          {loadingRole === "custom" ? <Loader2 className="w-5 h-5 animate-spin" /> : "Sign In"}
+          {loading ? <Loader2 className="w-5 h-5 animate-spin" /> : "Sign In"}
         </button>
       </form>
-
-      <div className="relative py-4">
-        <div className="absolute inset-0 flex items-center" aria-hidden="true">
-          <div className="w-full border-t border-white/[0.05]"></div>
-        </div>
-        <div className="relative flex justify-center text-[10px] uppercase tracking-widest font-black">
-          <span className="bg-[#050508] px-4 text-slate-700">Quick Demo Access</span>
-        </div>
-      </div>
-
-      {/* Secondary Demo Buttons */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-        {ROLES.map((r) => (
-          <button
-            key={r.id}
-            type="button"
-            onClick={() => handleLogin(undefined, { email: r.email, pass: r.pass, role: r.id, path: r.path })}
-            disabled={loadingRole !== null}
-            className={`flex flex-col items-center gap-2 p-4 rounded-2xl border bg-gradient-to-br ${r.color} ${r.border} ${r.hover} transition-all duration-300 group`}
-          >
-            <div className="w-8 h-8 rounded-lg bg-white/5 flex items-center justify-center backdrop-blur-md">
-              {loadingRole === r.id ? <Loader2 className="w-4 h-4 animate-spin text-white" /> : r.icon}
-            </div>
-            <span className="text-[9px] font-black uppercase tracking-tight text-white/70 group-hover:text-white transition-colors">
-              {r.id === "admin" ? "Admin" : r.id === "employer" ? "Employer" : r.id === "agent" ? "Agent" : "Student"}
-            </span>
-          </button>
-        ))}
-      </div>
 
       <p className="text-center text-sm text-slate-500 pt-6">
         New to the community?{" "}

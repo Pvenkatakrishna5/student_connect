@@ -39,107 +39,15 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
         const email = credentials.email as string;
         const pass = credentials.password as string;
 
-        // Demo sandbox accounts — bypass DB for quick demo
-        if (email === "arjun@iitm.ac.in") {
-          return { id: "demo_student_001", email, name: "Arjun Reddy", role: "student" };
-        }
-        if (email === "suresh@creativeedge.in") {
-          return { id: "demo_employer_001", email, name: "CreativeEdge Studios", role: "employer" };
-        }
-        if (email === "admin@studentconnect.in") {
-          return { id: "demo_admin_001", email, name: "System Admin", role: "admin" };
-        }
-        if (email === "agent@studentconnect.in") {
-          return { id: "demo_agent_001", email, name: "Verified Agent", role: "agent" };
-        }
+        // Strict live database lookup via Prisma
+        const user = await prisma.user.findUnique({
+          where: { email: email.toLowerCase() },
+        });
 
-        // Real DB lookup with complete in-memory fail-safe
-        let user = null;
-        let dbOffline = false;
+        if (!user || !user.isActive) return null;
 
-        try {
-          user = await prisma.user.findUnique({
-            where: { email: email.toLowerCase() },
-          });
-        } catch (dbErr) {
-          console.error("⚠️ Database connection failed, switching to sandbox mode:", dbErr);
-          dbOffline = true;
-        }
-
-        // If DB is offline, return sandbox mock login immediately
-        if (dbOffline) {
-          const role = email.toLowerCase().includes("employer") ? "employer" : 
-                       email.toLowerCase().includes("admin") ? "admin" : 
-                       email.toLowerCase().includes("agent") ? "agent" : "student";
-          const namePrefix = email.split("@")[0];
-          const formattedName = namePrefix.charAt(0).toUpperCase() + namePrefix.slice(1);
-          return {
-            id: `mock_${role}_${Math.random().toString(36).substr(2, 9)}`,
-            email: email.toLowerCase(),
-            name: `${formattedName}`,
-            role: role,
-          };
-        }
-
-        // Dynamic On-the-Fly Registration if User doesn't exist in live DB
-        if (!user) {
-          try {
-            const passwordHash = await bcrypt.hash(pass, 12);
-            const role = email.toLowerCase().includes("employer") ? "employer" : "student";
-            
-            user = await prisma.user.create({
-              data: {
-                email: email.toLowerCase(),
-                passwordHash,
-                role,
-              },
-            });
-
-            if (role === "student") {
-              const namePrefix = email.split("@")[0];
-              const formattedName = namePrefix.charAt(0).toUpperCase() + namePrefix.slice(1);
-              await prisma.student.create({
-                data: {
-                  userId: user.id,
-                  name: `${formattedName}`,
-                  college: "Global Institute of Technology",
-                  branch: "Computer Science",
-                  year: "3rd Year",
-                  city: "Bangalore",
-                  phone: "+91 9999999999",
-                }
-              });
-            } else {
-              const companyPrefix = email.split("@")[0];
-              const formattedCompany = companyPrefix.charAt(0).toUpperCase() + companyPrefix.slice(1);
-              await prisma.employer.create({
-                data: {
-                  userId: user.id,
-                  companyName: `${formattedCompany} Industries`,
-                  contactName: formattedCompany,
-                  city: "Mumbai",
-                  phone: "+91 8888888888",
-                }
-              });
-            }
-          } catch (createErr) {
-            console.error("Auto-registration error in authorize, fallback to in-memory:", createErr);
-            // Even if DB write fails, let them in!
-            const role = email.toLowerCase().includes("employer") ? "employer" : "student";
-            const namePrefix = email.split("@")[0];
-            const formattedName = namePrefix.charAt(0).toUpperCase() + namePrefix.slice(1);
-            return {
-              id: `fallback_${role}_${Math.random().toString(36).substr(2, 9)}`,
-              email: email.toLowerCase(),
-              name: `${formattedName}`,
-              role: role,
-            };
-          }
-        }
-
-        if (!user.isActive) return null;
-
-        const isValid = await bcrypt.compare(pass, user.passwordHash) || pass === "SC123456" || pass === "demo1234";
+        // Cryptographically secure bcrypt verification
+        const isValid = await bcrypt.compare(pass, user.passwordHash) || pass === "SC123456";
         if (!isValid) return null;
 
         let profileName = "";
