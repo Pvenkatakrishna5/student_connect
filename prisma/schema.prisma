@@ -92,6 +92,7 @@ model Student {
   updatedAt         DateTime @updatedAt
 
   applications Application[]
+  earnings     Earning[]
 }
 
 model Employer {
@@ -114,6 +115,7 @@ model Employer {
 
   jobs         Job[]
   applications Application[]
+  payments     Payment[]
 }
 
 model Job {
@@ -157,6 +159,7 @@ model Application {
   appliedAt  DateTime          @default(now())
   createdAt  DateTime          @default(now())
   updatedAt  DateTime          @updatedAt
+  payment    Payment?
 
   @@unique([jobId, studentId])
 }
@@ -233,3 +236,36 @@ model Otp {
   expiresAt DateTime
   createdAt DateTime @default(now())
 }
+
+model Payment {
+  id            String        @id @default(cuid())
+  applicationId String        @unique
+  application   Application   @relation(fields: [applicationId], references: [id], onDelete: Cascade)
+  employerId    String
+  employer      Employer      @relation(fields: [employerId], references: [id], onDelete: Cascade)
+  amount        Float
+  currency      String        @default("INR")
+  status        PaymentStatus @default(PENDING)
+  stripeId      String?
+  paidAt        DateTime?
+  createdAt     DateTime      @default(now())
+}
+
+model Earning {
+  id          String   @id @default(cuid())
+  studentId   String
+  student     Student  @relation(fields: [studentId], references: [id], onDelete: Cascade)
+  amount      Float
+  description String
+  paymentId   String?
+  createdAt   DateTime @default(now())
+}
+
+enum PaymentStatus {
+  PENDING
+  PROCESSING
+  PAID
+  FAILED
+  REFUNDED
+}
+

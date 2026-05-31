@@ -81,6 +81,25 @@ export async function POST(req: NextRequest) {
             spotsAvailable: { decrement: 1 },
             hiredCount: { increment: 1 }
           }
+        }),
+        // Create Payment record
+        prisma.payment.create({
+          data: {
+            applicationId: applicationId,
+            employerId: app.employerId,
+            amount: amountPaid,
+            status: "PAID",
+            stripeId: session.id,
+            paidAt: new Date()
+          }
+        }),
+        // Create Earning record
+        prisma.earning.create({
+          data: {
+            studentId: app.studentId,
+            amount: amountPaid,
+            description: `Payment for job: ${app.job.title}`
+          }
         })
       ]);
 
