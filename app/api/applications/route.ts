@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
 import { createNotification } from "@/lib/notifications";
 import { logActivity } from "@/lib/activity";
-import { sendEmail } from "@/lib/email";
+import { sendEmail, sendNewApplicantEmail, sendApplicationUpdateEmail } from "@/lib/email";
 
 export async function POST(req: NextRequest) {
   try {
@@ -50,11 +50,12 @@ export async function POST(req: NextRequest) {
 
       const employerUser = await prisma.user.findUnique({ where: { id: employer.userId } });
       if (employerUser?.email) {
-        await sendEmail({
-          to: employerUser.email,
-          subject: `New Applicant for ${job.title}`,
-          html: `<p>Great news!</p><p>A new student has just applied for your job posting: <strong>${job.title}</strong>.</p><p>Log in to your Employer Dashboard to review their application.</p>`,
-        });
+        sendNewApplicantEmail(
+          employerUser.email, 
+          employer.contactName || employer.companyName, 
+          student.name, 
+          job.title
+        ).catch(e => console.error(e));
       }
     }
 
@@ -130,18 +131,13 @@ export async function PATCH(req: NextRequest) {
 
     const studentEmail = student.user?.email;
     if (studentEmail) {
-      let emailSubject = `Application Update: ${job.title}`;
-      let emailHtml = `<p>Hi ${student.name},</p><p>Your application status for <strong>${job.title}</strong> has been updated to: <strong>${status}</strong>.</p>`;
-
-      if (status === "selected") {
-        emailSubject = `🎉 You're Hired! ${job.title}`;
-        emailHtml = `<p>Congratulations ${student.name}!</p><p>You have been selected for the position of <strong>${job.title}</strong>.</p>`;
-      } else if (status === "rejected") {
-        emailSubject = `Update on your application: ${job.title}`;
-        emailHtml = `<p>Hi ${student.name},</p><p>Unfortunately, the employer has decided to move forward with other candidates for <strong>${job.title}</strong>.</p>`;
-      }
-
-      await sendEmail({ to: studentEmail, subject: emailSubject, html: emailHtml });
+      sendApplicationUpdateEmail(
+        studentEmail,
+        student.name,
+        job.title,
+        status,
+        job.employer?.companyName || "Employer"
+      ).catch(e => console.error(e));
     }
 
     return NextResponse.json(app);

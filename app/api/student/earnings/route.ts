@@ -23,34 +23,50 @@ export async function GET(req: Request) {
     if (!student) return NextResponse.json({ error: "Student not found" }, { status: 404 });
 
     const hiredApplications = await prisma.application.findMany({
-      where: { studentId: student.id, status: "selected" },
+      where: { 
+        studentId: student.id, 
+        status: { in: ["selected", "completed"] } 
+      },
       include: { job: true, employer: true },
+      orderBy: { updatedAt: 'asc' }
     });
 
     let totalEarned = 0;
+    let pendingEarned = 0;
+    
+    // Group earnings by month (0-11)
+    const monthlyTotals = Array(12).fill(0);
+    const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+
     const payments = hiredApplications.map((app) => {
       const amount = app.job?.payAmount || 0;
-      totalEarned += amount;
+      const date = new Date(app.updatedAt);
+      
+      if (app.status === "completed") {
+        totalEarned += amount;
+        monthlyTotals[date.getMonth()] += amount;
+      } else if (app.status === "selected") {
+        pendingEarned += amount;
+      }
+
       return {
         job: app.job?.title || "Unknown",
         employer: app.employer?.companyName || "Employer",
         amount,
-        date: new Date(app.appliedAt).toLocaleDateString("en-IN"),
-        status: "paid",
+        date: date.toLocaleDateString("en-IN"),
+        status: app.status === "completed" ? "paid" : "processing",
       };
     });
 
-    const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-    const currentMonth = new Date().getMonth();
     const monthlyEarnings = months.map((m, i) => ({
       month: m,
-      earned: i <= currentMonth ? Math.floor(totalEarned / (currentMonth + 1)) : 0,
+      earned: monthlyTotals[i],
     }));
 
     return NextResponse.json({
       totalEarned,
-      pendingEarned: 0,
-      completedJobs: hiredApplications.length,
+      pendingEarned,
+      completedJobs: hiredApplications.filter(a => a.status === "completed").length,
       payments,
       monthlyEarnings,
     });

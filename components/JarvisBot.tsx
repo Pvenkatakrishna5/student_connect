@@ -67,73 +67,83 @@ export default function JarvisBot() {
     }
   };
 
-  const triggerJarvisResponse = (query: string) => {
+  const triggerJarvisResponse = async (query: string) => {
     setIsTyping(true);
-    setTimeout(() => {
-      let replyText = "";
-      let newActions: Array<{ label: string; action: string }> | undefined;
+    
+    let replyText = "";
+    let newActions: Array<{ label: string; action: string }> | undefined;
 
-      const normalized = query.toLowerCase();
+    const normalized = query.toLowerCase();
 
-      if (normalized.includes("status") || normalized.includes("check system")) {
-        replyText = `### SYSTEM DIAGNOSTICS:
+    if (normalized.includes("status") || normalized.includes("check system")) {
+      replyText = `### SYSTEM DIAGNOSTICS:
 * **Host Environment**: Vercel Serverless (Next.js 16.2.4, React 19.2.4)
 * **API Route Integrity**: 100% active (Search fallback API running, Supabase client connected)
 * **Local Workspace**: Port 3001 online
 * **Database State**: Prisma ORM connection hooks active (Demo/Mock fallback layer fully operational)
 * **Platform Security**: SSL active, CSRF protection enabled via NextAuth.`;
-        newActions = [
-          { label: "Check Pipeline", action: "pipeline" },
-          { label: "Run Mock Diagnostics", action: "diagnostics" }
-        ];
-      } else if (normalized.includes("pipeline") || normalized.includes("deploy")) {
-        replyText = `### AUTOMATED DEPLOYMENT PIPELINE:
+      newActions = [
+        { label: "Check Pipeline", action: "pipeline" },
+        { label: "Run Mock Diagnostics", action: "diagnostics" }
+      ];
+    } else if (normalized.includes("pipeline") || normalized.includes("deploy")) {
+      replyText = `### AUTOMATED DEPLOYMENT PIPELINE:
 * **Source VCS**: GitHub Repository Connected (\`https://github.com/Pvenkatakrishna5/student_connect\`)
 * **Branch Target**: \`main\`
 * **Deployment Webhook**: Enabled (Automatic builds on push)
 * **Last Production Build**: Successful (Built all 58 pages in 44s)
 * **Jarvis Mode**: fully autonomous. Every \`git push\` immediately builds, runs type checks, and deploys live without manual intervention.`;
-        newActions = [
-          { label: "View Production App", action: "production_link" },
-          { label: "Check Status", action: "status" }
-        ];
-      } else if (normalized.includes("verify") || normalized.includes("aadhaar") || normalized.includes("agent")) {
-        replyText = `### AGENT VERIFICATION PROTOCOLS:
+      newActions = [
+        { label: "View Production App", action: "production_link" },
+        { label: "Check Status", action: "status" }
+      ];
+    } else if (normalized.includes("verify") || normalized.includes("aadhaar") || normalized.includes("agent")) {
+      replyText = `### AGENT VERIFICATION PROTOCOLS:
 As a platform verification Agent, your role is to ensure identity validation.
 1. Students register their profile and input their Aadhaar credentials.
 2. The verification Agent (you) manually cross-checks their uploaded documents.
 3. Once approved on the **[Agent Verify Portal](/agent/verify)**, the student's account status transitions to 'Verified', granting them job application access.`;
-        newActions = [
-          { label: "Go to Verify Portal", action: "verify_link" },
-          { label: "Platform Status", action: "status" }
-        ];
-      } else if (normalized.includes("diagnostics")) {
-        replyText = `### INITIATING ADVANCED SYSTEM DIAGNOSTICS...
+      newActions = [
+        { label: "Go to Verify Portal", action: "verify_link" },
+        { label: "Platform Status", action: "status" }
+      ];
+    } else if (normalized.includes("diagnostics")) {
+      replyText = `### INITIATING ADVANCED SYSTEM DIAGNOSTICS...
 * [OK] ESLint / Code Syntax Check passed
 * [OK] CSS Custom design system (globals.css, HSL tailored variables) parsed
 * [OK] Next.js Turbopack configurations optimized
 * [OK] PWA offline routing layers active
 Everything is running beautifully, Sir. Your application is 100% ready for traffic.`;
-      } else if (normalized.includes("production_link")) {
-        replyText = "The live web application is hosted at [student-connect-mkn8gxmny.vercel.app](https://student-connect-mkn8gxmny-venkata-krishna-studentconnect.vercel.app). All routes are fully synchronized.";
-      } else if (normalized.includes("verify_link")) {
-        replyText = "Redirecting you to the [Agent Verification Hub](/agent/verify) where you can approve student applications.";
-      } else {
-        replyText = `I have received your instruction: "${query}". As your platform agent, I have verified the structural schema and current codebase. I am standby to perform features additions, database syncs, or custom dashboard page setups. Just tell me what component to add or edit next!`;
+    } else if (normalized.includes("production_link")) {
+      replyText = "The live web application is hosted at [student-connect-mkn8gxmny.vercel.app](https://student-connect-mkn8gxmny-venkata-krishna-studentconnect.vercel.app). All routes are fully synchronized.";
+    } else if (normalized.includes("verify_link")) {
+      replyText = "Redirecting you to the [Agent Verification Hub](/agent/verify) where you can approve student applications.";
+    } else {
+      // Connect to Gemini AI
+      try {
+        const res = await fetch("/api/bot/chat", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ message: query, history: messages }),
+        });
+        const data = await res.json();
+        replyText = data.reply || "I'm sorry, I am unable to connect to my neural network right now.";
+      } catch (err) {
+        replyText = "My connection to Google Gemini is currently offline. Please check your network.";
       }
+    }
 
-      setMessages((prev) => [
-        ...prev,
-        {
-          id: Math.random().toString(),
-          sender: "jarvis",
-          text: replyText,
-          timestamp: new Date(),
-          actions: newActions,
-        },
-      ]);
-      setIsTyping(false);
-    }, 1200);
+    setMessages((prev) => [
+      ...prev,
+      {
+        id: Math.random().toString(),
+        sender: "jarvis",
+        text: replyText,
+        timestamp: new Date(),
+        actions: newActions,
+      },
+    ]);
+    setIsTyping(false);
   };
 
   const handleSend = (e: React.FormEvent) => {

@@ -5,7 +5,7 @@ import Sidebar from "@/components/layout/Sidebar";
 import { Search, Filter, Clock, CheckCircle, XCircle, ChevronRight, Briefcase, Building2, MapPin, Loader2, ArrowUpRight, CheckCircle2 } from "lucide-react";
 import { useSession } from "next-auth/react";
 import { motion, AnimatePresence } from "framer-motion";
-
+import RatingModal from "@/components/ui/RatingModal";
 export default function StudentApplications() {
   const { data: session } = useSession();
   const router = useRouter();
@@ -13,6 +13,7 @@ export default function StudentApplications() {
   const [loading, setLoading] = useState(true);
   const [filter, setFilter] = useState("all");
   const [processingId, setProcessingId] = useState<string | null>(null);
+  const [ratingModal, setRatingModal] = useState<{ open: boolean; app: any | null }>({ open: false, app: null });
 
   useEffect(() => {
     if (!session?.user?.id) return;
@@ -56,6 +57,11 @@ export default function StudentApplications() {
       });
       if (res.ok) {
         setApplications(prev => prev.map(app => app.id === id ? { ...app, status: "completed" } : app));
+        // After completing, prompt the user to rate the employer
+        const completedApp = applications.find(a => a.id === id);
+        if (completedApp) {
+          setRatingModal({ open: true, app: completedApp });
+        }
       }
     } catch (err) {
       console.error(err);
@@ -183,6 +189,31 @@ export default function StudentApplications() {
           )}
         </main>
       </div>
+
+      <RatingModal
+        isOpen={ratingModal.open}
+        onClose={() => setRatingModal({ open: false, app: null })}
+        title={`Rate ${ratingModal.app?.job?.employer?.companyName || "Employer"}`}
+        subtitle={`How was your experience working with this employer on the "${ratingModal.app?.job?.title}" project?`}
+        accentColor="emerald"
+        onSubmit={async (score, review) => {
+          if (score > 0) {
+            await fetch("/api/ratings", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({
+                toId: ratingModal.app?.job?.employer?.userId,
+                toRole: "employer",
+                jobId: ratingModal.app?.job?.id,
+                score,
+                review,
+                applicationId: ratingModal.app?.id
+              })
+            });
+          }
+          setRatingModal({ open: false, app: null });
+        }}
+      />
     </div>
   );
 }

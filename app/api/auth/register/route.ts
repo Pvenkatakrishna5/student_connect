@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import bcrypt from "bcryptjs";
 import prisma from "@/lib/prisma";
 import { logActivity } from "@/lib/activity";
+import { sendWelcomeEmail } from "@/lib/email";
 
 export async function POST(req: NextRequest) {
   try {
@@ -82,6 +83,10 @@ export async function POST(req: NextRequest) {
     } else if (role === "agent") {
       await logActivity("user_registered", `New agent joined: ${email}`, user.id);
     }
+
+    // Send welcome email asynchronously
+    const displayName = role === "employer" ? companyName : (name || email.split("@")[0]);
+    sendWelcomeEmail(emailLower, displayName, role).catch(e => console.error("Welcome email failed", e));
 
     return NextResponse.json({ success: true, userId: user.id }, { status: 201 });
   } catch (err: unknown) {

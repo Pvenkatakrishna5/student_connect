@@ -5,6 +5,7 @@ import { Search, Filter, Mail, Phone, Calendar, CheckCircle, XCircle, ChevronRig
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
+import RatingModal from "@/components/ui/RatingModal";
 
 export default function EmployerApplicants() {
   const { data: session } = useSession();
@@ -15,8 +16,6 @@ export default function EmployerApplicants() {
   const [searchTerm, setSearchTerm] = useState("");
   const [processingId, setProcessingId] = useState<string | null>(null);
   const [ratingModal, setRatingModal] = useState<{ open: boolean; app: any | null }>({ open: false, app: null });
-  const [ratingScore, setRatingScore] = useState(5);
-  const [reviewText, setReviewText] = useState("");
 
   useEffect(() => {
     if (!session?.user?.id) return;
@@ -267,89 +266,32 @@ export default function EmployerApplicants() {
       </div>
 
       {/* Rating Modal */}
-      <AnimatePresence>
-        {ratingModal.open && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center p-6">
-            <motion.div 
-              initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-              onClick={() => setRatingModal({ open: false, app: null })}
-              className="absolute inset-0 bg-black/80 backdrop-blur-sm" 
-            />
-            <motion.div 
-              initial={{ scale: 0.9, opacity: 0, y: 20 }} animate={{ scale: 1, opacity: 1, y: 0 }} exit={{ scale: 0.9, opacity: 0, y: 20 }}
-              className="relative w-full max-w-lg bg-[#0A0A0F] border border-white/[0.08] rounded-[40px] p-10 overflow-hidden shadow-2xl"
-            >
-              <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-purple-500 to-indigo-500" />
-              
-              <div className="text-center space-y-4">
-                <div className="w-20 h-20 rounded-3xl bg-purple-500/10 flex items-center justify-center mx-auto text-purple-400 mb-6">
-                  <Star className="w-10 h-10 fill-current" />
-                </div>
-                <h3 className="text-2xl font-bold text-white tracking-tight">Rate {ratingModal.app?.student?.name}</h3>
-                <p className="text-sm text-slate-500">How was your experience working with this student on the "{ratingModal.app?.job?.title}" project?</p>
-              </div>
-
-              <div className="mt-10 flex flex-col items-center gap-8">
-                <div className="flex gap-3">
-                  {[1, 2, 3, 4, 5].map(star => (
-                    <button 
-                      key={star}
-                      onClick={() => setRatingScore(star)}
-                      className={`p-1 transition-all ${star <= ratingScore ? "text-amber-400 scale-110" : "text-slate-700 hover:text-slate-500"}`}
-                    >
-                      <Star className={`w-8 h-8 ${star <= ratingScore ? "fill-current" : ""}`} />
-                    </button>
-                  ))}
-                </div>
-
-                <div className="w-full space-y-2">
-                  <label className="text-[10px] font-black uppercase tracking-widest text-slate-600 px-2">Written Review (Optional)</label>
-                  <textarea 
-                    value={reviewText}
-                    onChange={(e) => setReviewText(e.target.value)}
-                    placeholder="Tell us about the quality of work, communication, and timeliness..."
-                    className="w-full px-6 py-4 bg-white/[0.02] border border-white/[0.06] rounded-2xl focus:ring-2 focus:ring-purple-500/20 focus:border-purple-500/40 outline-none text-sm text-white resize-none h-32 transition-all"
-                  />
-                </div>
-
-                <div className="flex gap-4 w-full">
-                  <button 
-                    onClick={() => setRatingModal({ open: false, app: null })}
-                    className="flex-1 py-4 rounded-2xl bg-white/[0.03] text-sm font-bold text-slate-400 hover:text-white transition-all"
-                  >
-                    Cancel
-                  </button>
-                  <button 
-                    onClick={async () => {
-                      setLoading(true);
-                      const res = await fetch("/api/ratings", {
-                        method: "POST",
-                        headers: { "Content-Type": "application/json" },
-                        body: JSON.stringify({
-                          toId: ratingModal.app?.student?.userId,
-                          toRole: "student",
-                          jobId: ratingModal.app?.job?.id,
-                          score: ratingScore,
-                          review: reviewText,
-                          applicationId: ratingModal.app?.id
-                        })
-                      });
-                      if (res.ok) {
-                        setApplications(prev => prev.map(a => a.id === ratingModal.app?.id ? { ...a, status: "hired" } : a)); // Or similar status
-                        setRatingModal({ open: false, app: null });
-                      }
-                      setLoading(false);
-                    }}
-                    className="flex-[2] py-4 rounded-2xl bg-gradient-to-r from-purple-500 to-indigo-500 text-white font-black text-sm hover:scale-[1.02] transition-all shadow-xl shadow-purple-500/20"
-                  >
-                    Submit Review
-                  </button>
-                </div>
-              </div>
-            </motion.div>
-          </div>
-        )}
-      </AnimatePresence>
+      <RatingModal
+        isOpen={ratingModal.open}
+        onClose={() => setRatingModal({ open: false, app: null })}
+        title={`Rate ${ratingModal.app?.student?.name || "Student"}`}
+        subtitle={`How was your experience working with this candidate on the "${ratingModal.app?.job?.title}" project?`}
+        accentColor="purple"
+        onSubmit={async (score, review) => {
+          if (score > 0) {
+            await fetch("/api/ratings", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({
+                toId: ratingModal.app?.student?.userId,
+                toRole: "student",
+                jobId: ratingModal.app?.job?.id,
+                score,
+                review,
+                applicationId: ratingModal.app?.id
+              })
+            });
+          }
+          // The application status is already 'completed' since they just click the rate button.
+          // But we can hide the modal.
+          setRatingModal({ open: false, app: null });
+        }}
+      />
     </div>
   );
 }
