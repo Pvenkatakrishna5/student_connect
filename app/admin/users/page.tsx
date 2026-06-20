@@ -1,9 +1,8 @@
 "use client";
 import { useState, useEffect } from "react";
 import Sidebar from "@/components/layout/Sidebar";
-import { Users, Search, Shield, ShieldAlert, ShieldCheck, Mail, Calendar, Loader2, MoreVertical, Trash2, UserPlus } from "lucide-react";
+import { Search, ShieldCheck, Calendar, Loader2, MoreVertical, Trash2, UserPlus } from "lucide-react";
 import { useSession } from "next-auth/react";
-import { motion, AnimatePresence } from "framer-motion";
 
 export default function AdminUsers() {
   const { data: session } = useSession();
@@ -38,7 +37,8 @@ export default function AdminUsers() {
 
   const filteredUsers = users.filter(user => {
     const matchesFilter = filter === "all" || user.role === filter;
-    const matchesSearch = user.name.toLowerCase().includes(searchTerm.toLowerCase()) || 
+    const userName = user.name || user.email.split("@")[0];
+    const matchesSearch = userName.toLowerCase().includes(searchTerm.toLowerCase()) || 
                          user.email.toLowerCase().includes(searchTerm.toLowerCase());
     return matchesFilter && matchesSearch;
   });
@@ -112,10 +112,10 @@ export default function AdminUsers() {
                         <div className={`w-10 h-10 rounded-xl flex items-center justify-center font-bold text-white shadow-lg ${
                           user.role === "student" ? "bg-emerald-500" : user.role === "employer" ? "bg-indigo-500" : "bg-amber-500"
                         }`}>
-                          {user.name[0]}
+                          {(user.name || user.email.split("@")[0])[0].toUpperCase()}
                         </div>
                         <div>
-                          <p className="text-sm font-bold text-white group-hover:text-amber-400 transition-colors">{user.name}</p>
+                          <p className="text-sm font-bold text-white group-hover:text-amber-400 transition-colors">{user.name || user.email.split("@")[0]}</p>
                           <p className="text-xs text-slate-500">{user.email}</p>
                         </div>
                       </div>

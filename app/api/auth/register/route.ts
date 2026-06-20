@@ -61,6 +61,7 @@ export async function POST(req: NextRequest) {
         isAadhaarVerified: !!body.aadhaarNumber,
         skills: skills || [],
         availability: availability || {},
+        profileCompleted: false,
       };
       await prisma.student.create({ data: studentData });
 
@@ -72,6 +73,8 @@ export async function POST(req: NextRequest) {
         contactName: contactName || "",
         city: city || "",
         phone: phone || "",
+        approvalStatus: "pending" as const,
+        profileCompleted: false,
       };
       await prisma.employer.create({ data: employerData });
 

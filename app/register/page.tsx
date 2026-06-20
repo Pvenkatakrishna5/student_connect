@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { signIn } from "next-auth/react";
-import { ArrowRight, ArrowLeft, Check, Loader2, Zap, ShieldCheck, Mail, Building2, User, BookOpen, MapPin, Award, Calendar } from "lucide-react";
+import { ArrowRight, ArrowLeft, Check, Loader2, Zap, ShieldCheck, Mail, Building2, User, BookOpen, MapPin, Award, Calendar, Eye, EyeOff } from "lucide-react";
 import { SKILLS_LIST, CITIES, AVAILABILITY_DAYS, AVAILABILITY_SLOTS } from "@/lib/utils";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -18,12 +18,15 @@ export default function RegisterPage() {
   const [error, setError] = useState("");
 
   const [form, setForm] = useState({
-    name: "", email: "", phone: "", aadhaarNumber: "", password: "",
+    name: "", email: "", phone: "", aadhaarNumber: "", password: "", confirmPassword: "",
     college: "", branch: "", year: "", city: "",
     companyName: "", contactName: "",
     skills: [] as string[],
     availability: {} as Record<string, string[]>,
   });
+
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const [otpSent, setOtpSent] = useState(false);
   const [otpCode, setOtpCode] = useState("");
@@ -47,16 +50,34 @@ export default function RegisterPage() {
     set("availability", { ...form.availability, [day]: updated });
   }
 
+  function validatePasswords(): boolean {
+    if (form.password.length < 8) {
+      setError("Password must be at least 8 characters long");
+      return false;
+    }
+    if (form.password !== form.confirmPassword) {
+      setError("Passwords do not match");
+      return false;
+    }
+    return true;
+  }
+
   async function sendOtp() {
-    if (!form.phone) { setError("Please enter your mobile number first"); return; }
+    if (!form.email) { setError("Please enter your email address first"); return; }
+    // We do NOT require other fields just to verify the email.
+    
     setIsSending(true);
     try {
       const res = await fetch("/api/otp/send", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ phone: form.phone }),
+        body: JSON.stringify({ email: form.email }),
       });
       if (res.ok) { setOtpSent(true); setTimer(60); setError(""); }
+      else {
+        const err = await res.json();
+        setError(err.error || "Failed to send OTP");
+      }
     } catch { setError("Failed to send OTP"); }
     finally { setIsSending(false); }
   }
@@ -67,15 +88,16 @@ export default function RegisterPage() {
       const res = await fetch("/api/otp/verify", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ phone: form.phone, code: otpCode }),
+        body: JSON.stringify({ email: form.email, code: otpCode }),
       });
       if (res.ok) {
         setIsVerified(true);
         setOtpSent(false);
-        setStep(1);
         setError("");
+        // After verification, user stays on the same step to create their password
       } else {
-        setError("Invalid or expired OTP");
+        const err = await res.json();
+        setError(err.error || "Invalid or expired OTP");
       }
     } catch { setError("Verification failed"); }
     finally { setIsSending(false); }
@@ -100,7 +122,8 @@ export default function RegisterPage() {
         return;
       }
 
-      router.push(role === "employer" ? "/employer/dashboard" : "/student/dashboard");
+      // Redirect to profile setup instead of dashboard
+      router.push(role === "employer" ? "/employer/profile/setup" : "/student/profile/setup");
       router.refresh();
     } catch { setError("Something went wrong. Please try again."); setLoading(false); }
   }
@@ -139,7 +162,7 @@ export default function RegisterPage() {
                 <div key={i} className="w-10 h-10 rounded-full border-2 border-[#0A0A0F] bg-slate-800 flex items-center justify-center text-[10px] font-bold text-white">U{i}</div>
               ))}
             </div>
-            <p className="text-xs text-slate-500"><span className="text-white font-bold">2,418+</span> students joined this week</p>
+            <p className="text-xs text-slate-500"><span className="text-white font-bold">Thousands</span> of students have already joined</p>
           </div>
         </div>
 
@@ -164,7 +187,7 @@ export default function RegisterPage() {
                   <button 
                     key={r} 
                     type="button"
-                    onClick={() => { setRole(r); setStep(0); }}
+                    onClick={() => { setRole(r); setStep(0); setError(""); setIsVerified(false); setOtpSent(false); setOtpCode(""); }}
                     className={`px-4 py-1.5 rounded-lg text-[10px] font-black uppercase tracking-widest transition-all ${
                       role === r ? "bg-emerald-500 text-black shadow-lg shadow-emerald-500/20" : "text-slate-500 hover:text-slate-300"
                     }`}
@@ -203,42 +226,66 @@ export default function RegisterPage() {
                   <div className="space-y-5">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                       <div className="space-y-2">
-                        <label className={labelCls}>Company Name</label>
-                        <input className={inputCls} placeholder="CreativeEdge Studio" value={form.companyName} onChange={e => set("companyName", e.target.value)} />
+                        <label className={labelCls}>Company Name <span className="text-rose-400">*</span></label>
+                        <input className={inputCls} placeholder="CreativeEdge Studio" value={form.companyName} onChange={e => set("companyName", e.target.value)} required />
                       </div>
                       <div className="space-y-2">
-                        <label className={labelCls}>Contact Person</label>
-                        <input className={inputCls} placeholder="Suresh Kumar" value={form.contactName} onChange={e => set("contactName", e.target.value)} />
+                        <label className={labelCls}>HR / Recruiter Name <span className="text-rose-400">*</span></label>
+                        <input className={inputCls} placeholder="Suresh Kumar" value={form.contactName} onChange={e => set("contactName", e.target.value)} required />
                       </div>
                     </div>
                     <div className="space-y-2">
-                      <label className={labelCls}>Email Address</label>
-                      <input type="email" className={inputCls} placeholder="suresh@company.in" value={form.email} onChange={e => set("email", e.target.value)} />
+                      <label className={labelCls}>Official Email Address <span className="text-rose-400">*</span></label>
+                      <input type="email" className={inputCls} placeholder="suresh@company.in" value={form.email} onChange={e => set("email", e.target.value)} required />
                     </div>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-                      <div className="space-y-2">
-                        <label className={labelCls}>Phone Number</label>
-                        <input className={inputCls} placeholder="+91 9876543210" value={form.phone} onChange={e => set("phone", e.target.value)} />
-                      </div>
-                      <div className="space-y-2">
-                        <label className={labelCls}>Primary City</label>
-                        <select className={inputCls} value={form.city} onChange={e => set("city", e.target.value)}>
-                          <option value="">Select city</option>
-                          {CITIES.map(c => <option key={c} value={c}>{c}</option>)}
-                        </select>
-                      </div>
-                    </div>
-                    <div className="space-y-2">
-                      <label className={labelCls}>Account Password</label>
-                      <input type="password" className={inputCls} placeholder="Min 8 characters" value={form.password} onChange={e => set("password", e.target.value)} />
-                    </div>
-                    <button 
-                      type="submit" 
-                      disabled={loading}
-                      className="w-full py-4 rounded-2xl bg-emerald-500 text-black font-black text-sm hover:bg-emerald-400 transition-all flex items-center justify-center gap-3 shadow-xl shadow-emerald-500/10 disabled:opacity-50"
-                    >
-                      {loading ? <Loader2 className="w-5 h-5 animate-spin" /> : <>Create Employer Workspace <ArrowRight className="w-4 h-4" /></>}
-                    </button>
+                    {isVerified ? (
+                      <>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                          <div className="space-y-2">
+                            <label className={labelCls}>Password <span className="text-rose-400">*</span></label>
+                            <div className="relative">
+                              <input type={showPassword ? "text" : "password"} className={inputCls} placeholder="Min 8 characters" value={form.password} onChange={e => set("password", e.target.value)} required />
+                              <button type="button" onClick={() => setShowPassword(!showPassword)} className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-600 hover:text-slate-400 transition-colors">
+                                {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                              </button>
+                            </div>
+                          </div>
+                          <div className="space-y-2">
+                            <label className={labelCls}>Confirm Password <span className="text-rose-400">*</span></label>
+                            <div className="relative">
+                              <input type={showConfirmPassword ? "text" : "password"} className={inputCls} placeholder="Re-enter password" value={form.confirmPassword} onChange={e => set("confirmPassword", e.target.value)} required />
+                              <button type="button" onClick={() => setShowConfirmPassword(!showConfirmPassword)} className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-600 hover:text-slate-400 transition-colors">
+                                {showConfirmPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                        {form.password && form.confirmPassword && form.password !== form.confirmPassword && (
+                          <p className="text-xs text-rose-400 font-bold px-1">Passwords do not match</p>
+                        )}
+                        <button 
+                          type="button" 
+                          onClick={() => {
+                            if (!form.companyName) { setError("Please enter your company name"); return; }
+                            if (!form.contactName) { setError("Please enter the HR/Recruiter name"); return; }
+                            if (validatePasswords()) handleSubmit();
+                          }}
+                          disabled={loading}
+                          className="w-full py-4 rounded-2xl bg-emerald-500 text-black font-black text-sm hover:bg-emerald-400 transition-all flex items-center justify-center gap-3 shadow-xl shadow-emerald-500/10 disabled:opacity-50"
+                        >
+                          {loading ? <Loader2 className="w-5 h-5 animate-spin" /> : <>Create Workspace <ArrowRight className="w-4 h-4" /></>}
+                        </button>
+                      </>
+                    ) : (
+                      <button 
+                        type="button" 
+                        onClick={sendOtp}
+                        disabled={isSending}
+                        className="w-full py-4 rounded-2xl bg-white/[0.05] border border-white/[0.1] text-white font-black text-sm hover:bg-emerald-500 hover:text-black transition-all flex items-center justify-center gap-3 shadow-xl"
+                      >
+                        {isSending ? <Loader2 className="w-5 h-5 animate-spin" /> : <>Verify Email Address <Mail className="w-4 h-4" /></>}
+                      </button>
+                    )}
                   </div>
                 )}
 
@@ -246,42 +293,52 @@ export default function RegisterPage() {
                 {role === "student" && step === 0 && (
                   <div className="space-y-5">
                     <div className="space-y-2">
-                      <label className={labelCls}>Full Legal Name</label>
-                      <input className={inputCls} placeholder="Arjun Kumar" value={form.name} onChange={e => set("name", e.target.value)} />
+                      <label className={labelCls}>Full Name <span className="text-rose-400">*</span></label>
+                      <input className={inputCls} placeholder="Arjun Kumar" value={form.name} onChange={e => set("name", e.target.value)} required />
                     </div>
                     <div className="space-y-2">
-                      <label className={labelCls}>Student Email</label>
-                      <input type="email" className={inputCls} placeholder="arjun@iitm.ac.in" value={form.email} onChange={e => set("email", e.target.value)} />
-                    </div>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-                      <div className="space-y-2">
-                        <label className={labelCls}>Mobile Contact</label>
-                        <input className={inputCls} placeholder="+91 9876543210" value={form.phone} onChange={e => set("phone", e.target.value)} />
-                      </div>
-                      <div className="space-y-2">
-                        <label className={labelCls}>Aadhaar Number (12 Digits)</label>
-                        <input 
-                          className={inputCls} 
-                          placeholder="0000 0000 0000" 
-                          maxLength={14}
-                          value={form.aadhaarNumber} 
-                          onChange={e => {
-                            let v = e.target.value.replace(/\D/g, '');
-                            if (v.length > 12) v = v.slice(0, 12);
-                            const formatted = v.replace(/(\d{4})/g, '$1 ').trim();
-                            set("aadhaarNumber", formatted);
-                          }} 
-                        />
-                      </div>
-                    </div>
-                    <div className="space-y-2">
-                      <label className={labelCls}>Password</label>
-                      <input type="password" className={inputCls} placeholder="Min 8 characters" value={form.password} onChange={e => set("password", e.target.value)} />
+                      <label className={labelCls}>Email Address <span className="text-rose-400">*</span></label>
+                      <input type="email" className={inputCls} placeholder="arjun@iitm.ac.in" value={form.email} onChange={e => set("email", e.target.value)} required />
                     </div>
                     {isVerified ? (
-                      <button type="button" onClick={() => setStep(1)} className="w-full py-4 rounded-2xl bg-emerald-500 text-black font-black text-sm hover:bg-emerald-400 transition-all flex items-center justify-center gap-3 shadow-xl shadow-emerald-500/10">
-                        Next Step <ArrowRight className="w-4 h-4" />
-                      </button>
+                      <>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                          <div className="space-y-2">
+                            <label className={labelCls}>Password <span className="text-rose-400">*</span></label>
+                            <div className="relative">
+                              <input type={showPassword ? "text" : "password"} className={inputCls} placeholder="Min 8 characters" value={form.password} onChange={e => set("password", e.target.value)} required />
+                              <button type="button" onClick={() => setShowPassword(!showPassword)} className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-600 hover:text-slate-400 transition-colors">
+                                {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                              </button>
+                            </div>
+                          </div>
+                          <div className="space-y-2">
+                            <label className={labelCls}>Confirm Password <span className="text-rose-400">*</span></label>
+                            <div className="relative">
+                              <input type={showConfirmPassword ? "text" : "password"} className={inputCls} placeholder="Re-enter password" value={form.confirmPassword} onChange={e => set("confirmPassword", e.target.value)} required />
+                              <button type="button" onClick={() => setShowConfirmPassword(!showConfirmPassword)} className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-600 hover:text-slate-400 transition-colors">
+                                {showConfirmPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                        {form.password && form.confirmPassword && form.password !== form.confirmPassword && (
+                          <p className="text-xs text-rose-400 font-bold px-1">Passwords do not match</p>
+                        )}
+                        <button 
+                          type="button" 
+                          onClick={() => { 
+                            if (!form.name) { setError("Please enter your full name"); return; }
+                            if (validatePasswords()) {
+                              setError("");
+                              setStep(1); 
+                            }
+                          }} 
+                          className="w-full py-4 rounded-2xl bg-emerald-500 text-black font-black text-sm hover:bg-emerald-400 transition-all flex items-center justify-center gap-3 shadow-xl shadow-emerald-500/10"
+                        >
+                          Create Password & Continue <ArrowRight className="w-4 h-4" />
+                        </button>
+                      </>
                     ) : (
                       <button 
                         type="button" 
@@ -289,7 +346,7 @@ export default function RegisterPage() {
                         disabled={isSending}
                         className="w-full py-4 rounded-2xl bg-white/[0.05] border border-white/[0.1] text-white font-black text-sm hover:bg-emerald-500 hover:text-black transition-all flex items-center justify-center gap-3 shadow-xl"
                       >
-                        {isSending ? <Loader2 className="w-5 h-5 animate-spin" /> : <>Verify Mobile Number <ShieldCheck className="w-4 h-4" /></>}
+                        {isSending ? <Loader2 className="w-5 h-5 animate-spin" /> : <>Verify Email Address <Mail className="w-4 h-4" /></>}
                       </button>
                     )}
                   </div>
@@ -447,11 +504,11 @@ export default function RegisterPage() {
               <div className="w-20 h-20 rounded-3xl bg-emerald-500/10 flex items-center justify-center mx-auto text-emerald-400 mb-8">
                 <ShieldCheck className="w-10 h-10" />
               </div>
-              <h3 className="text-2xl font-bold text-white mb-2">Verify Phone</h3>
+              <h3 className="text-2xl font-bold text-white mb-2">Verify Email</h3>
               <p className="text-sm text-slate-500 mb-8 leading-relaxed">
-                We've sent a 6-digit code to <span className="text-white font-bold">{form.phone}</span>. Please enter it below.
-                <br /><span className="text-[10px] text-emerald-500/50 mt-2 block font-black uppercase tracking-widest italic">Demo: Use 000000 to bypass</span>
+                We&apos;ve sent a 6-digit code to <span className="text-white font-bold">{form.email}</span>. Please enter it below.
               </p>
+              {error && <div className="p-3 mb-6 rounded-xl bg-rose-500/10 border border-rose-500/20 text-rose-500 text-xs font-bold">{error}</div>}
 
               <div className="space-y-6">
                 <input 
@@ -489,4 +546,3 @@ export default function RegisterPage() {
     </div>
   );
 }
-

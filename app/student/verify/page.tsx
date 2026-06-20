@@ -22,6 +22,8 @@ export default function VerifyPage() {
         const data = await res.json();
         if (data.isAadhaarVerified) {
           setIsAlreadyVerified(true);
+        } else if (data.aadhaarNumber && !data.isAadhaarVerified) {
+          setSuccess(true); // Show pending state
         }
       } catch (err) {
         console.error("Failed to fetch profile", err);
@@ -94,7 +96,7 @@ export default function VerifyPage() {
         <main className="flex-1 overflow-y-auto p-8 custom-scrollbar">
           <div className="max-w-3xl mx-auto pb-20">
             <AnimatePresence mode="wait">
-              {isAlreadyVerified || success ? (
+              {isAlreadyVerified ? (
                 <motion.div 
                   initial={{ opacity: 0, scale: 0.95 }}
                   animate={{ opacity: 1, scale: 1 }}
@@ -107,6 +109,21 @@ export default function VerifyPage() {
                   <h2 className="text-3xl font-bold text-white">Identity Verified</h2>
                   <p className="text-emerald-200 max-w-md mx-auto">
                     Your profile now has a verified badge. This significantly increases your chances of getting hired for premium part-time roles.
+                  </p>
+                </motion.div>
+              ) : success ? (
+                <motion.div 
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  className="p-12 rounded-[40px] bg-amber-500/10 border border-amber-500/20 text-center space-y-6 relative overflow-hidden"
+                >
+                  <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-amber-400 to-orange-400" />
+                  <div className="w-24 h-24 rounded-full bg-amber-500/20 flex items-center justify-center text-amber-400 mx-auto shadow-[0_0_40px_rgba(245,158,11,0.2)]">
+                    <CheckCircle2 className="w-12 h-12" />
+                  </div>
+                  <h2 className="text-3xl font-bold text-white">Verification Pending</h2>
+                  <p className="text-amber-200 max-w-md mx-auto">
+                    Your Aadhaar details have been submitted securely and are currently in the queue for manual review by our verification agents. Check back soon!
                   </p>
                 </motion.div>
               ) : (

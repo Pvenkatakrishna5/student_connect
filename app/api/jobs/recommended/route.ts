@@ -19,11 +19,12 @@ export async function GET(req: NextRequest) {
     const skills = student.skills || [];
     const city = student.city || "";
 
-    // 2. Get student's existing applications to exclude them
+    // 2. Get student's existing applications to exclude them (use student.id, not userId)
     const applications = await prisma.application.findMany({
-      where: { studentId: studentId },
+      where: { studentId: student.id },
       select: { jobId: true }
     });
+
     const appliedJobIds = applications.map(a => a.jobId);
 
     // 3. Find active jobs matching skills or city, excluding already applied

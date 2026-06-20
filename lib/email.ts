@@ -1,6 +1,15 @@
-import { Resend } from "resend";
+import nodemailer from "nodemailer";
 
-const resend = new Resend(process.env.RESEND_API_KEY || "re_mock_key_123");
+const transporter = nodemailer.createTransport({
+  service: "gmail",
+  auth: {
+    user: process.env.EMAIL_USER,
+    pass: process.env.EMAIL_PASS,
+  },
+  tls: {
+    rejectUnauthorized: false
+  }
+});
 
 export async function sendEmail({
   to,
@@ -12,21 +21,21 @@ export async function sendEmail({
   html: string;
 }) {
   try {
-    const { error } = await resend.emails.send({
-      from: "StudentConnect <noreply@studentconnect.app>",
-      to: [to],
+    if (!process.env.EMAIL_USER || !process.env.EMAIL_PASS) {
+      console.warn("⚠️ Email credentials missing in .env.local! Skipping email delivery to:", to);
+      return false;
+    }
+
+    await transporter.sendMail({
+      from: `"StudentConnect" <${process.env.EMAIL_USER}>`,
+      to,
       subject,
       html,
     });
 
-    if (error) {
-      console.error("Resend error:", error);
-      return false;
-    }
-
     return true;
   } catch (err) {
-    console.error("Failed to send email:", err);
+    console.error("❌ Failed to send email via Nodemailer:", err);
     return false;
   }
 }

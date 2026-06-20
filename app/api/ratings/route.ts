@@ -1,4 +1,32 @@
 import { auth } from "@/lib/auth";
+import { NextRequest } from "next/server";
+
+export async function GET(req: NextRequest) {
+  try {
+    const { searchParams } = new URL(req.url);
+    const userId = searchParams.get("userId");
+    if (!userId) {
+      const { NextResponse } = await import("next/server");
+      return NextResponse.json({ error: "userId required" }, { status: 400 });
+    }
+    const { default: prisma } = await import("@/lib/prisma");
+    const { NextResponse } = await import("next/server");
+    const ratings = await prisma.rating.findMany({
+      where: { toId: userId },
+      include: {
+        from: { select: { email: true, role: true, student: { select: { name: true } }, employer: { select: { companyName: true } } } },
+        job: { select: { title: true } },
+      },
+      orderBy: { createdAt: "desc" },
+      take: 20,
+    });
+    return NextResponse.json(ratings);
+  } catch (err: any) {
+    const { NextResponse } = await import("next/server");
+    return NextResponse.json({ error: err.message }, { status: 500 });
+  }
+}
+
 import { NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
 

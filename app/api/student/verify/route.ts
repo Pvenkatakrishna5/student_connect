@@ -18,7 +18,10 @@ export async function POST(req: Request) {
 
     const student = await prisma.student.update({
       where: { userId: session.user.id },
-      data: { isAadhaarVerified: true },
+      data: { 
+        aadhaarNumber: aadhaarNumber,
+        isAadhaarVerified: false // Forces it into the Agent Verification Queue
+      },
     });
 
     if (!student) {

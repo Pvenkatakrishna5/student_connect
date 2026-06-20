@@ -4,16 +4,22 @@ import { auth } from "@/lib/auth";
 
 export async function GET(req: Request) {
   try {
-    const { searchParams } = new URL(req.url);
-    const studentId = searchParams.get("studentId");
-
     const session = await auth();
-    if (!session || (session.user.role !== "admin" && session.user.id !== studentId)) {
+    if (!session?.user?.id) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
-    // Find student record
-    const student = await prisma.student.findUnique({ where: { userId: studentId! } });
+    const { searchParams } = new URL(req.url);
+    // Use query param or fall back to session user
+    const studentUserId = searchParams.get("studentId") || session.user.id;
+
+    // Only admin can view other students' earnings
+    if (session.user.role !== "admin" && session.user.id !== studentUserId) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+
+    // Find student record by userId
+    const student = await prisma.student.findUnique({ where: { userId: studentUserId } });
     if (!student) return NextResponse.json({ error: "Student not found" }, { status: 404 });
 
     const hiredApplications = await prisma.application.findMany({
@@ -29,7 +35,7 @@ export async function GET(req: Request) {
         job: app.job?.title || "Unknown",
         employer: app.employer?.companyName || "Employer",
         amount,
-        date: new Date(app.appliedAt).toLocaleDateString(),
+        date: new Date(app.appliedAt).toLocaleDateString("en-IN"),
         status: "paid",
       };
     });
@@ -49,6 +55,7 @@ export async function GET(req: Request) {
       monthlyEarnings,
     });
   } catch (error) {
+    console.error("Student earnings error:", error);
     return NextResponse.json({ error: "Server error" }, { status: 500 });
   }
 }

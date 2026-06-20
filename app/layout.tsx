@@ -65,8 +65,8 @@ import JarvisBot from "@/components/JarvisBot";
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${syne.variable} ${dmSans.variable} ${jetbrains.variable}`}>
-      <body className="noise">
+    <html lang="en" className={`${syne.variable} ${dmSans.variable} ${jetbrains.variable}`} suppressHydrationWarning>
+      <body className="noise" suppressHydrationWarning>
         <AuthProvider>{children}</AuthProvider>
         <Toaster position="top-right" richColors theme="dark" />
         <JarvisBot />

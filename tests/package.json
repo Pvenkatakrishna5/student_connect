@@ -1,0 +1,37 @@
+{
+  "name": "studentconnect-tests",
+  "version": "1.0.0",
+  "description": "StudentConnect E2E, API, and Mobile Test Suite — 300 test cases",
+  "private": true,
+  "scripts": {
+    "test:web": "playwright test web/",
+    "test:api": "jest api/ --coverage",
+    "test:mobile": "node mobile/appium.dry-run.js",
+    "test:all": "npm run test:api && npm run test:web && npm run test:mobile",
+    "report:html": "node reports/generate-html-report.js",
+    "report:excel": "node reports/generate-excel.js"
+  },
+  "dependencies": {
+    "@playwright/test": "^1.45.0",
+    "axios": "^1.7.2",
+    "exceljs": "^4.4.0",
+    "jest": "^29.7.0",
+    "jest-html-reporter": "^3.10.2",
+    "wait-on": "^7.2.0"
+  },
+  "devDependencies": {
+    "@types/jest": "^29.5.12"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "testMatch": ["**/api/**/*.test.js"],
+    "reporters": [
+      "default",
+      ["jest-html-reporter", {
+        "pageTitle": "StudentConnect API Test Report",
+        "outputPath": "results/api-report.html"
+      }]
+    ],
+    "coverageDirectory": "results/coverage"
+  }
+}

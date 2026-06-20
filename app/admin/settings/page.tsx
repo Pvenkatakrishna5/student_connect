@@ -1,9 +1,8 @@
 "use client";
 import { useState } from "react";
 import Sidebar from "@/components/layout/Sidebar";
-import { Settings, Shield, Bell, Database, Lock, Globe, Save, Loader2, Sparkles, Activity, Server, Cpu } from "lucide-react";
+import { Settings, Shield, Database, Globe, Save, Loader2, Activity, Server, Cpu } from "lucide-react";
 import { useSession } from "next-auth/react";
-import { motion } from "framer-motion";
 
 export default function AdminSettings() {
   const { data: session } = useSession();

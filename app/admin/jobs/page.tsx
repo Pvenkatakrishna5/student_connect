@@ -14,20 +14,19 @@ export default function AdminJobs() {
   const [rejectModal, setRejectModal] = useState<string | null>(null);
   const [rejectionReason, setRejectionReason] = useState("");
 
-  const fetchJobs = async () => {
-    setLoading(true);
-    try {
-      const res = await fetch("/api/jobs?status=" + (filter === "all" ? "" : filter));
-      const data = await res.json();
-      setJobs(Array.isArray(data.jobs) ? data.jobs : []);
-    } catch (err) {
-      console.error(err);
-    } finally {
-      setLoading(false);
-    }
-  };
-
   useEffect(() => {
+    const fetchJobs = async () => {
+      setLoading(true);
+      try {
+        const res = await fetch("/api/jobs?status=" + (filter === "all" ? "" : filter));
+        const data = await res.json();
+        setJobs(Array.isArray(data.jobs) ? data.jobs : []);
+      } catch (err) {
+        console.error(err);
+      } finally {
+        setLoading(false);
+      }
+    };
     fetchJobs();
   }, [filter]);
 

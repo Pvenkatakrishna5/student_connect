@@ -2,7 +2,7 @@
 import { useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
 import Sidebar from "@/components/layout/Sidebar";
-import { Shield, FileText, Loader2, Search, AlertCircle } from "lucide-react";
+import { Shield, Loader2, Search, AlertCircle } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { toast } from "sonner";
 
@@ -12,8 +12,6 @@ export default function AgentVerifyPage() {
   const [search, setSearch] = useState("");
   const [loading, setLoading] = useState(true);
   const [processing, setProcessing] = useState<string | null>(null);
-  const [rejectionModal, setRejectionModal] = useState<{ id: string, name: string } | null>(null);
-  const [reason, setReason] = useState("");
 
   useEffect(() => {
     fetch("/api/agent/verifications")
@@ -41,14 +39,10 @@ export default function AgentVerifyPage() {
       if (res.ok) {
         toast.success(action === "approve" ? "Student verified successfully" : "Verification rejected");
         setPending(pending.filter(p => p.id !== studentId));
-        if (action === "reject") {
-          setRejectionModal(null);
-          setReason("");
-        }
       } else {
         toast.error("Action failed");
       }
-    } catch (err) {
+    } catch {
       toast.error("An error occurred");
     } finally {
       setProcessing(null);
@@ -107,6 +101,7 @@ export default function AgentVerifyPage() {
                       <div className="flex items-center gap-6">
                         <div className="w-16 h-16 rounded-2xl bg-slate-800 flex items-center justify-center text-xl font-black text-slate-500 border border-white/5 overflow-hidden">
                           {student.profileImage ? (
+                            // eslint-disable-next-line @next/next/no-img-element
                             <img src={student.profileImage} alt="" className="w-full h-full object-cover" />
                           ) : (
                             student.name[0]
@@ -155,8 +150,8 @@ export default function AgentVerifyPage() {
           <div>
             <h4 className="text-sm font-bold text-amber-500 mb-1">Identity Verification Policy</h4>
             <p className="text-xs text-slate-500 leading-relaxed">
-              Before verifying, ensure the student's name matches their official Aadhaar records. 
-              Incorrect verifications may lead to account suspension. Use the 'Reject' option if details are suspicious or mismatched.
+              Before verifying, ensure the student&apos;s name matches their official Aadhaar records. 
+              Incorrect verifications may lead to account suspension. Use the &apos;Reject&apos; option if details are suspicious or mismatched.
             </p>
           </div>
         </div>

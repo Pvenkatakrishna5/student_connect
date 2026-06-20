@@ -223,7 +223,7 @@ export default function EmployerApplicants() {
                                 </button>
                               )}
                               <button 
-                                onClick={() => router.push(`/employer/messages?userId=${app.student.userId}`)}
+                                onClick={() => router.push(`/employer/messages?userId=${app.student.userId}&name=${encodeURIComponent(app.student.name)}`)}
                                 className="p-3 rounded-2xl bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 hover:bg-indigo-500 hover:text-white transition-all"
                                 title="Chat with Student"
                               >

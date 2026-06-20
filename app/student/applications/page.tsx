@@ -1,5 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import Sidebar from "@/components/layout/Sidebar";
 import { Search, Filter, Clock, CheckCircle, XCircle, ChevronRight, Briefcase, Building2, MapPin, Loader2, ArrowUpRight, CheckCircle2 } from "lucide-react";
 import { useSession } from "next-auth/react";
@@ -7,6 +8,7 @@ import { motion, AnimatePresence } from "framer-motion";
 
 export default function StudentApplications() {
   const { data: session } = useSession();
+  const router = useRouter();
   const [applications, setApplications] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [filter, setFilter] = useState("all");
@@ -159,6 +161,15 @@ export default function StudentApplications() {
                         >
                           {processingId === app.id ? <Loader2 className="w-3 h-3 animate-spin" /> : <CheckCircle2 className="w-3 h-3" />}
                           Mark Completed
+                        </button>
+                      )}
+                      {app.job?.employer?.userId && (
+                        <button 
+                          onClick={() => router.push(`/student/messages?userId=${app.job.employer.userId}&name=${encodeURIComponent(app.job.employer.companyName || "Employer")}`)}
+                          className="p-3 rounded-xl bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 hover:bg-emerald-500 hover:text-white transition-all"
+                          title="Message Employer"
+                        >
+                          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-message-square"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
                         </button>
                       )}
                       <button className="p-3 rounded-xl bg-white/[0.03] border border-white/[0.06] text-slate-400 hover:text-white hover:bg-white/[0.06] transition-all">

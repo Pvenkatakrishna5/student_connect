@@ -2,7 +2,7 @@ export interface User {
   id: string;
   email: string;
   name?: string;
-  role: "student" | "employer" | "admin";
+  role: "student" | "employer" | "admin" | "agent";
 }
 
 export interface Student {
@@ -52,7 +52,7 @@ export interface Application {
   jobId: string;
   studentId: string;
   employerId: string;
-  status: "applied" | "shortlisted" | "selected" | "rejected";
+  status: "applied" | "shortlisted" | "selected" | "rejected" | "completed";
   coverNote?: string;
   appliedAt: string;
   job?: Partial<Job>;

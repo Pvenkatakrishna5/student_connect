@@ -22,47 +22,6 @@ function AgentMessagesContent() {
     activeChatRef.current = activeChat;
   }, [activeChat]);
 
-  useEffect(() => {
-    fetchConversations().then((convs) => {
-      const userId = searchParams.get("userId");
-      if (userId && convs) {
-        const chat = convs.find((c: any) => c.otherId === userId);
-        if (chat) handleSelectChat(chat);
-      }
-    });
-  }, [searchParams]);
-
-  useEffect(() => {
-    if (!session?.user?.id) return;
-
-    const channel = supabase
-      .channel('realtime_agent_messages')
-      .on('postgres_changes', { 
-        event: 'INSERT', 
-        schema: 'public', 
-        table: 'Message',
-        filter: `receiverId=eq.${session.user.id}`
-      }, (payload) => {
-        const newMsg = payload.new;
-        if (activeChatRef.current && newMsg.senderId === activeChatRef.current.otherId) {
-          setMessages(prev => {
-            if (prev.find(m => m.id === newMsg.id)) return prev;
-            return [...prev, newMsg];
-          });
-        }
-        fetchConversations();
-      })
-      .subscribe();
-
-    return () => {
-      supabase.removeChannel(channel);
-    };
-  }, [session?.user?.id, activeChat]);
-
-  useEffect(() => {
-    scrollToBottom();
-  }, [messages]);
-
   const fetchConversations = async () => {
     try {
       const res = await fetch("/api/messages");
@@ -93,6 +52,55 @@ function AgentMessagesContent() {
     fetchMessages(conv.otherId);
   };
 
+  useEffect(() => {
+    const init = async () => {
+      const convs = await fetchConversations();
+      const userId = searchParams.get("userId");
+      if (userId && convs) {
+        const chat = convs.find((c: any) => c.otherId === userId);
+        if (chat) handleSelectChat(chat);
+      }
+    };
+    init();
+  }, [searchParams]);
+
+  useEffect(() => {
+    if (!session?.user?.id) return;
+
+    const channel = supabase
+      .channel('realtime_agent_messages')
+      .on('postgres_changes', { 
+        event: 'INSERT', 
+        schema: 'public', 
+        table: 'Message',
+        filter: `receiverId=eq.${session.user.id}`
+      }, (payload) => {
+        const newMsg = payload.new;
+        if (activeChatRef.current && newMsg.senderId === activeChatRef.current.otherId) {
+          setMessages(prev => {
+            if (prev.find(m => m.id === newMsg.id)) return prev;
+            return [...prev, newMsg];
+          });
+        }
+        fetchConversations();
+      })
+      .subscribe();
+
+    return () => {
+      supabase.removeChannel(channel);
+    };
+  }, [session?.user?.id, activeChat]);
+
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
+
+  useEffect(() => {
+    scrollToBottom();
+  }, [messages]);
+
+
+
   const handleSendMessage = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!newMessage.trim() || !activeChat) return;
@@ -121,9 +129,6 @@ function AgentMessagesContent() {
     }
   };
 
-  const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-  };
 
   return (
     <div className="flex min-h-screen bg-[#050508] text-slate-200">

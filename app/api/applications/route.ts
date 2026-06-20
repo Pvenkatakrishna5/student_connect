@@ -8,9 +8,20 @@ export async function POST(req: NextRequest) {
   try {
     const { jobId, studentId, coverNote } = await req.json();
 
+    // The frontend sends session.user.id as studentId, so we need to resolve it to Student.id
+    const student = await prisma.student.findUnique({
+      where: { userId: studentId }
+    });
+
+    if (!student) {
+      return NextResponse.json({ error: "Student profile not found" }, { status: 404 });
+    }
+
+    const actualStudentId = student.id;
+
     // Check if already applied
     const existing = await prisma.application.findUnique({
-      where: { jobId_studentId: { jobId, studentId } },
+      where: { jobId_studentId: { jobId, studentId: actualStudentId } },
     });
     if (existing) return NextResponse.json({ error: "Already applied" }, { status: 409 });
 
@@ -18,7 +29,7 @@ export async function POST(req: NextRequest) {
     if (!job) return NextResponse.json({ error: "Job not found" }, { status: 404 });
 
     const app = await prisma.application.create({
-      data: { jobId, studentId, employerId: job.employerId, coverNote },
+      data: { jobId, studentId: actualStudentId, employerId: job.employerId, coverNote },
     });
 
     await prisma.job.update({
@@ -26,25 +37,25 @@ export async function POST(req: NextRequest) {
       data: { applicantsCount: { increment: 1 } },
     });
 
-    // Notify employer
-    await createNotification(
-      job.employerId,
-      "New Applicant!",
-      `A student has applied for your position: ${job.title}`,
-      "info",
-      "/employer/applicants"
-    );
+    // Notify employer via userId (not employer.id — Notification.recipientId is a User.id)
+    const employer = await prisma.employer.findUnique({ where: { id: job.employerId } });
+    if (employer) {
+      await createNotification(
+        employer.userId,
+        "New Applicant!",
+        `A student has applied for your position: ${job.title}`,
+        "info",
+        "/employer/applicants"
+      );
 
-    // Email employer
-    const employerUser = await prisma.user.findUnique({
-      where: { id: job.employerId },
-    });
-    if (employerUser?.email) {
-      await sendEmail({
-        to: employerUser.email,
-        subject: `New Applicant for ${job.title}`,
-        html: `<p>Great news!</p><p>A new student has just applied for your job posting: <strong>${job.title}</strong>.</p><p>Log in to your Employer Dashboard to review their application.</p>`,
-      });
+      const employerUser = await prisma.user.findUnique({ where: { id: employer.userId } });
+      if (employerUser?.email) {
+        await sendEmail({
+          to: employerUser.email,
+          subject: `New Applicant for ${job.title}`,
+          html: `<p>Great news!</p><p>A new student has just applied for your job posting: <strong>${job.title}</strong>.</p><p>Log in to your Employer Dashboard to review their application.</p>`,
+        });
+      }
     }
 
     await logActivity("application_submitted", `New application for ${job.title}`, studentId);
@@ -61,12 +72,18 @@ export async function GET(req: NextRequest) {
     const { searchParams } = new URL(req.url);
     const studentId = searchParams.get("studentId");
     const jobId = searchParams.get("jobId");
-    const employerId = searchParams.get("employerId");
+    const employerUserId = searchParams.get("employerId"); // comes as userId from frontend
 
     const where: Record<string, string> = {};
     if (studentId) where.studentId = studentId;
     if (jobId) where.jobId = jobId;
-    if (employerId) where.employerId = employerId;
+
+    if (employerUserId) {
+      // Resolve userId → employer.id
+      const employer = await prisma.employer.findUnique({ where: { userId: employerUserId } });
+      if (!employer) return NextResponse.json([]);
+      where.employerId = employer.id;
+    }
 
     const apps = await prisma.application.findMany({
       where,

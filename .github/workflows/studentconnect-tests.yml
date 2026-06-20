@@ -1,0 +1,247 @@
+name: StudentConnect E2E + API Tests
+
+on:
+  push:
+    branches: ["**"]
+  pull_request:
+    branches: [main, master]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  # ─── Job 1: Selenium E2E Web + API Tests ─────────────────────────────────────
+  web-api-tests:
+    name: Selenium E2E Web + API Tests
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:15-alpine
+        env:
+          POSTGRES_USER: sc_user
+          POSTGRES_PASSWORD: sc_pass_test
+          POSTGRES_DB: studentconnect_test
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    env:
+      DATABASE_URL: "postgresql://sc_user:sc_pass_test@localhost:5432/studentconnect_test"
+      DIRECT_URL: "postgresql://sc_user:sc_pass_test@localhost:5432/studentconnect_test"
+      NEXTAUTH_SECRET: "ci-test-secret-studentconnect-2024"
+      NEXTAUTH_URL: "http://localhost:3000"
+      NEXT_PUBLIC_SUPABASE_URL: "https://placeholder.supabase.co"
+      NEXT_PUBLIC_SUPABASE_ANON_KEY: "placeholder-key-ci"
+      STRIPE_SECRET_KEY: "sk_test_placeholder"
+      STRIPE_PUBLISHABLE_KEY: "pk_test_placeholder"
+      EMAIL_USER: ""
+      EMAIL_PASS: ""
+      NODE_ENV: test
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+
+      - name: Install project dependencies
+        run: npm ci --prefer-offline
+
+      - name: Generate Prisma client
+        run: npx prisma generate
+
+      - name: Push Prisma schema to test DB
+        run: npx prisma db push --skip-generate --accept-data-loss
+        env:
+          DATABASE_URL: "postgresql://sc_user:sc_pass_test@localhost:5432/studentconnect_test"
+
+      - name: Seed test database
+        run: npx tsx prisma/seed.ts
+        env:
+          DATABASE_URL: "postgresql://sc_user:sc_pass_test@localhost:5432/studentconnect_test"
+
+      - name: Install test suite dependencies
+        working-directory: tests
+        run: npm ci
+
+      - name: Install Playwright browsers
+        working-directory: tests
+        run: npx playwright install --with-deps chromium
+
+      - name: Build Next.js app
+        run: npm run build
+        env:
+          DATABASE_URL: "postgresql://sc_user:sc_pass_test@localhost:5432/studentconnect_test"
+
+      - name: Start Next.js server
+        run: npm start &
+        env:
+          DATABASE_URL: "postgresql://sc_user:sc_pass_test@localhost:5432/studentconnect_test"
+          PORT: 3000
+
+      - name: Wait for server to be ready
+        run: npx wait-on http://localhost:3000 --timeout 60000
+
+      - name: Run Playwright E2E Tests
+        working-directory: tests
+        run: npx playwright test web/ --reporter=html,json
+        continue-on-error: true
+        env:
+          BASE_URL: http://localhost:3000
+          TEST_STUDENT_EMAIL: student@test.com
+          TEST_STUDENT_PASS: Student@1234
+          TEST_EMPLOYER_EMAIL: employer@test.com
+          TEST_EMPLOYER_PASS: Employer@1234
+          TEST_ADMIN_EMAIL: admin@studentconnect.app
+          TEST_ADMIN_PASS: Admin@1234
+          TEST_AGENT_EMAIL: agent@test.com
+          TEST_AGENT_PASS: Agent@1234
+
+      - name: Run API Tests (Jest)
+        working-directory: tests
+        run: npx jest api/ --coverage --coverageReporters=json,text --outputFile=results/api-results.json
+        continue-on-error: true
+        env:
+          BASE_URL: http://localhost:3000
+
+      - name: Upload Playwright HTML report
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: playwright-report
+          path: tests/playwright-report/
+          retention-days: 30
+
+      - name: Upload API test results
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: api-test-results
+          path: tests/results/
+          retention-days: 30
+
+  # ─── Job 2: Appium Mobile Tests Dry-Run ──────────────────────────────────────
+  mobile-dry-run:
+    name: Appium Mobile Tests Dry-Run
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Install test suite dependencies
+        working-directory: tests
+        run: npm ci
+
+      - name: Install Appium
+        run: npm install -g appium@2.x
+
+      - name: Install Appium UiAutomator2 driver (dry-run check)
+        run: appium driver install uiautomator2 || true
+
+      - name: Run Appium Mobile Dry-Run Tests
+        working-directory: tests
+        run: node mobile/appium.dry-run.js
+        continue-on-error: true
+
+      - name: Upload Mobile dry-run results
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: mobile-dry-run-results
+          path: tests/results/mobile-results.json
+          retention-days: 30
+
+  # ─── Job 3: Generate StudentConnect Test Report ───────────────────────────────
+  generate-report:
+    name: Generate StudentConnect Test Report
+    needs: [web-api-tests, mobile-dry-run]
+    runs-on: ubuntu-latest
+    if: always()
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Install test suite dependencies
+        working-directory: tests
+        run: npm ci
+
+      - name: Download all test artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: tests/artifacts/
+
+      - name: Generate HTML Summary Report
+        working-directory: tests
+        run: node reports/generate-html-report.js
+
+      - name: Generate Excel Test Report
+        working-directory: tests
+        run: node reports/generate-excel.js
+
+      - name: Upload HTML report
+        uses: actions/upload-artifact@v4
+        with:
+          name: studentconnect-html-report
+          path: tests/reports/output/report.html
+          retention-days: 30
+
+      - name: Upload Excel test cases
+        uses: actions/upload-artifact@v4
+        with:
+          name: studentconnect-testcases-excel
+          path: tests/reports/output/StudentConnect_TestCases.xlsx
+          retention-days: 30
+
+      - name: Prepare GitHub Pages content
+        run: |
+          mkdir -p _site
+          cp tests/reports/output/report.html _site/index.html
+          echo "Test report for StudentConnect — $(date)" > _site/README.md
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+  # ─── Job 4: Deploy to GitHub Pages ───────────────────────────────────────────
+  deploy-pages:
+    name: Deploy to GitHub Pages
+    needs: generate-report
+    runs-on: ubuntu-latest
+    if: always()
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

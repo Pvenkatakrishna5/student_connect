@@ -45,7 +45,12 @@ export default function JobsPage() {
   }, [search, location, remoteOnly]);
 
   const handleApply = async () => {
-    if (!session?.user?.id || !applyJobId) return;
+    if (!applyJobId) return;
+    if (!session?.user?.id) {
+      alert("Please sign in or register to apply for jobs!");
+      window.location.href = "/login";
+      return;
+    }
     setSubmitting(true);
     try {
       const res = await fetch("/api/applications", {

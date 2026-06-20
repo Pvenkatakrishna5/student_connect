@@ -2,8 +2,8 @@
 import { useState, useEffect } from "react";
 import Sidebar from "@/components/layout/Sidebar";
 import StatCard from "@/components/dashboard/StatCard";
-import { Check, X, AlertTriangle, Loader2, TrendingUp, Users, Briefcase, DollarSign, ShieldCheck, Activity, FileText, CheckCircle } from "lucide-react";
-import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer, PieChart, Pie, Cell, AreaChart, Area } from "recharts";
+import { Loader2, TrendingUp, Users, Briefcase, DollarSign, ShieldCheck, Activity, FileText, CheckCircle } from "lucide-react";
+import { XAxis, Tooltip, ResponsiveContainer, AreaChart, Area } from "recharts";
 import { useSession } from "next-auth/react";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -18,28 +18,27 @@ export default function AdminDashboard() {
   const [rejectModal, setRejectModal] = useState<string | null>(null);
   const [rejectionReason, setRejectionReason] = useState("");
 
-  const fetchData = async () => {
-    setLoading(true);
-    try {
-      const [statsRes, jobsRes, activitiesRes] = await Promise.all([
-        fetch("/api/admin/stats"),
-        fetch("/api/jobs?status=pending"),
-        fetch("/api/admin/activities"),
-      ]);
-      const statsData = await statsRes.json();
-      const jobsData = await jobsRes.json();
-      const activitiesData = await activitiesRes.json();
-      setStats(statsData?.error ? null : statsData);
-      setPendingJobs(Array.isArray(jobsData?.jobs) ? jobsData.jobs : []);
-      setActivities(Array.isArray(activitiesData) ? activitiesData : []);
-    } catch (err) {
-      console.error(err);
-    } finally {
-      setLoading(false);
-    }
-  };
-
   useEffect(() => {
+    const fetchData = async () => {
+      setLoading(true);
+      try {
+        const [statsRes, jobsRes, activitiesRes] = await Promise.all([
+          fetch("/api/admin/stats"),
+          fetch("/api/jobs?status=pending"),
+          fetch("/api/admin/activities"),
+        ]);
+        const statsData = await statsRes.json();
+        const jobsData = await jobsRes.json();
+        const activitiesData = await activitiesRes.json();
+        setStats(statsData?.error ? null : statsData);
+        setPendingJobs(Array.isArray(jobsData?.jobs) ? jobsData.jobs : []);
+        setActivities(Array.isArray(activitiesData) ? activitiesData : []);
+      } catch (err) {
+        console.error(err);
+      } finally {
+        setLoading(false);
+      }
+    };
     fetchData();
   }, []);
 
@@ -60,17 +59,14 @@ export default function AdminDashboard() {
     }
   };
 
-  const lineData = Array.from({ length: 7 }, (_, i) => ({
-    day: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"][i],
-    growth: Math.floor(Math.random() * 50 + 20),
-  }));
+  const [lineData, setLineData] = useState<{ day: string; growth: number }[]>([]);
 
-  const pieData = [
-    { name: "Academic", value: 40, color: "#10b981" },
-    { name: "Technical", value: 30, color: "#6366f1" },
-    { name: "Creative", value: 20, color: "#f59e0b" },
-    { name: "Other", value: 10, color: "#64748b" },
-  ];
+  useEffect(() => {
+    setLineData(Array.from({ length: 7 }, (_, i) => ({
+      day: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"][i],
+      growth: Math.floor(Math.random() * 50 + 20),
+    })));
+  }, []);
 
   return (
     <div className="flex min-h-screen bg-[#050508] text-slate-200">

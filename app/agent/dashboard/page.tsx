@@ -2,27 +2,23 @@
 import Link from "next/link";
 import { useSession } from "next-auth/react";
 import Sidebar from "@/components/layout/Sidebar";
-import { Shield, Users, Briefcase, TrendingUp, Clock, CheckCircle, Loader2, Zap } from "lucide-react";
-import { motion } from "framer-motion";
+import { Shield, Users, Briefcase, CheckCircle, Loader2, Zap } from "lucide-react";
 import { useEffect, useState } from "react";
 
 export default function AgentDashboard() {
   const { data: session } = useSession();
   const [stats, setStats] = useState<any>(null);
-  const [activities, setActivities] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const [statsRes, activityRes] = await Promise.all([
+        const [statsRes] = await Promise.all([
           fetch("/api/agent/stats"),
           fetch("/api/agent/activities")
         ]);
         const statsData = await statsRes.json();
-        const activityData = await activityRes.json();
         setStats(statsData);
-        setActivities(activityData);
       } catch (err) {
         console.error("Dashboard fetch error:", err);
       } finally {
@@ -32,12 +28,6 @@ export default function AgentDashboard() {
     fetchData();
   }, []);
 
-  const statsCards = [
-    { label: "Identity Review", value: stats?.pendingVerifications || 0, icon: Shield, color: "text-amber-400", bg: "bg-amber-500/10", trend: "Pending approval" },
-    { label: "Job Approvals", value: stats?.pendingJobs || 0, icon: Briefcase, color: "text-emerald-400", bg: "bg-emerald-500/10", trend: "New postings" },
-    { label: "Active Jobs", value: stats?.activeAssignments || 0, icon: Zap, color: "text-indigo-400", bg: "bg-indigo-500/10", trend: "Live on platform" },
-    { label: "Users Managed", value: stats?.totalStudents || 0, icon: Users, color: "text-rose-400", bg: "bg-rose-500/10", trend: "Verified students" },
-  ];
 
   if (loading) {
     return (

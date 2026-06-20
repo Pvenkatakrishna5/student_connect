@@ -127,7 +127,7 @@ export default function LoginPage() {
       {/* Left Branding */}
       <div className="hidden lg:flex flex-col justify-between w-[45%] p-16 relative overflow-hidden bg-[#0A0A0F] border-r border-white/[0.04]">
         <div className="absolute top-0 left-0 w-full h-full pointer-events-none opacity-40 z-0">
-          <Image src="/3d-bg.png" alt="3D Background" fill className="object-cover" priority />
+          <Image src="/3d-bg.png" alt="3D Background" fill sizes="50vw" className="object-cover" priority />
         </div>
         <div className="absolute top-0 left-0 w-full h-full pointer-events-none opacity-20 z-0">
           <div className="absolute top-1/4 left-1/4 w-[400px] h-[400px] bg-emerald-600/20 rounded-full blur-[100px]" />

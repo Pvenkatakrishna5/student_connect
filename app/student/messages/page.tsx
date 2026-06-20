@@ -25,9 +25,20 @@ function StudentMessagesContent() {
   useEffect(() => {
     fetchConversations().then((convs) => {
       const userId = searchParams.get("userId");
-      if (userId && convs) {
-        const chat = convs.find((c: any) => c.otherId === userId);
-        if (chat) handleSelectChat(chat);
+      const name = searchParams.get("name");
+      if (userId) {
+        const chat = convs?.find((c: any) => c.otherId === userId);
+        if (chat) {
+          handleSelectChat(chat);
+        } else if (name) {
+          // Create temporary chat for new conversation
+          handleSelectChat({
+            otherId: userId,
+            user: { name, role: "Employer" },
+            lastMessage: "Start a conversation...",
+            isRead: true
+          });
+        }
       }
     });
   }, [searchParams]);
@@ -35,6 +46,7 @@ function StudentMessagesContent() {
   useEffect(() => {
     if (!session?.user?.id) return;
 
+    // Supabase Realtime (if configured)
     const channel = supabase
       .channel('realtime_messages')
       .on('postgres_changes', { 
@@ -44,24 +56,29 @@ function StudentMessagesContent() {
         filter: `receiverId=eq.${session.user.id}`
       }, (payload) => {
         const newMsg = payload.new;
-        
-        // If the message is from our active chat partner, add to messages list
         if (activeChatRef.current && newMsg.senderId === activeChatRef.current.otherId) {
           setMessages(prev => {
             if (prev.find(m => m.id === newMsg.id)) return prev;
             return [...prev, newMsg];
           });
         }
-        
-        // Always refresh conversations to update sidebar snippets
         fetchConversations();
       })
       .subscribe();
 
+    // Fallback polling for local development without Supabase Anon Key
+    const pollInterval = setInterval(() => {
+      if (activeChatRef.current) {
+        fetchMessages(activeChatRef.current.otherId);
+      }
+      fetchConversations();
+    }, 5000);
+
     return () => {
       supabase.removeChannel(channel);
+      clearInterval(pollInterval);
     };
-  }, [session?.user?.id, activeChat]);
+  }, [session?.user?.id]);
 
   useEffect(() => {
     scrollToBottom();

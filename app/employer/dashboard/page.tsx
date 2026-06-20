@@ -33,7 +33,7 @@ export default function EmployerDashboard() {
     setLoading(true);
     try {
       const [jobsRes, appsRes] = await Promise.all([
-        fetch(`/api/jobs?employerId=${session.user.id}`),
+        fetch(`/api/jobs?employerId=${session.user.id}`),  // backend resolves userId → employer.id
         fetch(`/api/applications?employerId=${session.user.id}`),
       ]);
       const jobsData = await jobsRes.json();
@@ -60,7 +60,7 @@ export default function EmployerDashboard() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           ...formData,
-          employerId: session.user.id,
+          employerUserId: session.user.id, // API resolves userId → employer.id
           skillsRequired: formData.skillsRequired.split(",").map(s => s.trim()).filter(s => s),
           payAmount: Number(formData.payAmount),
         }),

@@ -3,8 +3,11 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
 }
+
 
 enum Role {
   student
@@ -42,6 +45,12 @@ enum ComplaintStatus {
   dismissed
 }
 
+enum ApprovalStatus {
+  pending
+  approved
+  rejected
+}
+
 model User {
   id           String   @id @default(cuid())
   email        String   @unique
@@ -74,7 +83,13 @@ model Student {
   year              String   @default("")
   city              String   @default("")
   phone             String   @default("")
+  dob               DateTime?
+  gender            String   @default("")
+  degree            String   @default("")
+  cgpa              Float?   @default(0)
   skills            String[]
+  certifications    Json     @default("[]")
+  projects          Json     @default("[]")
   availability      Json     @default("{}")
   bio               String   @default("")
   profileImage      String   @default("")
@@ -88,6 +103,7 @@ model Student {
   savedJobs         String[]
   aadhaarNumber     String   @default("")
   isAadhaarVerified Boolean  @default(false)
+  profileCompleted  Boolean  @default(false)
   createdAt         DateTime @default(now())
   updatedAt         DateTime @updatedAt
 
@@ -96,22 +112,31 @@ model Student {
 }
 
 model Employer {
-  id                 String   @id @default(cuid())
-  userId             String   @unique
-  user               User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  companyName        String
-  contactName        String
-  phone              String   @default("")
-  city               String   @default("")
-  description        String   @default("")
-  logo               String   @default("")
-  website            String   @default("")
-  isVerifiedBusiness Boolean  @default(false)
-  rating             Float    @default(0)
-  totalRatings       Int      @default(0)
-  totalJobsPosted    Int      @default(0)
-  createdAt          DateTime @default(now())
-  updatedAt          DateTime @updatedAt
+  id                   String         @id @default(cuid())
+  userId               String         @unique
+  user                 User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+  companyName          String
+  contactName          String
+  phone                String         @default("")
+  city                 String         @default("")
+  description          String         @default("")
+  logo                 String         @default("")
+  website              String         @default("")
+  industryType         String         @default("")
+  companyAddress       String         @default("")
+  companySize          String         @default("")
+  hrDesignation        String         @default("")
+  businessRegNo        String         @default("")
+  gstNo                String         @default("")
+  verificationDocUrl   String         @default("")
+  isVerifiedBusiness   Boolean        @default(false)
+  approvalStatus       ApprovalStatus @default(pending)
+  rating               Float          @default(0)
+  totalRatings         Int            @default(0)
+  totalJobsPosted      Int            @default(0)
+  profileCompleted     Boolean        @default(false)
+  createdAt            DateTime       @default(now())
+  updatedAt            DateTime       @updatedAt
 
   jobs         Job[]
   applications Application[]

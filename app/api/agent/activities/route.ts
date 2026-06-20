@@ -10,10 +10,16 @@ export async function GET() {
     }
 
     const activities = await prisma.activity.findMany({
-      where: { userId: session.user.id },
+      where: {
+        type: {
+          in: ["verification_approved", "verification_rejected", "job_approved", "job_rejected", "user_registered", "identity_verified"],
+        },
+      },
+      include: { user: { select: { email: true, role: true } } },
       orderBy: { createdAt: "desc" },
-      take: 10,
+      take: 30,
     });
+
 
     return NextResponse.json(activities);
   } catch (error) {

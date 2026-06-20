@@ -12,8 +12,7 @@ export default function AgentJobsPage() {
   const [search, setSearch] = useState("");
   const [loading, setLoading] = useState(true);
   const [processing, setProcessing] = useState<string | null>(null);
-  const [rejectionModal, setRejectionModal] = useState<{ id: string, title: string } | null>(null);
-  const [reason, setReason] = useState("");
+
 
   useEffect(() => {
     fetch("/api/agent/jobs")
@@ -41,14 +40,11 @@ export default function AgentJobsPage() {
       if (res.ok) {
         toast.success(action === "approve" ? "Job approved and live" : "Job rejected");
         setPending(pending.filter(p => p.id !== jobId));
-        if (action === "reject") {
-          setRejectionModal(null);
-          setReason("");
-        }
+
       } else {
         toast.error("Action failed");
       }
-    } catch (err) {
+    } catch (error) {
       toast.error("Action failed");
     } finally {
       setProcessing(null);
@@ -105,7 +101,10 @@ export default function AgentJobsPage() {
                     <div className="flex gap-6">
                       <div className="w-16 h-16 rounded-2xl bg-amber-500/10 flex items-center justify-center text-amber-400 shrink-0 border border-amber-500/10">
                         {job.employer?.logo ? (
-                          <img src={job.employer.logo} alt="" className="w-full h-full object-cover rounded-2xl" />
+                          <>
+                            {/* eslint-disable-next-line @next/next/no-img-element */}
+                            <img src={job.employer.logo} alt="" className="w-full h-full object-cover rounded-2xl" />
+                          </>
                         ) : (
                           <Briefcase className="w-8 h-8" />
                         )}
