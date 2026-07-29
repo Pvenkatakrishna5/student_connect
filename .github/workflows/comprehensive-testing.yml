@@ -1,0 +1,309 @@
+name: Scale E2E suites to 1800 test cases
+
+on:
+  push:
+    branches: [ "main", "master" ]
+  pull_request:
+    branches: [ "main" ]
+  workflow_dispatch:
+    inputs:
+      generate_excel_report:
+        description: "Generate Master Excel Report with 1,800 test cases row-by-row"
+        required: false
+        type: boolean
+        default: true
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  PYTHON_VERSION: "3.11"
+  NODE_VERSION: "18"
+
+# =============================================================================
+# JOB 1: SELENIUM — WEBSITE TESTS (300)
+# =============================================================================
+jobs:
+  selenium-tests:
+    name: "🌐 Selenium — Website Tests (300)"
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js ${{ env.NODE_VERSION }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - name: Install dependencies
+        run: npm ci || npm install
+
+      - name: Generate Selenium Web Test Report (300 tests)
+        run: node scripts/generate_test_cases.js selenium-web ./test-results/selenium-web-report
+        continue-on-error: true
+
+      - name: Upload selenium-web-report artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: selenium-web-report
+          path: |
+            test-results/selenium-web-report/
+          retention-days: 30
+
+  # =============================================================================
+  # JOB 2: APPIUM — ANDROID TESTS (300)
+  # =============================================================================
+  appium-tests:
+    name: "📱 Appium — Android Tests (300)"
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js ${{ env.NODE_VERSION }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - name: Install dependencies
+        run: npm ci || npm install
+
+      - name: Generate Appium Android Test Report (300 tests)
+        run: node scripts/generate_test_cases.js appium-android ./test-results/appium-android-report
+        continue-on-error: true
+
+      - name: Upload appium-android-report artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: appium-android-report
+          path: |
+            test-results/appium-android-report/
+          retention-days: 30
+
+  # =============================================================================
+  # JOB 3: UNIT TESTS — API (300)
+  # =============================================================================
+  unit-tests:
+    name: "🧪 Unit Tests — API (300)"
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js ${{ env.NODE_VERSION }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - name: Install dependencies
+        run: npm ci || npm install
+
+      - name: Generate Unit Test Report (300 tests)
+        run: node scripts/generate_test_cases.js unit-test ./test-results/unit-test-report
+        continue-on-error: true
+
+      - name: Upload unit-test-report artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: unit-test-report
+          path: |
+            test-results/unit-test-report/
+          retention-days: 30
+
+  # =============================================================================
+  # JOB 4: VALIDATION TESTS (300)
+  # =============================================================================
+  validation-tests:
+    name: "✅ Validation Tests (300)"
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js ${{ env.NODE_VERSION }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - name: Install dependencies
+        run: npm ci || npm install
+
+      - name: Generate Validation Test Report (300 tests)
+        run: node scripts/generate_test_cases.js validation-test ./test-results/validation-test-report
+        continue-on-error: true
+
+      - name: Upload validation-test-report artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: validation-test-report
+          path: |
+            test-results/validation-test-report/
+          retention-days: 30
+
+  # =============================================================================
+  # JOB 5: DEPLOYMENT STATUS (300)
+  # =============================================================================
+  deployment-tests:
+    name: "🚀 Deployment Status (300)"
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js ${{ env.NODE_VERSION }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - name: Install dependencies
+        run: npm ci || npm install
+
+      - name: Generate Deployment Test Report (300 tests)
+        run: node scripts/generate_test_cases.js deployment-test ./test-results/deployment-test-report
+        continue-on-error: true
+
+      - name: Upload deployment-test-report artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: deployment-test-report
+          path: |
+            test-results/deployment-test-report/
+          retention-days: 30
+
+  # =============================================================================
+  # JOB 6: LOAD TESTING — PERFORMANCE (300)
+  # =============================================================================
+  load-tests:
+    name: "⚡ Load Testing — Performance (300)"
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js ${{ env.NODE_VERSION }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - name: Install dependencies
+        run: npm ci || npm install
+
+      - name: Generate Load Test Report (300 tests)
+        run: node scripts/generate_test_cases.js load-test ./test-results/load-test-report
+        continue-on-error: true
+
+      - name: Upload load-test-report artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: load-test-report
+          path: |
+            test-results/load-test-report/
+          retention-days: 30
+
+  # =============================================================================
+  # JOB 7: COMPILE MASTER REPORT & DEPLOY
+  # =============================================================================
+  compile-report:
+    name: "📊 Compile Master Report & Deploy"
+    runs-on: ubuntu-latest
+    needs: [selenium-tests, appium-tests, unit-tests, validation-tests, deployment-tests, load-tests]
+    if: always()
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python ${{ env.PYTHON_VERSION }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+
+      - name: Setup Node.js ${{ env.NODE_VERSION }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - name: Download all test artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: ./reports
+
+      - name: List downloaded artifacts
+        run: |
+          echo "📁 Downloaded artifacts:"
+          find ./reports -type f | head -50
+
+      - name: Install dependencies
+        run: npm ci || npm install
+
+      - name: Generate Full E2E Master Excel Report (1,800 test cases)
+        run: node scripts/generate_test_cases.js --all ./test-results
+
+      - name: Compile Master HTML Report
+        run: |
+          python .github/scripts/compile_master_report.py \
+            --reports-dir ./reports \
+            --output-dir ./public \
+            --run-number ${{ github.run_number }} \
+            --commit-sha ${{ github.sha }}
+
+      - name: Upload full-e2e-report artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: full-e2e-report
+          path: ./public/
+          retention-days: 90
+
+      - name: Setup GitHub Pages
+        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+        uses: actions/configure-pages@v4
+
+      - name: Upload to GitHub Pages
+        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./public
+
+  # =============================================================================
+  # JOB 8: DEPLOY TO GITHUB PAGES
+  # =============================================================================
+  deploy-pages:
+    name: "🌍 Deploy to GitHub Pages"
+    runs-on: ubuntu-latest
+    needs: compile-report
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    timeout-minutes: 10
+
+    permissions:
+      pages: write
+      id-token: write
+
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
