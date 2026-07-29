@@ -1,0 +1,59 @@
+name: Selenium Login E2E Test
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  selenium-login-test:
+    name: "🌐 Selenium Login E2E Test"
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Install Chrome
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y chromium-browser chromium-chromedriver
+
+      - name: Install dependencies
+        run: npm ci || npm install
+
+      - name: Start Next.js dev server
+        run: |
+          npm run dev &
+          sleep 10
+          curl -f http://localhost:3000 || echo "Server starting..."
+          sleep 5
+        env:
+          NODE_ENV: development
+        continue-on-error: true
+
+      - name: Run Selenium Login Tests
+        run: npx mocha selenium-tests/tests/login.test.js --timeout 60000 --exit
+        env:
+          BASE_URL: "http://localhost:3000"
+        continue-on-error: true
+
+      - name: Generate Test Report
+        if: always()
+        run: node scripts/generate_test_cases.js selenium-web ./test-results/selenium-login-report
+
+      - name: Upload Selenium Report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: selenium-login-report
+          path: test-results/selenium-login-report/
+          retention-days: 30

@@ -1,0 +1,1097 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Connect — Master Test Report</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root {
+            --bg-primary: #0d1117;
+            --bg-secondary: #161b22;
+            --bg-card: #1c2128;
+            --border: #30363d;
+            --text-primary: #e6edf3;
+            --text-secondary: #8b949e;
+            --accent-blue: #58a6ff;
+            --accent-green: #3fb950;
+            --accent-red: #f85149;
+            --accent-orange: #d29922;
+            --accent-purple: #bc8cff;
+            --accent-teal: #39c5bb;
+            --card-hover-shadow: rgba(0, 0, 0, 0.4);
+            --tbl-hover: #21262d;
+        }
+
+        [data-theme="light"] {
+            --bg-primary: #f6f8fa;
+            --bg-secondary: #ffffff;
+            --bg-card: #ffffff;
+            --border: #d0d7de;
+            --text-primary: #1f2328;
+            --text-secondary: #656d76;
+            --accent-blue: #0969da;
+            --accent-green: #1a7f37;
+            --accent-red: #cf222e;
+            --accent-orange: #9a6700;
+            --accent-purple: #8250df;
+            --accent-teal: #117a75;
+            --card-hover-shadow: rgba(140, 149, 159, 0.2);
+            --tbl-hover: #f3f4f6;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            transition: background 0.3s ease, color 0.3s ease;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #161b22 0%, #0d1117 100%);
+            border-bottom: 1px solid var(--border);
+            padding: 2rem 3rem;
+            position: relative;
+        }
+
+        [data-theme="light"] .header {
+            background: linear-gradient(135deg, #ffffff 0%, #f6f8fa 100%);
+        }
+
+        .header-top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1.5rem;
+        }
+
+        .header-title h1 {
+            font-size: 1.85rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .header-title .subtitle {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-top: 0.25rem;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .theme-toggle-btn {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            color: var(--text-primary);
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.85rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.2s ease;
+        }
+
+        .theme-toggle-btn:hover {
+            border-color: var(--accent-blue);
+            transform: translateY(-1px);
+        }
+
+        .overall-badge {
+            padding: 0.5rem 1.5rem;
+            border-radius: 2rem;
+            font-weight: 800;
+            font-size: 0.9rem;
+            letter-spacing: 0.05em;
+            color: white;
+            background: #8b949e;
+            box-shadow: 0 0 20px #8b949e40;
+        }
+
+        .meta-info {
+            display: flex;
+            gap: 1.5rem;
+            margin-top: 0.5rem;
+            font-size: 0.825rem;
+            color: var(--text-secondary);
+        }
+
+        .meta-info code {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            padding: 0.15rem 0.5rem;
+            border-radius: 0.25rem;
+            font-size: 0.775rem;
+            color: var(--accent-blue);
+        }
+
+        .summary-bar {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 1rem;
+        }
+
+        .summary-stat {
+            background: var(--bg-card);
+            border-radius: 0.75rem;
+            padding: 1.25rem;
+            border: 1px solid var(--border);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            transition: transform 0.2s ease;
+        }
+
+        .summary-stat:hover {
+            transform: translateY(-2px);
+        }
+
+        .summary-stat .value {
+            font-size: 1.85rem;
+            font-weight: 800;
+        }
+
+        .summary-stat .label {
+            font-size: 0.725rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            margin-top: 0.25rem;
+            font-weight: 600;
+        }
+
+        .main {
+            max-width: 1300px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+        }
+
+        .charts-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            margin-bottom: 2.5rem;
+        }
+
+        @media (max-width: 900px) {
+            .charts-section {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .chart-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 1rem;
+            padding: 1.5rem;
+            box-shadow: 0 4px 20px var(--card-hover-shadow);
+        }
+
+        .chart-card h3 {
+            font-size: 1.05rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+
+        .chart-container {
+            position: relative;
+            height: 260px;
+            width: 100%;
+        }
+
+        .controls-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .section-title {
+            font-size: 1.35rem;
+            font-weight: 700;
+        }
+
+        .filter-controls {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .search-input {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            color: var(--text-primary);
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            font-size: 0.85rem;
+            outline: none;
+            width: 220px;
+            transition: border-color 0.2s ease;
+        }
+
+        .search-input:focus {
+            border-color: var(--accent-blue);
+        }
+
+        .filter-btn {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            color: var(--text-secondary);
+            padding: 0.45rem 0.9rem;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            font-size: 0.8rem;
+            font-weight: 600;
+            transition: all 0.2s ease;
+        }
+
+        .filter-btn.active, .filter-btn:hover {
+            background: var(--accent-blue);
+            color: white;
+            border-color: var(--accent-blue);
+        }
+
+        .suite-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+            gap: 1.25rem;
+            margin-bottom: 3rem;
+        }
+
+        .suite-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 1rem;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .suite-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 30px var(--card-hover-shadow);
+            border-color: var(--accent-blue);
+        }
+
+        .suite-header {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1.25rem;
+        }
+
+        .suite-icon {
+            font-size: 1.6rem;
+            width: 2.75rem;
+            height: 2.75rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--bg-primary);
+            border: 1px solid var(--border);
+            border-radius: 0.6rem;
+        }
+
+        .suite-title h3 {
+            font-size: 1rem;
+            font-weight: 700;
+        }
+
+        .run-number {
+            font-size: 0.725rem;
+            color: var(--text-secondary);
+        }
+
+        .badge {
+            margin-left: auto;
+            padding: 0.25rem 0.75rem;
+            border-radius: 1rem;
+            font-size: 0.7rem;
+            font-weight: 800;
+            letter-spacing: 0.05em;
+        }
+
+        .badge-pass {
+            background: rgba(63, 185, 80, 0.15);
+            color: var(--accent-green);
+            border: 1px solid rgba(63, 185, 80, 0.3);
+        }
+
+        .badge-fail {
+            background: rgba(248, 81, 73, 0.15);
+            color: var(--accent-red);
+            border: 1px solid rgba(248, 81, 73, 0.3);
+        }
+
+        .badge-skip {
+            background: rgba(139, 148, 158, 0.15);
+            color: var(--text-secondary);
+            border: 1px solid rgba(139, 148, 158, 0.3);
+        }
+
+        .suite-stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .stat { text-align: center; }
+
+        .stat-value {
+            font-size: 1.35rem;
+            font-weight: 800;
+            display: block;
+        }
+
+        .stat-label {
+            font-size: 0.675rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            font-weight: 600;
+        }
+
+        .progress-bar {
+            height: 6px;
+            background: var(--bg-primary);
+            border-radius: 3px;
+            overflow: hidden;
+            margin-bottom: 1rem;
+            border: 1px solid var(--border);
+        }
+
+        .progress-fill {
+            height: 100%;
+            border-radius: 3px;
+            transition: width 1s ease;
+        }
+
+        .suite-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 0.5rem;
+            padding-top: 0.75rem;
+            border-top: 1px solid var(--border);
+        }
+
+        .duration {
+            font-size: 0.775rem;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        .report-btn {
+            color: var(--accent-blue);
+            text-decoration: none;
+            font-size: 0.8rem;
+            font-weight: 600;
+            padding: 0.3rem 0.6rem;
+            border-radius: 0.4rem;
+            background: rgba(88, 166, 255, 0.1);
+            transition: all 0.2s ease;
+        }
+
+        .report-btn:hover {
+            background: var(--accent-blue);
+            color: white;
+        }
+
+        .no-report {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            font-style: italic;
+        }
+
+        .table-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 1rem;
+            padding: 1.5rem;
+            box-shadow: 0 4px 20px var(--card-hover-shadow);
+            margin-bottom: 3rem;
+            overflow-x: auto;
+        }
+
+        .table-card h3 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 1.25rem;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.875rem;
+            text-align: left;
+        }
+
+        th {
+            background: var(--bg-secondary);
+            color: var(--text-secondary);
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            padding: 0.85rem 1rem;
+            border-bottom: 1px solid var(--border);
+            font-weight: 700;
+        }
+
+        td {
+            padding: 1rem;
+            border-bottom: 1px solid var(--border);
+            color: var(--text-primary);
+        }
+
+        tr:hover td {
+            background: var(--tbl-hover);
+        }
+
+        .suite-name-cell {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+
+        .tbl-icon { font-size: 1.2rem; }
+
+        .tbl-badge {
+            padding: 0.2rem 0.55rem;
+            border-radius: 0.4rem;
+            font-size: 0.7rem;
+            font-weight: 800;
+        }
+
+        .tbl-badge-passed { background: rgba(63, 185, 80, 0.15); color: var(--accent-green); }
+        .tbl-badge-failed { background: rgba(248, 81, 73, 0.15); color: var(--accent-red); }
+        .tbl-badge-no_data { background: rgba(139, 148, 158, 0.15); color: var(--text-secondary); }
+
+        .table-progress-wrap {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            width: 140px;
+        }
+
+        .table-progress-bar {
+            flex: 1;
+            height: 6px;
+            background: var(--bg-primary);
+            border-radius: 3px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+        }
+
+        .table-progress-fill {
+            height: 100%;
+            border-radius: 3px;
+        }
+
+        .table-progress-text {
+            font-size: 0.75rem;
+            font-weight: 700;
+            width: 35px;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 2.5rem 2rem;
+            border-top: 1px solid var(--border);
+            color: var(--text-secondary);
+            font-size: 0.825rem;
+            background: var(--bg-secondary);
+        }
+
+        .footer a {
+            color: var(--accent-blue);
+            text-decoration: none;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="header-top">
+            <div class="header-title">
+                <div>
+                    <h1>🎓 Student Connect — Executive Master Test Report</h1>
+                    <div class="subtitle">Student-Employer-Agent Platform — Automated CI/CD Test Suite</div>
+                    <div class="meta-info">
+                        <span>📅 2026-07-29 05:57:15 UTC</span>
+                        <span>🔖 Commit: <code>unknown</code></span>
+                        <span>🏃 CI Run #300</span>
+                    </div>
+                </div>
+            </div>
+            <div class="header-actions">
+                <button class="theme-toggle-btn" onclick="toggleTheme()">
+                    <span id="theme-icon">🌙</span> <span id="theme-text">Dark Mode</span>
+                </button>
+                <div class="overall-badge">NO DATA</div>
+            </div>
+        </div>
+        <div class="summary-bar">
+            <div class="summary-stat">
+                <div class="value" style="color: var(--accent-green);">0</div>
+                <div class="label">Total Passed</div>
+            </div>
+            <div class="summary-stat">
+                <div class="value" style="color: var(--accent-red);">0</div>
+                <div class="label">Total Failed</div>
+            </div>
+            <div class="summary-stat">
+                <div class="value" style="color: var(--accent-orange);">0</div>
+                <div class="label">Total Skipped</div>
+            </div>
+            <div class="summary-stat">
+                <div class="value" style="color: var(--accent-blue);">0</div>
+                <div class="label">Total Executed</div>
+            </div>
+            <div class="summary-stat">
+                <div class="value" style="color: var(--accent-purple);">0.0%</div>
+                <div class="label">Pass Rate</div>
+            </div>
+            <div class="summary-stat">
+                <div class="value" style="color: var(--accent-teal);">6</div>
+                <div class="label">Test Suites</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="main">
+        <div class="charts-section">
+            <div class="chart-card">
+                <h3>📊 Overall Outcome Breakdown</h3>
+                <div class="chart-container">
+                    <canvas id="donutChart"></canvas>
+                </div>
+            </div>
+            <div class="chart-card">
+                <h3>⏱ Test Suite Execution Durations (Sec)</h3>
+                <div class="chart-container">
+                    <canvas id="suiteBarChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <div class="controls-bar">
+            <h2 class="section-title">🧪 Test Suite Cards</h2>
+            <div class="filter-controls">
+                <input type="text" id="searchInput" class="search-input" placeholder="🔍 Search test suites..." oninput="filterSuites()">
+                <button class="filter-btn active" onclick="setFilter('all', this)">All</button>
+                <button class="filter-btn" onclick="setFilter('passed', this)">Passed</button>
+                <button class="filter-btn" onclick="setFilter('failed', this)">Failed</button>
+            </div>
+        </div>
+
+        <div class="suite-grid" id="suiteGrid">
+            
+        <div class="suite-card" data-status="unknown" data-name="unit tests — api">
+            <div class="suite-header">
+                <div class="suite-icon">🧪</div>
+                <div class="suite-title">
+                    <h3>Unit Tests — API</h3>
+                    <span class="run-number">Run #300</span>
+                </div>
+                <span class="badge badge-skip">UNKNOWN</span>
+            </div>
+            <div class="suite-stats">
+                <div class="stat">
+                    <span class="stat-value" style="color: var(--accent-green);">0</span>
+                    <span class="stat-label">Passed</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-value" style="color: var(--accent-red);">0</span>
+                    <span class="stat-label">Failed</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-value" style="color: var(--accent-orange);">0</span>
+                    <span class="stat-label">Skipped</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-value">0</span>
+                    <span class="stat-label">Total</span>
+                </div>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill" style="width: 0%; background: #3fb950;"></div>
+            </div>
+            <div class="suite-footer">
+                <span class="duration">⏱ Duration: N/A</span>
+                <span class="no-report">No HTML report</span>
+            </div>
+        </div>
+        
+        <div class="suite-card" data-status="unknown" data-name="validation tests">
+            <div class="suite-header">
+                <div class="suite-icon">✅</div>
+                <div class="suite-title">
+                    <h3>Validation Tests</h3>
+                    <span class="run-number">Run #300</span>
+                </div>
+                <span class="badge badge-skip">UNKNOWN</span>
+            </div>
+            <div class="suite-stats">
+                <div class="stat">
+                    <span class="stat-value" style="color: var(--accent-green);">0</span>
+                    <span class="stat-label">Passed</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-value" style="color: var(--accent-red);">0</span>
+                    <span class="stat-label">Failed</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-value" style="color: var(--accent-orange);">0</span>
+                    <span class="stat-label">Skipped</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-value">0</span>
+                    <span class="stat-label">Total</span>
+                </div>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill" style="width: 0%; background: #58a6ff;"></div>
+            </div>
+            <div class="suite-footer">
+                <span class="duration">⏱ Duration: N/A</span>
+                <span class="no-report">No HTML report</span>
+            </div>
+        </div>
+        
+        <div class="suite-card" data-status="unknown" data-name="selenium — website tests">
+            <div class="suite-header">
+                <div class="suite-icon">🌐</div>
+                <div class="suite-title">
+                    <h3>Selenium — Website Tests</h3>
+                    <span class="run-number">Run #300</span>
+                </div>
+                <span class="badge badge-skip">UNKNOWN</span>
+            </div>
+            <div class="suite-stats">
+                <div class="stat">
+                    <span class="stat-value" style="color: var(--accent-green);">0</span>
+                    <span class="stat-label">Passed</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-value" style="color: var(--accent-red);">0</span>
+                    <span class="stat-label">Failed</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-value" style="color: var(--accent-orange);">0</span>
+                    <span class="stat-label">Skipped</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-value">0</span>
+                    <span class="stat-label">Total</span>
+                </div>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill" style="width: 0%; background: #bc8cff;"></div>
+            </div>
+            <div class="suite-footer">
+                <span class="duration">⏱ Duration: N/A</span>
+                <span class="no-report">No HTML report</span>
+            </div>
+        </div>
+        
+        <div class="suite-card" data-status="unknown" data-name="appium — android tests">
+            <div class="suite-header">
+                <div class="suite-icon">📱</div>
+                <div class="suite-title">
+                    <h3>Appium — Android Tests</h3>
+                    <span class="run-number">Run #300</span>
+                </div>
+                <span class="badge badge-skip">UNKNOWN</span>
+            </div>
+            <div class="suite-stats">
+                <div class="stat">
+                    <span class="stat-value" style="color: var(--accent-green);">0</span>
+                    <span class="stat-label">Passed</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-value" style="color: var(--accent-red);">0</span>
+                    <span class="stat-label">Failed</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-value" style="color: var(--accent-orange);">0</span>
+                    <span class="stat-label">Skipped</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-value">0</span>
+                    <span class="stat-label">Total</span>
+                </div>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill" style="width: 0%; background: #d29922;"></div>
+            </div>
+            <div class="suite-footer">
+                <span class="duration">⏱ Duration: N/A</span>
+                <span class="no-report">No HTML report</span>
+            </div>
+        </div>
+        
+        <div class="suite-card" data-status="unknown" data-name="load testing — performance">
+            <div class="suite-header">
+                <div class="suite-icon">⚡</div>
+                <div class="suite-title">
+                    <h3>Load Testing — Performance</h3>
+                    <span class="run-number">Run #300</span>
+                </div>
+                <span class="badge badge-skip">UNKNOWN</span>
+            </div>
+            <div class="suite-stats">
+                <div class="stat">
+                    <span class="stat-value" style="color: var(--accent-green);">0</span>
+                    <span class="stat-label">Passed</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-value" style="color: var(--accent-red);">0</span>
+                    <span class="stat-label">Failed</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-value" style="color: var(--accent-orange);">0</span>
+                    <span class="stat-label">Skipped</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-value">0</span>
+                    <span class="stat-label">Total</span>
+                </div>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill" style="width: 0%; background: #f85149;"></div>
+            </div>
+            <div class="suite-footer">
+                <span class="duration">⏱ Duration: N/A</span>
+                <span class="no-report">No HTML report</span>
+            </div>
+        </div>
+        
+        <div class="suite-card" data-status="unknown" data-name="deployment status">
+            <div class="suite-header">
+                <div class="suite-icon">🚀</div>
+                <div class="suite-title">
+                    <h3>Deployment Status</h3>
+                    <span class="run-number">Run #300</span>
+                </div>
+                <span class="badge badge-skip">UNKNOWN</span>
+            </div>
+            <div class="suite-stats">
+                <div class="stat">
+                    <span class="stat-value" style="color: var(--accent-green);">0</span>
+                    <span class="stat-label">Passed</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-value" style="color: var(--accent-red);">0</span>
+                    <span class="stat-label">Failed</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-value" style="color: var(--accent-orange);">0</span>
+                    <span class="stat-label">Skipped</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-value">0</span>
+                    <span class="stat-label">Total</span>
+                </div>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill" style="width: 0%; background: #39c5bb;"></div>
+            </div>
+            <div class="suite-footer">
+                <span class="duration">⏱ Duration: N/A</span>
+                <span class="no-report">No HTML report</span>
+            </div>
+        </div>
+        
+        </div>
+
+        <div class="table-card">
+            <h3>📋 Comprehensive Test Suite Matrix</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Suite Name</th>
+                        <th>Status</th>
+                        <th>Passed</th>
+                        <th>Failed</th>
+                        <th>Skipped</th>
+                        <th>Total</th>
+                        <th>Pass Rate</th>
+                        <th>Duration</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody id="tableBody">
+                    
+        <tr data-status="unknown" data-name="unit tests — api">
+            <td class="suite-name-cell">
+                <span class="tbl-icon">🧪</span>
+                <strong>Unit Tests — API</strong>
+            </td>
+            <td><span class="tbl-badge tbl-badge-unknown">UNKNOWN</span></td>
+            <td><strong style="color: var(--accent-green);">0</strong></td>
+            <td><strong style="color: var(--accent-red);">0</strong></td>
+            <td>0</td>
+            <td><strong>0</strong></td>
+            <td>
+                <div class="table-progress-wrap">
+                    <div class="table-progress-bar">
+                        <div class="table-progress-fill" style="width: 0%; background: #3fb950;"></div>
+                    </div>
+                    <span class="table-progress-text">0%</span>
+                </div>
+            </td>
+            <td>⏱ N/A</td>
+            <td><span class="no-report">No HTML report</span></td>
+        </tr>
+        
+        <tr data-status="unknown" data-name="validation tests">
+            <td class="suite-name-cell">
+                <span class="tbl-icon">✅</span>
+                <strong>Validation Tests</strong>
+            </td>
+            <td><span class="tbl-badge tbl-badge-unknown">UNKNOWN</span></td>
+            <td><strong style="color: var(--accent-green);">0</strong></td>
+            <td><strong style="color: var(--accent-red);">0</strong></td>
+            <td>0</td>
+            <td><strong>0</strong></td>
+            <td>
+                <div class="table-progress-wrap">
+                    <div class="table-progress-bar">
+                        <div class="table-progress-fill" style="width: 0%; background: #58a6ff;"></div>
+                    </div>
+                    <span class="table-progress-text">0%</span>
+                </div>
+            </td>
+            <td>⏱ N/A</td>
+            <td><span class="no-report">No HTML report</span></td>
+        </tr>
+        
+        <tr data-status="unknown" data-name="selenium — website tests">
+            <td class="suite-name-cell">
+                <span class="tbl-icon">🌐</span>
+                <strong>Selenium — Website Tests</strong>
+            </td>
+            <td><span class="tbl-badge tbl-badge-unknown">UNKNOWN</span></td>
+            <td><strong style="color: var(--accent-green);">0</strong></td>
+            <td><strong style="color: var(--accent-red);">0</strong></td>
+            <td>0</td>
+            <td><strong>0</strong></td>
+            <td>
+                <div class="table-progress-wrap">
+                    <div class="table-progress-bar">
+                        <div class="table-progress-fill" style="width: 0%; background: #bc8cff;"></div>
+                    </div>
+                    <span class="table-progress-text">0%</span>
+                </div>
+            </td>
+            <td>⏱ N/A</td>
+            <td><span class="no-report">No HTML report</span></td>
+        </tr>
+        
+        <tr data-status="unknown" data-name="appium — android tests">
+            <td class="suite-name-cell">
+                <span class="tbl-icon">📱</span>
+                <strong>Appium — Android Tests</strong>
+            </td>
+            <td><span class="tbl-badge tbl-badge-unknown">UNKNOWN</span></td>
+            <td><strong style="color: var(--accent-green);">0</strong></td>
+            <td><strong style="color: var(--accent-red);">0</strong></td>
+            <td>0</td>
+            <td><strong>0</strong></td>
+            <td>
+                <div class="table-progress-wrap">
+                    <div class="table-progress-bar">
+                        <div class="table-progress-fill" style="width: 0%; background: #d29922;"></div>
+                    </div>
+                    <span class="table-progress-text">0%</span>
+                </div>
+            </td>
+            <td>⏱ N/A</td>
+            <td><span class="no-report">No HTML report</span></td>
+        </tr>
+        
+        <tr data-status="unknown" data-name="load testing — performance">
+            <td class="suite-name-cell">
+                <span class="tbl-icon">⚡</span>
+                <strong>Load Testing — Performance</strong>
+            </td>
+            <td><span class="tbl-badge tbl-badge-unknown">UNKNOWN</span></td>
+            <td><strong style="color: var(--accent-green);">0</strong></td>
+            <td><strong style="color: var(--accent-red);">0</strong></td>
+            <td>0</td>
+            <td><strong>0</strong></td>
+            <td>
+                <div class="table-progress-wrap">
+                    <div class="table-progress-bar">
+                        <div class="table-progress-fill" style="width: 0%; background: #f85149;"></div>
+                    </div>
+                    <span class="table-progress-text">0%</span>
+                </div>
+            </td>
+            <td>⏱ N/A</td>
+            <td><span class="no-report">No HTML report</span></td>
+        </tr>
+        
+        <tr data-status="unknown" data-name="deployment status">
+            <td class="suite-name-cell">
+                <span class="tbl-icon">🚀</span>
+                <strong>Deployment Status</strong>
+            </td>
+            <td><span class="tbl-badge tbl-badge-unknown">UNKNOWN</span></td>
+            <td><strong style="color: var(--accent-green);">0</strong></td>
+            <td><strong style="color: var(--accent-red);">0</strong></td>
+            <td>0</td>
+            <td><strong>0</strong></td>
+            <td>
+                <div class="table-progress-wrap">
+                    <div class="table-progress-bar">
+                        <div class="table-progress-fill" style="width: 0%; background: #39c5bb;"></div>
+                    </div>
+                    <span class="table-progress-text">0%</span>
+                </div>
+            </td>
+            <td>⏱ N/A</td>
+            <td><span class="no-report">No HTML report</span></td>
+        </tr>
+        
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="footer">
+        <p>Generated by <strong>Student Connect Master CI/CD Pipeline</strong> — 
+        <a href="https://github.com/Pvenkatakrishna5/student_connect">View Repository</a></p>
+        <p style="margin-top: 0.5rem; opacity: 0.8;">Powered by GitHub Actions • Next.js • Selenium • Appium • ExcelJS</p>
+    </div>
+
+    <script>
+        function toggleTheme() {
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            document.documentElement.setAttribute('data-theme', newTheme);
+            document.getElementById('theme-icon').textContent = newTheme === 'dark' ? '🌙' : '☀️';
+            document.getElementById('theme-text').textContent = newTheme === 'dark' ? 'Dark Mode' : 'Light Mode';
+            localStorage.setItem('theme', newTheme);
+        }
+
+        (function() {
+            const savedTheme = localStorage.getItem('theme') || 'dark';
+            document.documentElement.setAttribute('data-theme', savedTheme);
+            document.addEventListener('DOMContentLoaded', () => {
+                document.getElementById('theme-icon').textContent = savedTheme === 'dark' ? '🌙' : '☀️';
+                document.getElementById('theme-text').textContent = savedTheme === 'dark' ? 'Dark Mode' : 'Light Mode';
+            });
+        })();
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const ctxDonut = document.getElementById('donutChart').getContext('2d');
+            new Chart(ctxDonut, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Passed', 'Failed', 'Skipped'],
+                    datasets: [{
+                        data: [0, 0, 0],
+                        backgroundColor: ['#3fb950', '#f85149', '#d29922'],
+                        borderWidth: 0,
+                        hoverOffset: 6
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: { color: '#8b949e', font: { family: 'Inter', size: 12 } }
+                        }
+                    },
+                    cutout: '70%'
+                }
+            });
+
+            const ctxBar = document.getElementById('suiteBarChart').getContext('2d');
+            new Chart(ctxBar, {
+                type: 'bar',
+                data: {
+                    labels: ["Unit Tests \u2014 API", "Validation Tests", "Selenium \u2014 Website Tests", "Appium \u2014 Android Tests", "Load Testing \u2014 Performance", "Deployment Status"],
+                    datasets: [{
+                        label: 'Duration (sec)',
+                        data: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+                        backgroundColor: '#58a6ff',
+                        borderRadius: 6
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false }
+                    },
+                    scales: {
+                        x: {
+                            ticks: { color: '#8b949e', font: { size: 10 } },
+                            grid: { display: false }
+                        },
+                        y: {
+                            ticks: { color: '#8b949e' },
+                            grid: { color: 'rgba(255, 255, 255, 0.05)' }
+                        }
+                    }
+                }
+            });
+
+            document.querySelectorAll('.progress-fill, .table-progress-fill').forEach(bar => {
+                const width = bar.style.width;
+                bar.style.width = '0%';
+                setTimeout(() => { bar.style.width = width; }, 200);
+            });
+        });
+
+        let activeStatus = 'all';
+
+        function setFilter(status, btn) {
+            activeStatus = status;
+            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            filterSuites();
+        }
+
+        function filterSuites() {
+            const query = document.getElementById('searchInput').value.toLowerCase();
+            
+            document.querySelectorAll('.suite-card').forEach(card => {
+                const status = card.getAttribute('data-status');
+                const name = card.getAttribute('data-name');
+                const matchesStatus = (activeStatus === 'all' || status === activeStatus);
+                const matchesQuery = name.includes(query);
+                card.style.display = (matchesStatus && matchesQuery) ? 'flex' : 'none';
+            });
+
+            document.querySelectorAll('#tableBody tr').forEach(row => {
+                const status = row.getAttribute('data-status');
+                const name = row.getAttribute('data-name');
+                const matchesStatus = (activeStatus === 'all' || status === activeStatus);
+                const matchesQuery = name.includes(query);
+                row.style.display = (matchesStatus && matchesQuery) ? '' : 'none';
+            });
+        }
+    </script>
+</body>
+</html>

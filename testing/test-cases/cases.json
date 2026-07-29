@@ -1,0 +1,2802 @@
+[
+  {
+    "id": "TC-001",
+    "category": "UI/UX",
+    "feature": "Login",
+    "description": "Verify Positive flow for Login (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-002",
+    "category": "UI/UX",
+    "feature": "Login",
+    "description": "Verify Negative flow for Login (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-003",
+    "category": "UI/UX",
+    "feature": "Login",
+    "description": "Verify Boundary flow for Login (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-004",
+    "category": "UI/UX",
+    "feature": "Login",
+    "description": "Verify Integration flow for Login (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-005",
+    "category": "UI/UX",
+    "feature": "Login",
+    "description": "Validate Positive flow for Login (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-006",
+    "category": "UI/UX",
+    "feature": "Login",
+    "description": "Validate Negative flow for Login (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-007",
+    "category": "UI/UX",
+    "feature": "Login",
+    "description": "Validate Boundary flow for Login (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-008",
+    "category": "UI/UX",
+    "feature": "Login",
+    "description": "Validate Integration flow for Login (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-009",
+    "category": "UI/UX",
+    "feature": "Login",
+    "description": "Test Positive flow for Login (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-010",
+    "category": "UI/UX",
+    "feature": "Login",
+    "description": "Test Negative flow for Login (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-011",
+    "category": "UI/UX",
+    "feature": "Login",
+    "description": "Test Boundary flow for Login (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-012",
+    "category": "UI/UX",
+    "feature": "Login",
+    "description": "Test Integration flow for Login (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-013",
+    "category": "UI/UX",
+    "feature": "Login",
+    "description": "Check Positive flow for Login (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-014",
+    "category": "UI/UX",
+    "feature": "Login",
+    "description": "Check Negative flow for Login (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-015",
+    "category": "UI/UX",
+    "feature": "Login",
+    "description": "Check Boundary flow for Login (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-016",
+    "category": "UI/UX",
+    "feature": "Login",
+    "description": "Check Integration flow for Login (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-017",
+    "category": "UI/UX",
+    "feature": "Login",
+    "description": "Assert Positive flow for Login (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-018",
+    "category": "UI/UX",
+    "feature": "Login",
+    "description": "Assert Negative flow for Login (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-019",
+    "category": "UI/UX",
+    "feature": "Login",
+    "description": "Assert Boundary flow for Login (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-020",
+    "category": "UI/UX",
+    "feature": "Login",
+    "description": "Assert Integration flow for Login (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-021",
+    "category": "UI/UX",
+    "feature": "Login",
+    "description": "Simulate Positive flow for Login (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-022",
+    "category": "UI/UX",
+    "feature": "Login",
+    "description": "Simulate Negative flow for Login (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-023",
+    "category": "UI/UX",
+    "feature": "Login",
+    "description": "Simulate Boundary flow for Login (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-024",
+    "category": "UI/UX",
+    "feature": "Login",
+    "description": "Simulate Integration flow for Login (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-025",
+    "category": "UI/UX",
+    "feature": "Signup",
+    "description": "Verify Positive flow for Signup (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-026",
+    "category": "UI/UX",
+    "feature": "Signup",
+    "description": "Verify Negative flow for Signup (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-027",
+    "category": "UI/UX",
+    "feature": "Signup",
+    "description": "Verify Boundary flow for Signup (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-028",
+    "category": "UI/UX",
+    "feature": "Signup",
+    "description": "Verify Integration flow for Signup (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-029",
+    "category": "UI/UX",
+    "feature": "Signup",
+    "description": "Validate Positive flow for Signup (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-030",
+    "category": "UI/UX",
+    "feature": "Signup",
+    "description": "Validate Negative flow for Signup (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-031",
+    "category": "UI/UX",
+    "feature": "Signup",
+    "description": "Validate Boundary flow for Signup (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-032",
+    "category": "UI/UX",
+    "feature": "Signup",
+    "description": "Validate Integration flow for Signup (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-033",
+    "category": "UI/UX",
+    "feature": "Signup",
+    "description": "Test Positive flow for Signup (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-034",
+    "category": "UI/UX",
+    "feature": "Signup",
+    "description": "Test Negative flow for Signup (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-035",
+    "category": "UI/UX",
+    "feature": "Signup",
+    "description": "Test Boundary flow for Signup (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-036",
+    "category": "UI/UX",
+    "feature": "Signup",
+    "description": "Test Integration flow for Signup (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-037",
+    "category": "UI/UX",
+    "feature": "Signup",
+    "description": "Check Positive flow for Signup (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-038",
+    "category": "UI/UX",
+    "feature": "Signup",
+    "description": "Check Negative flow for Signup (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-039",
+    "category": "UI/UX",
+    "feature": "Signup",
+    "description": "Check Boundary flow for Signup (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-040",
+    "category": "UI/UX",
+    "feature": "Signup",
+    "description": "Check Integration flow for Signup (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-041",
+    "category": "UI/UX",
+    "feature": "Signup",
+    "description": "Assert Positive flow for Signup (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-042",
+    "category": "UI/UX",
+    "feature": "Signup",
+    "description": "Assert Negative flow for Signup (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-043",
+    "category": "UI/UX",
+    "feature": "Signup",
+    "description": "Assert Boundary flow for Signup (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-044",
+    "category": "UI/UX",
+    "feature": "Signup",
+    "description": "Assert Integration flow for Signup (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-045",
+    "category": "UI/UX",
+    "feature": "Signup",
+    "description": "Simulate Positive flow for Signup (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-046",
+    "category": "UI/UX",
+    "feature": "Signup",
+    "description": "Simulate Negative flow for Signup (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-047",
+    "category": "UI/UX",
+    "feature": "Signup",
+    "description": "Simulate Boundary flow for Signup (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-048",
+    "category": "UI/UX",
+    "feature": "Signup",
+    "description": "Simulate Integration flow for Signup (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-049",
+    "category": "UI/UX",
+    "feature": "Profile",
+    "description": "Verify Positive flow for Profile (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-050",
+    "category": "UI/UX",
+    "feature": "Profile",
+    "description": "Verify Negative flow for Profile (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-051",
+    "category": "UI/UX",
+    "feature": "Profile",
+    "description": "Verify Boundary flow for Profile (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-052",
+    "category": "UI/UX",
+    "feature": "Profile",
+    "description": "Verify Integration flow for Profile (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-053",
+    "category": "UI/UX",
+    "feature": "Profile",
+    "description": "Validate Positive flow for Profile (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-054",
+    "category": "UI/UX",
+    "feature": "Profile",
+    "description": "Validate Negative flow for Profile (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-055",
+    "category": "UI/UX",
+    "feature": "Profile",
+    "description": "Validate Boundary flow for Profile (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-056",
+    "category": "UI/UX",
+    "feature": "Profile",
+    "description": "Validate Integration flow for Profile (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-057",
+    "category": "UI/UX",
+    "feature": "Profile",
+    "description": "Test Positive flow for Profile (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-058",
+    "category": "UI/UX",
+    "feature": "Profile",
+    "description": "Test Negative flow for Profile (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-059",
+    "category": "UI/UX",
+    "feature": "Profile",
+    "description": "Test Boundary flow for Profile (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-060",
+    "category": "UI/UX",
+    "feature": "Profile",
+    "description": "Test Integration flow for Profile (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-061",
+    "category": "UI/UX",
+    "feature": "Profile",
+    "description": "Check Positive flow for Profile (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-062",
+    "category": "UI/UX",
+    "feature": "Profile",
+    "description": "Check Negative flow for Profile (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-063",
+    "category": "UI/UX",
+    "feature": "Profile",
+    "description": "Check Boundary flow for Profile (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-064",
+    "category": "UI/UX",
+    "feature": "Profile",
+    "description": "Check Integration flow for Profile (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-065",
+    "category": "UI/UX",
+    "feature": "Profile",
+    "description": "Assert Positive flow for Profile (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-066",
+    "category": "UI/UX",
+    "feature": "Profile",
+    "description": "Assert Negative flow for Profile (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-067",
+    "category": "UI/UX",
+    "feature": "Profile",
+    "description": "Assert Boundary flow for Profile (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-068",
+    "category": "UI/UX",
+    "feature": "Profile",
+    "description": "Assert Integration flow for Profile (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-069",
+    "category": "UI/UX",
+    "feature": "Profile",
+    "description": "Simulate Positive flow for Profile (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-070",
+    "category": "UI/UX",
+    "feature": "Profile",
+    "description": "Simulate Negative flow for Profile (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-071",
+    "category": "UI/UX",
+    "feature": "Profile",
+    "description": "Simulate Boundary flow for Profile (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-072",
+    "category": "UI/UX",
+    "feature": "Profile",
+    "description": "Simulate Integration flow for Profile (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-073",
+    "category": "UI/UX",
+    "feature": "Dashboard",
+    "description": "Verify Positive flow for Dashboard (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-074",
+    "category": "UI/UX",
+    "feature": "Dashboard",
+    "description": "Verify Negative flow for Dashboard (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-075",
+    "category": "UI/UX",
+    "feature": "Dashboard",
+    "description": "Verify Boundary flow for Dashboard (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-076",
+    "category": "UI/UX",
+    "feature": "Dashboard",
+    "description": "Verify Integration flow for Dashboard (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-077",
+    "category": "UI/UX",
+    "feature": "Dashboard",
+    "description": "Validate Positive flow for Dashboard (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-078",
+    "category": "UI/UX",
+    "feature": "Dashboard",
+    "description": "Validate Negative flow for Dashboard (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-079",
+    "category": "UI/UX",
+    "feature": "Dashboard",
+    "description": "Validate Boundary flow for Dashboard (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-080",
+    "category": "UI/UX",
+    "feature": "Dashboard",
+    "description": "Validate Integration flow for Dashboard (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-081",
+    "category": "UI/UX",
+    "feature": "Dashboard",
+    "description": "Test Positive flow for Dashboard (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-082",
+    "category": "UI/UX",
+    "feature": "Dashboard",
+    "description": "Test Negative flow for Dashboard (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-083",
+    "category": "UI/UX",
+    "feature": "Dashboard",
+    "description": "Test Boundary flow for Dashboard (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-084",
+    "category": "UI/UX",
+    "feature": "Dashboard",
+    "description": "Test Integration flow for Dashboard (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-085",
+    "category": "UI/UX",
+    "feature": "Dashboard",
+    "description": "Check Positive flow for Dashboard (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-086",
+    "category": "UI/UX",
+    "feature": "Dashboard",
+    "description": "Check Negative flow for Dashboard (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-087",
+    "category": "UI/UX",
+    "feature": "Dashboard",
+    "description": "Check Boundary flow for Dashboard (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-088",
+    "category": "UI/UX",
+    "feature": "Dashboard",
+    "description": "Check Integration flow for Dashboard (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-089",
+    "category": "UI/UX",
+    "feature": "Dashboard",
+    "description": "Assert Positive flow for Dashboard (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-090",
+    "category": "UI/UX",
+    "feature": "Dashboard",
+    "description": "Assert Negative flow for Dashboard (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-091",
+    "category": "UI/UX",
+    "feature": "Dashboard",
+    "description": "Assert Boundary flow for Dashboard (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-092",
+    "category": "UI/UX",
+    "feature": "Dashboard",
+    "description": "Assert Integration flow for Dashboard (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-093",
+    "category": "UI/UX",
+    "feature": "Dashboard",
+    "description": "Simulate Positive flow for Dashboard (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-094",
+    "category": "UI/UX",
+    "feature": "Dashboard",
+    "description": "Simulate Negative flow for Dashboard (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-095",
+    "category": "UI/UX",
+    "feature": "Dashboard",
+    "description": "Simulate Boundary flow for Dashboard (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-096",
+    "category": "UI/UX",
+    "feature": "Dashboard",
+    "description": "Simulate Integration flow for Dashboard (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-097",
+    "category": "UI/UX",
+    "feature": "Settings",
+    "description": "Verify Positive flow for Settings (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-098",
+    "category": "UI/UX",
+    "feature": "Settings",
+    "description": "Verify Negative flow for Settings (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-099",
+    "category": "UI/UX",
+    "feature": "Settings",
+    "description": "Verify Boundary flow for Settings (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-100",
+    "category": "UI/UX",
+    "feature": "Settings",
+    "description": "Verify Integration flow for Settings (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-101",
+    "category": "UI/UX",
+    "feature": "Settings",
+    "description": "Validate Positive flow for Settings (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-102",
+    "category": "UI/UX",
+    "feature": "Settings",
+    "description": "Validate Negative flow for Settings (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-103",
+    "category": "UI/UX",
+    "feature": "Settings",
+    "description": "Validate Boundary flow for Settings (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-104",
+    "category": "UI/UX",
+    "feature": "Settings",
+    "description": "Validate Integration flow for Settings (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-105",
+    "category": "UI/UX",
+    "feature": "Settings",
+    "description": "Test Positive flow for Settings (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-106",
+    "category": "UI/UX",
+    "feature": "Settings",
+    "description": "Test Negative flow for Settings (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-107",
+    "category": "UI/UX",
+    "feature": "Settings",
+    "description": "Test Boundary flow for Settings (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-108",
+    "category": "UI/UX",
+    "feature": "Settings",
+    "description": "Test Integration flow for Settings (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-109",
+    "category": "UI/UX",
+    "feature": "Settings",
+    "description": "Check Positive flow for Settings (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-110",
+    "category": "UI/UX",
+    "feature": "Settings",
+    "description": "Check Negative flow for Settings (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-111",
+    "category": "UI/UX",
+    "feature": "Settings",
+    "description": "Check Boundary flow for Settings (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-112",
+    "category": "UI/UX",
+    "feature": "Settings",
+    "description": "Check Integration flow for Settings (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-113",
+    "category": "UI/UX",
+    "feature": "Settings",
+    "description": "Assert Positive flow for Settings (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-114",
+    "category": "UI/UX",
+    "feature": "Settings",
+    "description": "Assert Negative flow for Settings (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-115",
+    "category": "UI/UX",
+    "feature": "Settings",
+    "description": "Assert Boundary flow for Settings (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-116",
+    "category": "UI/UX",
+    "feature": "Settings",
+    "description": "Assert Integration flow for Settings (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-117",
+    "category": "UI/UX",
+    "feature": "Settings",
+    "description": "Simulate Positive flow for Settings (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-118",
+    "category": "UI/UX",
+    "feature": "Settings",
+    "description": "Simulate Negative flow for Settings (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-119",
+    "category": "UI/UX",
+    "feature": "Settings",
+    "description": "Simulate Boundary flow for Settings (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-120",
+    "category": "UI/UX",
+    "feature": "Settings",
+    "description": "Simulate Integration flow for Settings (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-121",
+    "category": "UI/UX",
+    "feature": "Payment",
+    "description": "Verify Positive flow for Payment (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-122",
+    "category": "UI/UX",
+    "feature": "Payment",
+    "description": "Verify Negative flow for Payment (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-123",
+    "category": "UI/UX",
+    "feature": "Payment",
+    "description": "Verify Boundary flow for Payment (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-124",
+    "category": "UI/UX",
+    "feature": "Payment",
+    "description": "Verify Integration flow for Payment (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-125",
+    "category": "UI/UX",
+    "feature": "Payment",
+    "description": "Validate Positive flow for Payment (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-126",
+    "category": "UI/UX",
+    "feature": "Payment",
+    "description": "Validate Negative flow for Payment (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-127",
+    "category": "UI/UX",
+    "feature": "Payment",
+    "description": "Validate Boundary flow for Payment (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-128",
+    "category": "UI/UX",
+    "feature": "Payment",
+    "description": "Validate Integration flow for Payment (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-129",
+    "category": "UI/UX",
+    "feature": "Payment",
+    "description": "Test Positive flow for Payment (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-130",
+    "category": "UI/UX",
+    "feature": "Payment",
+    "description": "Test Negative flow for Payment (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-131",
+    "category": "UI/UX",
+    "feature": "Payment",
+    "description": "Test Boundary flow for Payment (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-132",
+    "category": "UI/UX",
+    "feature": "Payment",
+    "description": "Test Integration flow for Payment (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-133",
+    "category": "UI/UX",
+    "feature": "Payment",
+    "description": "Check Positive flow for Payment (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-134",
+    "category": "UI/UX",
+    "feature": "Payment",
+    "description": "Check Negative flow for Payment (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-135",
+    "category": "UI/UX",
+    "feature": "Payment",
+    "description": "Check Boundary flow for Payment (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-136",
+    "category": "UI/UX",
+    "feature": "Payment",
+    "description": "Check Integration flow for Payment (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-137",
+    "category": "UI/UX",
+    "feature": "Payment",
+    "description": "Assert Positive flow for Payment (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-138",
+    "category": "UI/UX",
+    "feature": "Payment",
+    "description": "Assert Negative flow for Payment (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-139",
+    "category": "UI/UX",
+    "feature": "Payment",
+    "description": "Assert Boundary flow for Payment (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-140",
+    "category": "UI/UX",
+    "feature": "Payment",
+    "description": "Assert Integration flow for Payment (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-141",
+    "category": "UI/UX",
+    "feature": "Payment",
+    "description": "Simulate Positive flow for Payment (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-142",
+    "category": "UI/UX",
+    "feature": "Payment",
+    "description": "Simulate Negative flow for Payment (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-143",
+    "category": "UI/UX",
+    "feature": "Payment",
+    "description": "Simulate Boundary flow for Payment (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-144",
+    "category": "UI/UX",
+    "feature": "Payment",
+    "description": "Simulate Integration flow for Payment (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-145",
+    "category": "UI/UX",
+    "feature": "Messaging",
+    "description": "Verify Positive flow for Messaging (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-146",
+    "category": "UI/UX",
+    "feature": "Messaging",
+    "description": "Verify Negative flow for Messaging (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-147",
+    "category": "UI/UX",
+    "feature": "Messaging",
+    "description": "Verify Boundary flow for Messaging (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-148",
+    "category": "UI/UX",
+    "feature": "Messaging",
+    "description": "Verify Integration flow for Messaging (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-149",
+    "category": "UI/UX",
+    "feature": "Messaging",
+    "description": "Validate Positive flow for Messaging (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-150",
+    "category": "UI/UX",
+    "feature": "Messaging",
+    "description": "Validate Negative flow for Messaging (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-151",
+    "category": "UI/UX",
+    "feature": "Messaging",
+    "description": "Validate Boundary flow for Messaging (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-152",
+    "category": "UI/UX",
+    "feature": "Messaging",
+    "description": "Validate Integration flow for Messaging (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-153",
+    "category": "UI/UX",
+    "feature": "Messaging",
+    "description": "Test Positive flow for Messaging (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-154",
+    "category": "UI/UX",
+    "feature": "Messaging",
+    "description": "Test Negative flow for Messaging (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-155",
+    "category": "UI/UX",
+    "feature": "Messaging",
+    "description": "Test Boundary flow for Messaging (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-156",
+    "category": "UI/UX",
+    "feature": "Messaging",
+    "description": "Test Integration flow for Messaging (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-157",
+    "category": "UI/UX",
+    "feature": "Messaging",
+    "description": "Check Positive flow for Messaging (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-158",
+    "category": "UI/UX",
+    "feature": "Messaging",
+    "description": "Check Negative flow for Messaging (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-159",
+    "category": "UI/UX",
+    "feature": "Messaging",
+    "description": "Check Boundary flow for Messaging (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-160",
+    "category": "UI/UX",
+    "feature": "Messaging",
+    "description": "Check Integration flow for Messaging (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-161",
+    "category": "UI/UX",
+    "feature": "Messaging",
+    "description": "Assert Positive flow for Messaging (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-162",
+    "category": "UI/UX",
+    "feature": "Messaging",
+    "description": "Assert Negative flow for Messaging (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-163",
+    "category": "UI/UX",
+    "feature": "Messaging",
+    "description": "Assert Boundary flow for Messaging (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-164",
+    "category": "UI/UX",
+    "feature": "Messaging",
+    "description": "Assert Integration flow for Messaging (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-165",
+    "category": "UI/UX",
+    "feature": "Messaging",
+    "description": "Simulate Positive flow for Messaging (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-166",
+    "category": "UI/UX",
+    "feature": "Messaging",
+    "description": "Simulate Negative flow for Messaging (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-167",
+    "category": "UI/UX",
+    "feature": "Messaging",
+    "description": "Simulate Boundary flow for Messaging (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-168",
+    "category": "UI/UX",
+    "feature": "Messaging",
+    "description": "Simulate Integration flow for Messaging (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-169",
+    "category": "UI/UX",
+    "feature": "Search",
+    "description": "Verify Positive flow for Search (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-170",
+    "category": "UI/UX",
+    "feature": "Search",
+    "description": "Verify Negative flow for Search (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-171",
+    "category": "UI/UX",
+    "feature": "Search",
+    "description": "Verify Boundary flow for Search (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-172",
+    "category": "UI/UX",
+    "feature": "Search",
+    "description": "Verify Integration flow for Search (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-173",
+    "category": "UI/UX",
+    "feature": "Search",
+    "description": "Validate Positive flow for Search (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-174",
+    "category": "UI/UX",
+    "feature": "Search",
+    "description": "Validate Negative flow for Search (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-175",
+    "category": "UI/UX",
+    "feature": "Search",
+    "description": "Validate Boundary flow for Search (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-176",
+    "category": "UI/UX",
+    "feature": "Search",
+    "description": "Validate Integration flow for Search (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-177",
+    "category": "UI/UX",
+    "feature": "Search",
+    "description": "Test Positive flow for Search (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-178",
+    "category": "UI/UX",
+    "feature": "Search",
+    "description": "Test Negative flow for Search (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-179",
+    "category": "UI/UX",
+    "feature": "Search",
+    "description": "Test Boundary flow for Search (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-180",
+    "category": "UI/UX",
+    "feature": "Search",
+    "description": "Test Integration flow for Search (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-181",
+    "category": "UI/UX",
+    "feature": "Search",
+    "description": "Check Positive flow for Search (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-182",
+    "category": "UI/UX",
+    "feature": "Search",
+    "description": "Check Negative flow for Search (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-183",
+    "category": "UI/UX",
+    "feature": "Search",
+    "description": "Check Boundary flow for Search (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-184",
+    "category": "UI/UX",
+    "feature": "Search",
+    "description": "Check Integration flow for Search (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-185",
+    "category": "UI/UX",
+    "feature": "Search",
+    "description": "Assert Positive flow for Search (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-186",
+    "category": "UI/UX",
+    "feature": "Search",
+    "description": "Assert Negative flow for Search (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-187",
+    "category": "UI/UX",
+    "feature": "Search",
+    "description": "Assert Boundary flow for Search (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-188",
+    "category": "UI/UX",
+    "feature": "Search",
+    "description": "Assert Integration flow for Search (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-189",
+    "category": "UI/UX",
+    "feature": "Search",
+    "description": "Simulate Positive flow for Search (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-190",
+    "category": "UI/UX",
+    "feature": "Search",
+    "description": "Simulate Negative flow for Search (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-191",
+    "category": "UI/UX",
+    "feature": "Search",
+    "description": "Simulate Boundary flow for Search (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-192",
+    "category": "UI/UX",
+    "feature": "Search",
+    "description": "Simulate Integration flow for Search (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-193",
+    "category": "UI/UX",
+    "feature": "Notifications",
+    "description": "Verify Positive flow for Notifications (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-194",
+    "category": "UI/UX",
+    "feature": "Notifications",
+    "description": "Verify Negative flow for Notifications (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-195",
+    "category": "UI/UX",
+    "feature": "Notifications",
+    "description": "Verify Boundary flow for Notifications (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-196",
+    "category": "UI/UX",
+    "feature": "Notifications",
+    "description": "Verify Integration flow for Notifications (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-197",
+    "category": "UI/UX",
+    "feature": "Notifications",
+    "description": "Validate Positive flow for Notifications (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-198",
+    "category": "UI/UX",
+    "feature": "Notifications",
+    "description": "Validate Negative flow for Notifications (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-199",
+    "category": "UI/UX",
+    "feature": "Notifications",
+    "description": "Validate Boundary flow for Notifications (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-200",
+    "category": "UI/UX",
+    "feature": "Notifications",
+    "description": "Validate Integration flow for Notifications (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-201",
+    "category": "UI/UX",
+    "feature": "Notifications",
+    "description": "Test Positive flow for Notifications (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-202",
+    "category": "UI/UX",
+    "feature": "Notifications",
+    "description": "Test Negative flow for Notifications (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-203",
+    "category": "UI/UX",
+    "feature": "Notifications",
+    "description": "Test Boundary flow for Notifications (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-204",
+    "category": "UI/UX",
+    "feature": "Notifications",
+    "description": "Test Integration flow for Notifications (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-205",
+    "category": "UI/UX",
+    "feature": "Notifications",
+    "description": "Check Positive flow for Notifications (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-206",
+    "category": "UI/UX",
+    "feature": "Notifications",
+    "description": "Check Negative flow for Notifications (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-207",
+    "category": "UI/UX",
+    "feature": "Notifications",
+    "description": "Check Boundary flow for Notifications (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-208",
+    "category": "UI/UX",
+    "feature": "Notifications",
+    "description": "Check Integration flow for Notifications (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-209",
+    "category": "UI/UX",
+    "feature": "Notifications",
+    "description": "Assert Positive flow for Notifications (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-210",
+    "category": "UI/UX",
+    "feature": "Notifications",
+    "description": "Assert Negative flow for Notifications (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-211",
+    "category": "UI/UX",
+    "feature": "Notifications",
+    "description": "Assert Boundary flow for Notifications (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-212",
+    "category": "UI/UX",
+    "feature": "Notifications",
+    "description": "Assert Integration flow for Notifications (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-213",
+    "category": "UI/UX",
+    "feature": "Notifications",
+    "description": "Simulate Positive flow for Notifications (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-214",
+    "category": "UI/UX",
+    "feature": "Notifications",
+    "description": "Simulate Negative flow for Notifications (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-215",
+    "category": "UI/UX",
+    "feature": "Notifications",
+    "description": "Simulate Boundary flow for Notifications (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-216",
+    "category": "UI/UX",
+    "feature": "Notifications",
+    "description": "Simulate Integration flow for Notifications (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-217",
+    "category": "UI/UX",
+    "feature": "AdminPanel",
+    "description": "Verify Positive flow for AdminPanel (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-218",
+    "category": "UI/UX",
+    "feature": "AdminPanel",
+    "description": "Verify Negative flow for AdminPanel (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-219",
+    "category": "UI/UX",
+    "feature": "AdminPanel",
+    "description": "Verify Boundary flow for AdminPanel (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-220",
+    "category": "UI/UX",
+    "feature": "AdminPanel",
+    "description": "Verify Integration flow for AdminPanel (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-221",
+    "category": "UI/UX",
+    "feature": "AdminPanel",
+    "description": "Validate Positive flow for AdminPanel (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-222",
+    "category": "UI/UX",
+    "feature": "AdminPanel",
+    "description": "Validate Negative flow for AdminPanel (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-223",
+    "category": "UI/UX",
+    "feature": "AdminPanel",
+    "description": "Validate Boundary flow for AdminPanel (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-224",
+    "category": "UI/UX",
+    "feature": "AdminPanel",
+    "description": "Validate Integration flow for AdminPanel (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-225",
+    "category": "UI/UX",
+    "feature": "AdminPanel",
+    "description": "Test Positive flow for AdminPanel (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-226",
+    "category": "UI/UX",
+    "feature": "AdminPanel",
+    "description": "Test Negative flow for AdminPanel (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-227",
+    "category": "UI/UX",
+    "feature": "AdminPanel",
+    "description": "Test Boundary flow for AdminPanel (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-228",
+    "category": "UI/UX",
+    "feature": "AdminPanel",
+    "description": "Test Integration flow for AdminPanel (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-229",
+    "category": "UI/UX",
+    "feature": "AdminPanel",
+    "description": "Check Positive flow for AdminPanel (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-230",
+    "category": "UI/UX",
+    "feature": "AdminPanel",
+    "description": "Check Negative flow for AdminPanel (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-231",
+    "category": "UI/UX",
+    "feature": "AdminPanel",
+    "description": "Check Boundary flow for AdminPanel (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-232",
+    "category": "UI/UX",
+    "feature": "AdminPanel",
+    "description": "Check Integration flow for AdminPanel (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-233",
+    "category": "UI/UX",
+    "feature": "AdminPanel",
+    "description": "Assert Positive flow for AdminPanel (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-234",
+    "category": "UI/UX",
+    "feature": "AdminPanel",
+    "description": "Assert Negative flow for AdminPanel (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-235",
+    "category": "UI/UX",
+    "feature": "AdminPanel",
+    "description": "Assert Boundary flow for AdminPanel (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-236",
+    "category": "UI/UX",
+    "feature": "AdminPanel",
+    "description": "Assert Integration flow for AdminPanel (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-237",
+    "category": "UI/UX",
+    "feature": "AdminPanel",
+    "description": "Simulate Positive flow for AdminPanel (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-238",
+    "category": "UI/UX",
+    "feature": "AdminPanel",
+    "description": "Simulate Negative flow for AdminPanel (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-239",
+    "category": "UI/UX",
+    "feature": "AdminPanel",
+    "description": "Simulate Boundary flow for AdminPanel (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-240",
+    "category": "UI/UX",
+    "feature": "AdminPanel",
+    "description": "Simulate Integration flow for AdminPanel (UI/UX)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-241",
+    "category": "Functional",
+    "feature": "Login",
+    "description": "Verify Positive flow for Login (Functional)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-242",
+    "category": "Functional",
+    "feature": "Login",
+    "description": "Verify Negative flow for Login (Functional)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-243",
+    "category": "Functional",
+    "feature": "Login",
+    "description": "Verify Boundary flow for Login (Functional)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-244",
+    "category": "Functional",
+    "feature": "Login",
+    "description": "Verify Integration flow for Login (Functional)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-245",
+    "category": "Functional",
+    "feature": "Login",
+    "description": "Validate Positive flow for Login (Functional)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-246",
+    "category": "Functional",
+    "feature": "Login",
+    "description": "Validate Negative flow for Login (Functional)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-247",
+    "category": "Functional",
+    "feature": "Login",
+    "description": "Validate Boundary flow for Login (Functional)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-248",
+    "category": "Functional",
+    "feature": "Login",
+    "description": "Validate Integration flow for Login (Functional)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-249",
+    "category": "Functional",
+    "feature": "Login",
+    "description": "Test Positive flow for Login (Functional)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-250",
+    "category": "Functional",
+    "feature": "Login",
+    "description": "Test Negative flow for Login (Functional)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-251",
+    "category": "Functional",
+    "feature": "Login",
+    "description": "Test Boundary flow for Login (Functional)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-252",
+    "category": "Functional",
+    "feature": "Login",
+    "description": "Test Integration flow for Login (Functional)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-253",
+    "category": "Functional",
+    "feature": "Login",
+    "description": "Check Positive flow for Login (Functional)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-254",
+    "category": "Functional",
+    "feature": "Login",
+    "description": "Check Negative flow for Login (Functional)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-255",
+    "category": "Functional",
+    "feature": "Login",
+    "description": "Check Boundary flow for Login (Functional)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-256",
+    "category": "Functional",
+    "feature": "Login",
+    "description": "Check Integration flow for Login (Functional)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-257",
+    "category": "Functional",
+    "feature": "Login",
+    "description": "Assert Positive flow for Login (Functional)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-258",
+    "category": "Functional",
+    "feature": "Login",
+    "description": "Assert Negative flow for Login (Functional)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-259",
+    "category": "Functional",
+    "feature": "Login",
+    "description": "Assert Boundary flow for Login (Functional)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-260",
+    "category": "Functional",
+    "feature": "Login",
+    "description": "Assert Integration flow for Login (Functional)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-261",
+    "category": "Functional",
+    "feature": "Login",
+    "description": "Simulate Positive flow for Login (Functional)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-262",
+    "category": "Functional",
+    "feature": "Login",
+    "description": "Simulate Negative flow for Login (Functional)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-263",
+    "category": "Functional",
+    "feature": "Login",
+    "description": "Simulate Boundary flow for Login (Functional)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-264",
+    "category": "Functional",
+    "feature": "Login",
+    "description": "Simulate Integration flow for Login (Functional)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-265",
+    "category": "Functional",
+    "feature": "Signup",
+    "description": "Verify Positive flow for Signup (Functional)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-266",
+    "category": "Functional",
+    "feature": "Signup",
+    "description": "Verify Negative flow for Signup (Functional)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-267",
+    "category": "Functional",
+    "feature": "Signup",
+    "description": "Verify Boundary flow for Signup (Functional)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-268",
+    "category": "Functional",
+    "feature": "Signup",
+    "description": "Verify Integration flow for Signup (Functional)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-269",
+    "category": "Functional",
+    "feature": "Signup",
+    "description": "Validate Positive flow for Signup (Functional)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-270",
+    "category": "Functional",
+    "feature": "Signup",
+    "description": "Validate Negative flow for Signup (Functional)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-271",
+    "category": "Functional",
+    "feature": "Signup",
+    "description": "Validate Boundary flow for Signup (Functional)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-272",
+    "category": "Functional",
+    "feature": "Signup",
+    "description": "Validate Integration flow for Signup (Functional)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-273",
+    "category": "Functional",
+    "feature": "Signup",
+    "description": "Test Positive flow for Signup (Functional)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-274",
+    "category": "Functional",
+    "feature": "Signup",
+    "description": "Test Negative flow for Signup (Functional)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-275",
+    "category": "Functional",
+    "feature": "Signup",
+    "description": "Test Boundary flow for Signup (Functional)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-276",
+    "category": "Functional",
+    "feature": "Signup",
+    "description": "Test Integration flow for Signup (Functional)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-277",
+    "category": "Functional",
+    "feature": "Signup",
+    "description": "Check Positive flow for Signup (Functional)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-278",
+    "category": "Functional",
+    "feature": "Signup",
+    "description": "Check Negative flow for Signup (Functional)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-279",
+    "category": "Functional",
+    "feature": "Signup",
+    "description": "Check Boundary flow for Signup (Functional)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-280",
+    "category": "Functional",
+    "feature": "Signup",
+    "description": "Check Integration flow for Signup (Functional)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-281",
+    "category": "Functional",
+    "feature": "Signup",
+    "description": "Assert Positive flow for Signup (Functional)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-282",
+    "category": "Functional",
+    "feature": "Signup",
+    "description": "Assert Negative flow for Signup (Functional)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-283",
+    "category": "Functional",
+    "feature": "Signup",
+    "description": "Assert Boundary flow for Signup (Functional)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-284",
+    "category": "Functional",
+    "feature": "Signup",
+    "description": "Assert Integration flow for Signup (Functional)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-285",
+    "category": "Functional",
+    "feature": "Signup",
+    "description": "Simulate Positive flow for Signup (Functional)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-286",
+    "category": "Functional",
+    "feature": "Signup",
+    "description": "Simulate Negative flow for Signup (Functional)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-287",
+    "category": "Functional",
+    "feature": "Signup",
+    "description": "Simulate Boundary flow for Signup (Functional)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-288",
+    "category": "Functional",
+    "feature": "Signup",
+    "description": "Simulate Integration flow for Signup (Functional)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-289",
+    "category": "Functional",
+    "feature": "Profile",
+    "description": "Verify Positive flow for Profile (Functional)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-290",
+    "category": "Functional",
+    "feature": "Profile",
+    "description": "Verify Negative flow for Profile (Functional)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-291",
+    "category": "Functional",
+    "feature": "Profile",
+    "description": "Verify Boundary flow for Profile (Functional)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-292",
+    "category": "Functional",
+    "feature": "Profile",
+    "description": "Verify Integration flow for Profile (Functional)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-293",
+    "category": "Functional",
+    "feature": "Profile",
+    "description": "Validate Positive flow for Profile (Functional)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-294",
+    "category": "Functional",
+    "feature": "Profile",
+    "description": "Validate Negative flow for Profile (Functional)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-295",
+    "category": "Functional",
+    "feature": "Profile",
+    "description": "Validate Boundary flow for Profile (Functional)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-296",
+    "category": "Functional",
+    "feature": "Profile",
+    "description": "Validate Integration flow for Profile (Functional)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-297",
+    "category": "Functional",
+    "feature": "Profile",
+    "description": "Test Positive flow for Profile (Functional)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-298",
+    "category": "Functional",
+    "feature": "Profile",
+    "description": "Test Negative flow for Profile (Functional)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-299",
+    "category": "Functional",
+    "feature": "Profile",
+    "description": "Test Boundary flow for Profile (Functional)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-300",
+    "category": "Functional",
+    "feature": "Profile",
+    "description": "Test Integration flow for Profile (Functional)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-301",
+    "category": "Functional",
+    "feature": "Profile",
+    "description": "Check Positive flow for Profile (Functional)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-302",
+    "category": "Functional",
+    "feature": "Profile",
+    "description": "Check Negative flow for Profile (Functional)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-303",
+    "category": "Functional",
+    "feature": "Profile",
+    "description": "Check Boundary flow for Profile (Functional)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-304",
+    "category": "Functional",
+    "feature": "Profile",
+    "description": "Check Integration flow for Profile (Functional)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-305",
+    "category": "Functional",
+    "feature": "Profile",
+    "description": "Assert Positive flow for Profile (Functional)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-306",
+    "category": "Functional",
+    "feature": "Profile",
+    "description": "Assert Negative flow for Profile (Functional)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-307",
+    "category": "Functional",
+    "feature": "Profile",
+    "description": "Assert Boundary flow for Profile (Functional)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-308",
+    "category": "Functional",
+    "feature": "Profile",
+    "description": "Assert Integration flow for Profile (Functional)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-309",
+    "category": "Functional",
+    "feature": "Profile",
+    "description": "Simulate Positive flow for Profile (Functional)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-310",
+    "category": "Functional",
+    "feature": "Profile",
+    "description": "Simulate Negative flow for Profile (Functional)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-311",
+    "category": "Functional",
+    "feature": "Profile",
+    "description": "Simulate Boundary flow for Profile (Functional)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-312",
+    "category": "Functional",
+    "feature": "Profile",
+    "description": "Simulate Integration flow for Profile (Functional)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-313",
+    "category": "Functional",
+    "feature": "Dashboard",
+    "description": "Verify Positive flow for Dashboard (Functional)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-314",
+    "category": "Functional",
+    "feature": "Dashboard",
+    "description": "Verify Negative flow for Dashboard (Functional)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-315",
+    "category": "Functional",
+    "feature": "Dashboard",
+    "description": "Verify Boundary flow for Dashboard (Functional)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-316",
+    "category": "Functional",
+    "feature": "Dashboard",
+    "description": "Verify Integration flow for Dashboard (Functional)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-317",
+    "category": "Functional",
+    "feature": "Dashboard",
+    "description": "Validate Positive flow for Dashboard (Functional)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-318",
+    "category": "Functional",
+    "feature": "Dashboard",
+    "description": "Validate Negative flow for Dashboard (Functional)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-319",
+    "category": "Functional",
+    "feature": "Dashboard",
+    "description": "Validate Boundary flow for Dashboard (Functional)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-320",
+    "category": "Functional",
+    "feature": "Dashboard",
+    "description": "Validate Integration flow for Dashboard (Functional)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-321",
+    "category": "Functional",
+    "feature": "Dashboard",
+    "description": "Test Positive flow for Dashboard (Functional)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-322",
+    "category": "Functional",
+    "feature": "Dashboard",
+    "description": "Test Negative flow for Dashboard (Functional)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-323",
+    "category": "Functional",
+    "feature": "Dashboard",
+    "description": "Test Boundary flow for Dashboard (Functional)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-324",
+    "category": "Functional",
+    "feature": "Dashboard",
+    "description": "Test Integration flow for Dashboard (Functional)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-325",
+    "category": "Functional",
+    "feature": "Dashboard",
+    "description": "Check Positive flow for Dashboard (Functional)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-326",
+    "category": "Functional",
+    "feature": "Dashboard",
+    "description": "Check Negative flow for Dashboard (Functional)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-327",
+    "category": "Functional",
+    "feature": "Dashboard",
+    "description": "Check Boundary flow for Dashboard (Functional)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-328",
+    "category": "Functional",
+    "feature": "Dashboard",
+    "description": "Check Integration flow for Dashboard (Functional)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-329",
+    "category": "Functional",
+    "feature": "Dashboard",
+    "description": "Assert Positive flow for Dashboard (Functional)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-330",
+    "category": "Functional",
+    "feature": "Dashboard",
+    "description": "Assert Negative flow for Dashboard (Functional)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-331",
+    "category": "Functional",
+    "feature": "Dashboard",
+    "description": "Assert Boundary flow for Dashboard (Functional)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-332",
+    "category": "Functional",
+    "feature": "Dashboard",
+    "description": "Assert Integration flow for Dashboard (Functional)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-333",
+    "category": "Functional",
+    "feature": "Dashboard",
+    "description": "Simulate Positive flow for Dashboard (Functional)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-334",
+    "category": "Functional",
+    "feature": "Dashboard",
+    "description": "Simulate Negative flow for Dashboard (Functional)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-335",
+    "category": "Functional",
+    "feature": "Dashboard",
+    "description": "Simulate Boundary flow for Dashboard (Functional)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-336",
+    "category": "Functional",
+    "feature": "Dashboard",
+    "description": "Simulate Integration flow for Dashboard (Functional)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-337",
+    "category": "Functional",
+    "feature": "Settings",
+    "description": "Verify Positive flow for Settings (Functional)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-338",
+    "category": "Functional",
+    "feature": "Settings",
+    "description": "Verify Negative flow for Settings (Functional)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-339",
+    "category": "Functional",
+    "feature": "Settings",
+    "description": "Verify Boundary flow for Settings (Functional)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-340",
+    "category": "Functional",
+    "feature": "Settings",
+    "description": "Verify Integration flow for Settings (Functional)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-341",
+    "category": "Functional",
+    "feature": "Settings",
+    "description": "Validate Positive flow for Settings (Functional)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-342",
+    "category": "Functional",
+    "feature": "Settings",
+    "description": "Validate Negative flow for Settings (Functional)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-343",
+    "category": "Functional",
+    "feature": "Settings",
+    "description": "Validate Boundary flow for Settings (Functional)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-344",
+    "category": "Functional",
+    "feature": "Settings",
+    "description": "Validate Integration flow for Settings (Functional)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-345",
+    "category": "Functional",
+    "feature": "Settings",
+    "description": "Test Positive flow for Settings (Functional)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-346",
+    "category": "Functional",
+    "feature": "Settings",
+    "description": "Test Negative flow for Settings (Functional)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-347",
+    "category": "Functional",
+    "feature": "Settings",
+    "description": "Test Boundary flow for Settings (Functional)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-348",
+    "category": "Functional",
+    "feature": "Settings",
+    "description": "Test Integration flow for Settings (Functional)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-349",
+    "category": "Functional",
+    "feature": "Settings",
+    "description": "Check Positive flow for Settings (Functional)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  },
+  {
+    "id": "TC-350",
+    "category": "Functional",
+    "feature": "Settings",
+    "description": "Check Negative flow for Settings (Functional)",
+    "status": "Pending",
+    "executionTimeMs": 0
+  }
+]

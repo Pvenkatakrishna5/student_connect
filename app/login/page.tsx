@@ -75,7 +75,7 @@ function LoginForm() {
       </div>
 
       {error && (
-        <div className="p-4 rounded-2xl bg-rose-500/10 border border-rose-500/20 text-rose-500 text-sm font-bold text-center flex items-center justify-center gap-2">
+        <div id="login-error" className="p-4 rounded-2xl bg-rose-500/10 border border-rose-500/20 text-rose-500 text-sm font-bold text-center flex items-center justify-center gap-2">
           <ShieldCheck className="w-4 h-4" /> {error}
         </div>
       )}
@@ -85,6 +85,7 @@ function LoginForm() {
         <div className="space-y-2">
           <label className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-500 px-1">Email Address</label>
           <input 
+            id="email"
             type="email" 
             required
             value={email}
@@ -96,6 +97,7 @@ function LoginForm() {
         <div className="space-y-2">
           <label className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-500 px-1">Password</label>
           <input 
+            id="password"
             type="password" 
             required
             value={password}
@@ -105,6 +107,7 @@ function LoginForm() {
           />
         </div>
         <button 
+          id="login-button"
           type="submit"
           disabled={loading}
           className="w-full py-4 rounded-2xl bg-emerald-500 text-black font-black text-sm uppercase tracking-widest hover:bg-emerald-400 transition-all flex items-center justify-center gap-2 shadow-lg shadow-emerald-500/20 disabled:opacity-50"

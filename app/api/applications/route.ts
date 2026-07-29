@@ -110,7 +110,7 @@ export async function PATCH(req: NextRequest) {
       where: { id },
       data: { status },
       include: {
-        job: true,
+        job: { include: { employer: true } },
         student: { include: { user: { select: { email: true } } } },
       },
     });
