@@ -7,6 +7,14 @@ on:
     branches: [ main ]
   workflow_dispatch:
 
+env:
+  DATABASE_URL: ${{ secrets.DATABASE_URL }}
+  DIRECT_URL: ${{ secrets.DIRECT_URL }}
+  NEXTAUTH_SECRET: ${{ secrets.NEXTAUTH_SECRET }}
+  NEXTAUTH_URL: ${{ secrets.NEXTAUTH_URL }}
+  SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+  SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
+
 jobs:
   selenium-login-test:
     name: "🌐 Selenium Login E2E Test"
@@ -20,26 +28,32 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '18'
+          node-version: '22'
 
       - name: Install Chrome
         run: |
           sudo apt-get update
           sudo apt-get install -y chromium-browser chromium-chromedriver
 
-      - name: Install dependencies
-        run: npm ci || npm install
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Generate Prisma
+        run: npx prisma generate
+
+      - name: Build
+        run: npm run build
 
       - name: Start Next.js dev server
         run: |
-          npm run dev &
+          npm run start &
           npx -y wait-on http://127.0.0.1:3000 --timeout 120000
         env:
-          NODE_ENV: development
+          NODE_ENV: production
         continue-on-error: true
 
-      - name: Run Selenium Login Tests
-        run: npx mocha selenium-tests/tests/login.test.js --timeout 60000 --exit
+      - name: Selenium Tests
+        run: npm run test:ui
         env:
           BASE_URL: "http://localhost:3000"
         continue-on-error: true
@@ -48,10 +62,10 @@ jobs:
         if: always()
         run: node scripts/generate_test_cases.js selenium-web ./test-results/selenium-login-report
 
-      - name: Upload Selenium Report
+      - name: Upload Reports
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: selenium-login-report
-          path: test-results/selenium-login-report/
+          path: test-results/
           retention-days: 30

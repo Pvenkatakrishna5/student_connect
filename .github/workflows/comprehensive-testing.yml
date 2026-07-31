@@ -19,7 +19,13 @@ concurrency:
 
 env:
   PYTHON_VERSION: "3.11"
-  NODE_VERSION: "18"
+  NODE_VERSION: "22"
+  DATABASE_URL: ${{ secrets.DATABASE_URL }}
+  DIRECT_URL: ${{ secrets.DIRECT_URL }}
+  NEXTAUTH_SECRET: ${{ secrets.NEXTAUTH_SECRET }}
+  NEXTAUTH_URL: ${{ secrets.NEXTAUTH_URL }}
+  SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+  SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
 
 # =============================================================================
 # JOB 1: SELENIUM — WEBSITE TESTS (300)
@@ -40,7 +46,7 @@ jobs:
           node-version: ${{ env.NODE_VERSION }}
 
       - name: Install dependencies
-        run: npm ci || npm install
+        run: npm ci
 
       - name: Generate Selenium Web Test Report (300 tests)
         run: node scripts/generate_test_cases.js selenium-web ./test-results/selenium-web-report
@@ -73,7 +79,7 @@ jobs:
           node-version: ${{ env.NODE_VERSION }}
 
       - name: Install dependencies
-        run: npm ci || npm install
+        run: npm ci
 
       - name: Generate Appium Android Test Report (300 tests)
         run: node scripts/generate_test_cases.js appium-android ./test-results/appium-android-report
@@ -106,7 +112,7 @@ jobs:
           node-version: ${{ env.NODE_VERSION }}
 
       - name: Install dependencies
-        run: npm ci || npm install
+        run: npm ci
 
       - name: Generate Unit Test Report (300 tests)
         run: node scripts/generate_test_cases.js unit-test ./test-results/unit-test-report
@@ -139,7 +145,7 @@ jobs:
           node-version: ${{ env.NODE_VERSION }}
 
       - name: Install dependencies
-        run: npm ci || npm install
+        run: npm ci
 
       - name: Generate Validation Test Report (300 tests)
         run: node scripts/generate_test_cases.js validation-test ./test-results/validation-test-report
@@ -172,7 +178,7 @@ jobs:
           node-version: ${{ env.NODE_VERSION }}
 
       - name: Install dependencies
-        run: npm ci || npm install
+        run: npm ci
 
       - name: Generate Deployment Test Report (300 tests)
         run: node scripts/generate_test_cases.js deployment-test ./test-results/deployment-test-report
@@ -205,7 +211,7 @@ jobs:
           node-version: ${{ env.NODE_VERSION }}
 
       - name: Install dependencies
-        run: npm ci || npm install
+        run: npm ci
 
       - name: Generate Load Test Report (300 tests)
         run: node scripts/generate_test_cases.js load-test ./test-results/load-test-report
@@ -255,7 +261,7 @@ jobs:
           find ./reports -type f | head -50
 
       - name: Install dependencies
-        run: npm ci || npm install
+        run: npm ci
 
       - name: Generate Full E2E Master Excel Report (1,800 test cases)
         run: node scripts/generate_test_cases.js --all ./reports

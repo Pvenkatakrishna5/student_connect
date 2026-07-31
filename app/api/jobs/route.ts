@@ -42,7 +42,7 @@ export async function GET(req: NextRequest) {
       ];
     }
 
-    const [total, jobs] = await prisma.$transaction([
+    const [total, jobs] = await Promise.all([
       prisma.job.count({ where }),
       prisma.job.findMany({
         where,
