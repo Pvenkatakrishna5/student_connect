@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 
 interface Notification {
-  _id: string;
+  id: string;
   type: "success" | "warning" | "error" | "info";
   title: string;
   message: string;
@@ -62,7 +62,7 @@ export default function NotificationCenter() {
         setNotifications(prev => prev.map(n => ({ ...n, read: true })));
         setUnreadCount(0);
       } else {
-        setNotifications(prev => prev.map(n => n._id === id ? { ...n, read: true } : n));
+        setNotifications(prev => prev.map(n => n.id === id ? { ...n, read: true } : n));
         setUnreadCount(prev => Math.max(0, prev - 1));
       }
     } catch (err) {
@@ -138,8 +138,8 @@ export default function NotificationCenter() {
                   <div className="divide-y divide-white/[0.02]">
                     {notifications.map((n) => (
                       <div 
-                        key={n._id}
-                        onClick={() => !n.read && markAsRead(n._id)}
+                        key={n.id}
+                        onClick={() => !n.read && markAsRead(n.id)}
                         className={`p-5 transition-colors group relative cursor-pointer ${n.read ? "bg-transparent" : "bg-emerald-500/[0.02] hover:bg-emerald-500/[0.04]"}`}
                       >
                         {!n.read && <div className="absolute left-0 top-0 bottom-0 w-1 bg-emerald-500" />}

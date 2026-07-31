@@ -2,14 +2,13 @@ import { PrismaClient } from '@prisma/client';
 import * as dotenv from 'dotenv';
 dotenv.config({ path: '.env.local' });
 
+import { Pool } from 'pg';
+import { PrismaPg } from '@prisma/adapter-pg';
+
 async function main() {
-  const prisma = new PrismaClient({
-    datasources: {
-      db: {
-        url: process.env.DATABASE_URL
-      }
-    }
-  });
+  const pool = new Pool({ connectionString: process.env.DATABASE_URL });
+  const adapter = new PrismaPg(pool);
+  const prisma = new PrismaClient({ adapter });
   
   try {
     const userCount = await prisma.user.count();

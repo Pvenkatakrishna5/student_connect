@@ -33,9 +33,7 @@ jobs:
       - name: Start Next.js dev server
         run: |
           npm run dev &
-          sleep 10
-          curl -f http://localhost:3000 || echo "Server starting..."
-          sleep 5
+          npx -y wait-on http://127.0.0.1:3000 --timeout 120000
         env:
           NODE_ENV: development
         continue-on-error: true

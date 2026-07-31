@@ -258,7 +258,7 @@ jobs:
         run: npm ci || npm install
 
       - name: Generate Full E2E Master Excel Report (1,800 test cases)
-        run: node scripts/generate_test_cases.js --all ./test-results
+        run: node scripts/generate_test_cases.js --all ./reports
 
       - name: Compile Master HTML Report
         run: |
