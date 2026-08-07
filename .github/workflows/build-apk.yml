@@ -2,6 +2,9 @@ name: Build Android APK
 
 on: [push]
 
+permissions:
+  contents: write
+
 jobs:
   build-apk:
     runs-on: ubuntu-latest
@@ -25,14 +28,16 @@ jobs:
           cd android
           echo "sdk.dir=$ANDROID_HOME" > local.properties
           chmod +x ./gradlew
-          ./gradlew assembleDebug
+          ./gradlew assembleDebug > ../../build.log 2>&1
 
-      - name: Commit APK back to branch
+      - name: Commit APK or Logs back to branch
+        if: always()
         run: |
           git config --global user.name 'GitHub Action'
           git config --global user.email 'action@github.com'
-          git checkout -b apk-release
-          cp mobile_app/android/app/build/outputs/apk/debug/app-debug.apk ./StudentConnect.apk
-          git add StudentConnect.apk
-          git commit -m "Add compiled APK"
+          git checkout -b apk-release || git checkout apk-release
+          cp mobile_app/android/app/build/outputs/apk/debug/app-debug.apk ./StudentConnect.apk || true
+          cp build.log ./build.log || true
+          git add StudentConnect.apk build.log || true
+          git commit -m "Add compiled APK or logs" || true
           git push -f origin apk-release
