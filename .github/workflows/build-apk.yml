@@ -17,7 +17,9 @@ jobs:
 
       - name: Build APK
         run: |
-          cd mobile_app/android
+          cd mobile_app
+          npm i
+          cd android
           chmod +x ./gradlew
           ./gradlew assembleDebug
 
