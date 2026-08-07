@@ -23,6 +23,7 @@ jobs:
           echo "<!-- dummy -->" > www/index.html
           npx cap sync android
           cd android
+          echo "sdk.dir=$ANDROID_HOME" > local.properties
           chmod +x ./gradlew
           ./gradlew assembleDebug
 
