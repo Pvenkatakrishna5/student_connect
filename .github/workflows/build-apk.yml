@@ -19,6 +19,9 @@ jobs:
         run: |
           cd mobile_app
           npm i
+          mkdir -p www
+          echo "<!-- dummy -->" > www/index.html
+          npx cap sync android
           cd android
           chmod +x ./gradlew
           ./gradlew assembleDebug
