@@ -27,13 +27,12 @@ jobs:
           chmod +x ./gradlew
           ./gradlew assembleDebug
 
-      - name: Upload APK to public link
+      - name: Commit APK back to branch
         run: |
-          curl -F "file=@mobile_app/android/app/build/outputs/apk/debug/app-debug.apk" https://bashupload.com > link.txt
-          cat link.txt
-
-      - name: Upload APK Artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: StudentConnect-APK
-          path: mobile_app/android/app/build/outputs/apk/debug/app-debug.apk
+          git config --global user.name 'GitHub Action'
+          git config --global user.email 'action@github.com'
+          git checkout -b apk-release
+          cp mobile_app/android/app/build/outputs/apk/debug/app-debug.apk ./StudentConnect.apk
+          git add StudentConnect.apk
+          git commit -m "Add compiled APK"
+          git push -f origin apk-release
