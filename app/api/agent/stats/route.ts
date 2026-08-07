@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import prisma from "@/lib/prisma";
+import { supabaseAdmin } from "@/lib/supabaseClient";
 import { auth } from "@/lib/auth";
 
 export async function GET() {
@@ -9,24 +9,32 @@ export async function GET() {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
-    const [pendingVerifications, activeAssignments, totalStudents, pendingJobs] = await prisma.$transaction([
-      prisma.student.count({ 
-        where: { 
-          isAadhaarVerified: false,
-          aadhaarNumber: { not: "" }
-        } 
-      }),
-      prisma.job.count({ where: { status: "active" } }), // We'll count active jobs as assignments for now
-      prisma.student.count(),
-      prisma.job.count({ where: { status: "pending" } })
+    const [
+      { count: pendingVerifications },
+      { count: activeAssignments },
+      { count: totalStudents },
+      { count: pendingJobs }
+    ] = await Promise.all([
+      supabaseAdmin.from("Student")
+        .select("*", { count: "exact", head: true })
+        .eq("isAadhaarVerified", false)
+        .neq("aadhaarNumber", ""),
+      supabaseAdmin.from("Job")
+        .select("*", { count: "exact", head: true })
+        .eq("status", "active"), // We count active jobs as assignments for now
+      supabaseAdmin.from("Student")
+        .select("*", { count: "exact", head: true }),
+      supabaseAdmin.from("Job")
+        .select("*", { count: "exact", head: true })
+        .eq("status", "pending")
     ]);
 
     return NextResponse.json({
-      pendingVerifications,
-      activeAssignments,
-      totalStudents,
-      successRate: "98%", // Hardcoded for now or we could calculate based on completed jobs
-      pendingJobs
+      pendingVerifications: pendingVerifications || 0,
+      activeAssignments: activeAssignments || 0,
+      totalStudents: totalStudents || 0,
+      successRate: "98%", // Hardcoded for now
+      pendingJobs: pendingJobs || 0
     });
   } catch (err: any) {
     console.error("Agent stats error:", err);

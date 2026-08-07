@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import prisma from "@/lib/prisma";
+import { supabaseAdmin } from "@/lib/supabaseClient";
 import { auth } from "@/lib/auth";
 import { logActivity } from "@/lib/activity";
 
@@ -10,25 +10,27 @@ export async function GET() {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
-    const pendingStudents = await prisma.student.findMany({
-      where: {
-        isAadhaarVerified: false,
-        aadhaarNumber: { not: "" }
-      },
-      include: {
-        user: {
-          select: {
-            email: true,
-            createdAt: true
-          }
-        }
-      },
-      orderBy: {
-        updatedAt: "asc"
-      }
+    const { data: pendingStudents, error } = await supabaseAdmin
+      .from("Student")
+      .select(`
+        *,
+        User(email, createdAt)
+      `)
+      .eq("isAadhaarVerified", false)
+      .neq("aadhaarNumber", "")
+      .order("updatedAt", { ascending: true });
+      
+    if (error) throw error;
+    
+    const mapped = (pendingStudents || []).map(s => {
+      const { User, ...rest } = s;
+      return {
+        ...rest,
+        user: Array.isArray(User) ? User[0] : User
+      };
     });
 
-    return NextResponse.json(pendingStudents);
+    return NextResponse.json(mapped);
   } catch (error) {
     console.error("Fetch verifications error:", error);
     return NextResponse.json({ error: "Server error" }, { status: 500 });
@@ -45,20 +47,23 @@ export async function PATCH(req: Request) {
     const { studentId, action, reason } = await req.json();
 
     if (action === "approve") {
-      await prisma.student.update({
-        where: { id: studentId },
-        data: { isAadhaarVerified: true },
-      });
+      await supabaseAdmin
+        .from("Student")
+        .update({ isAadhaarVerified: true, updatedAt: new Date().toISOString() })
+        .eq("id", studentId);
+        
       await logActivity("verification_approved", `Student verification approved: ${studentId}`, session.user.id);
       return NextResponse.json({ message: "Student verified successfully" });
     } else if (action === "reject") {
-      await prisma.student.update({
-        where: { id: studentId },
-        data: { 
+      await supabaseAdmin
+        .from("Student")
+        .update({ 
           isAadhaarVerified: false,
-          aadhaarNumber: "" // Reset to allow re-submission
-        },
-      });
+          aadhaarNumber: "", // Reset to allow re-submission
+          updatedAt: new Date().toISOString()
+        })
+        .eq("id", studentId);
+        
       await logActivity("verification_rejected", `Student verification rejected: ${studentId}. Reason: ${reason || "Not specified"}`, session.user.id);
       return NextResponse.json({ message: "Verification rejected" });
     }

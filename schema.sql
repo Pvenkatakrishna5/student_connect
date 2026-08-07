@@ -118,6 +118,7 @@ CREATE TABLE "Application" (
     "employerId" TEXT NOT NULL,
     "status" "ApplicationStatus" NOT NULL DEFAULT 'applied',
     "coverNote" TEXT NOT NULL DEFAULT '',
+    "isAdminVerified" BOOLEAN NOT NULL DEFAULT false,
     "appliedAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,

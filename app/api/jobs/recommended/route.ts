@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import prisma from "@/lib/prisma";
+import { supabaseAdmin } from "@/lib/supabaseClient";
 
 export async function GET(req: NextRequest) {
   try {
@@ -11,52 +11,49 @@ export async function GET(req: NextRequest) {
     }
 
     // 1. Get student profile
-    const student = await prisma.student.findUnique({ where: { userId: studentId } });
-    if (!student) {
+    const { data: student, error: studentError } = await supabaseAdmin
+      .from("Student")
+      .select("*")
+      .eq("userId", studentId)
+      .single();
+
+    if (studentError || !student) {
       return NextResponse.json({ error: "Student not found" }, { status: 404 });
     }
 
     const skills = student.skills || [];
     const city = student.city || "";
 
-    // 2. Get student's existing applications to exclude them (use student.id, not userId)
-    const applications = await prisma.application.findMany({
-      where: { studentId: student.id },
-      select: { jobId: true }
-    });
+    // 2. Get student's existing applications to exclude them
+    const { data: applications } = await supabaseAdmin
+      .from("Application")
+      .select("jobId")
+      .eq("studentId", student.id);
 
-    const appliedJobIds = applications.map(a => a.jobId);
+    const appliedJobIds = (applications || []).map(a => a.jobId);
 
     // 3. Find active jobs matching skills or city, excluding already applied
-    const jobs = await prisma.job.findMany({
-      where: {
-        status: "active",
-        id: { notIn: appliedJobIds },
-        OR: [
-          { skillsRequired: { hasSome: skills.length > 0 ? skills : ["General"] } },
-          { location: { contains: city, mode: "insensitive" } },
-          { isRemote: true },
-        ],
-      },
-      include: { 
-        employer: {
-          select: {
-            companyName: true,
-            logo: true,
-            isVerifiedBusiness: true
-          }
-        } 
-      },
-      take: 50, // Limit search for performance
-    });
+    let query = supabaseAdmin
+      .from("Job")
+      .select("*, Employer(companyName, logo, isVerifiedBusiness)")
+      .eq("status", "active");
+
+    // We fetch a larger set and filter/score in memory since Supabase JS 
+    // doesn't have a direct equivalent to Prisma's `hasSome` for arrays without raw SQL.
+    const { data: activeJobs, error: jobsError } = await query.limit(100);
+
+    if (jobsError) throw jobsError;
+
+    // Filter out applied jobs
+    const availableJobs = (activeJobs || []).filter(job => !appliedJobIds.includes(job.id));
 
     // 4. Advanced Scoring
-    const scoredJobs = jobs.map((job) => {
+    const scoredJobs = availableJobs.map((job) => {
       let score = 0;
       
       // Skill match (Weight: 10 per skill)
-      const matchingSkills = job.skillsRequired.filter((s) =>
-        skills.some((sk) => sk.toLowerCase() === s.toLowerCase())
+      const matchingSkills = job.skillsRequired.filter((s: string) =>
+        skills.some((sk: string) => sk.toLowerCase() === s.toLowerCase())
       );
       score += matchingSkills.length * 10;
       
@@ -71,23 +68,26 @@ export async function GET(req: NextRequest) {
       }
 
       // Verified Employer (Weight: 3)
-      if (job.employer?.isVerifiedBusiness) {
+      if (job.Employer?.isVerifiedBusiness) {
         score += 3;
       }
 
-      // Urgent/High Pay (Example logic)
+      // Urgent/High Pay
       if (job.payAmount > 500) {
         score += 2;
       }
 
-      return { ...job, score };
+      const { Employer, ...rest } = job;
+      return { ...rest, employer: Employer, score };
     });
 
+    // Filter to only those with some relevance or fallback to highest pay
+    const relevantJobs = scoredJobs.filter(j => j.score > 0 || skills.length === 0);
 
     // Sort by score and take top 10
-    scoredJobs.sort((a, b) => b.score - a.score);
+    relevantJobs.sort((a, b) => (b.score as number) - (a.score as number));
 
-    return NextResponse.json(scoredJobs.slice(0, 10));
+    return NextResponse.json(relevantJobs.slice(0, 10));
   } catch (err: any) {
     console.error("Error in recommended jobs:", err);
     return NextResponse.json({ error: err.message || "Server error" }, { status: 500 });

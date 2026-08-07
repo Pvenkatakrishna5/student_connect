@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import prisma from "@/lib/prisma";
+import { supabaseAdmin } from "@/lib/supabaseClient";
 import Stripe from "stripe";
 import { createNotification } from "@/lib/notifications";
 import { logActivity } from "@/lib/activity";
@@ -42,10 +42,11 @@ export async function POST(req: NextRequest) {
 
     try {
       // 1. Get current application and student info
-      const app = await prisma.application.findUnique({
-        where: { id: applicationId },
-        include: { student: true, job: true }
-      });
+      const { data: app } = await supabaseAdmin
+        .from("Application")
+        .select("*, Student(*), Job(*)")
+        .eq("id", applicationId)
+        .single();
 
       if (!app) {
         console.error("❌ Application not found:", applicationId);
@@ -59,65 +60,91 @@ export async function POST(req: NextRequest) {
 
       const amountPaid = (session.amount_total || 0) / 100;
 
-      // 3. Update Database in a transaction
-      await prisma.$transaction([
-        // Mark application as selected
-        prisma.application.update({
-          where: { id: applicationId },
-          data: { status: "selected" }
-        }),
-        // Update student earnings and stats
-        prisma.student.update({
-          where: { id: app.studentId },
-          data: {
-            totalEarnings: { increment: amountPaid },
-            completedJobs: { increment: 1 }
-          }
-        }),
-        // Decrement spots available in job
-        prisma.job.update({
-          where: { id: app.jobId },
-          data: {
-            spotsAvailable: { decrement: 1 },
-            hiredCount: { increment: 1 }
-          }
-        }),
-        // Create Payment record
-        prisma.payment.create({
-          data: {
-            applicationId: applicationId,
-            employerId: app.employerId,
-            amount: amountPaid,
-            status: "PAID",
-            stripeId: session.id,
-            paidAt: new Date()
-          }
-        }),
-        // Create Earning record
-        prisma.earning.create({
-          data: {
-            studentId: app.studentId,
-            amount: amountPaid,
-            description: `Payment for job: ${app.job.title}`
-          }
-        })
-      ]);
+      // 3. Sequential Updates (Supabase REST API alternative to transaction)
+      // Mark application as selected
+      await supabaseAdmin
+        .from("Application")
+        .update({ status: "selected" })
+        .eq("id", applicationId);
+        
+      // Update student earnings
+      if (app.Student) {
+        const { data: currentStudent } = await supabaseAdmin
+          .from("Student")
+          .select("totalEarnings, completedJobs")
+          .eq("id", app.studentId)
+          .single();
+          
+        if (currentStudent) {
+          await supabaseAdmin
+            .from("Student")
+            .update({
+              totalEarnings: currentStudent.totalEarnings + amountPaid,
+              completedJobs: currentStudent.completedJobs + 1
+            })
+            .eq("id", app.studentId);
+        }
+      }
+      
+      // Decrement spots available in job
+      if (app.Job) {
+        const { data: currentJob } = await supabaseAdmin
+          .from("Job")
+          .select("spotsAvailable, hiredCount")
+          .eq("id", app.jobId)
+          .single();
+          
+        if (currentJob) {
+          await supabaseAdmin
+            .from("Job")
+            .update({
+              spotsAvailable: Math.max(0, currentJob.spotsAvailable - 1),
+              hiredCount: currentJob.hiredCount + 1
+            })
+            .eq("id", app.jobId);
+        }
+      }
+      
+      // Create Payment record
+      await supabaseAdmin
+        .from("Payment")
+        .insert({
+          id: crypto.randomUUID(),
+          applicationId: applicationId,
+          employerId: app.employerId,
+          amount: amountPaid,
+          status: "PAID",
+          stripeId: session.id,
+          paidAt: new Date().toISOString()
+        });
+        
+      // Create Earning record
+      await supabaseAdmin
+        .from("Earning")
+        .insert({
+          id: crypto.randomUUID(),
+          studentId: app.studentId,
+          amount: amountPaid,
+          description: `Payment for job: ${app.Job?.title || "Unknown"}`
+        });
 
       // 4. Notifications & Logs
-      await createNotification(
-        app.student.userId,
-        "🎉 You're Hired!",
-        `Congratulations! You've been hired for "${app.job.title}" and ₹${amountPaid} has been credited to your account.`,
-        "success",
-        "/student/earnings"
-      );
+      if (app.Student?.userId) {
+        await createNotification(
+          app.Student.userId,
+          "🎉 You're Hired!",
+          `Congratulations! You've been hired for "${app.Job?.title || "Unknown"}" and ₹${amountPaid} has been credited to your account.`,
+          "success",
+          "/student/earnings"
+        );
 
-      await logActivity(
-        "payment_received",
-        `Student ${app.student.name} received ₹${amountPaid} for ${app.job.title}`,
-        app.student.userId,
-        { amount: amountPaid, jobId: app.jobId }
-      );
+        await logActivity(
+          "payment_received",
+          `Student ${app.Student.name} received ₹${amountPaid} for ${app.Job?.title}`,
+          app.Student.userId,
+          { amount: amountPaid, jobId: app.jobId }
+        );
+      }
 
       console.log(`✅ Payment handled for application ${applicationId}`);
       return NextResponse.json({ received: true });

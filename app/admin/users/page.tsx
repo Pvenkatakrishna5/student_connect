@@ -1,8 +1,9 @@
 "use client";
 import { useState, useEffect } from "react";
 import Sidebar from "@/components/layout/Sidebar";
-import { Search, ShieldCheck, Calendar, Loader2, MoreVertical, Trash2, UserPlus } from "lucide-react";
+import { Search, ShieldCheck, Calendar, Loader2, MoreVertical, Trash2, UserPlus, Eye, Briefcase, GraduationCap, Building, Star, MapPin } from "lucide-react";
 import { useSession } from "next-auth/react";
+import { motion, AnimatePresence } from "framer-motion";
 
 export default function AdminUsers() {
   const { data: session } = useSession();
@@ -10,6 +11,7 @@ export default function AdminUsers() {
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
   const [filter, setFilter] = useState("all");
+  const [selectedUser, setSelectedUser] = useState<any>(null);
 
   useEffect(() => {
     const fetchUsers = async () => {
@@ -143,10 +145,14 @@ export default function AdminUsers() {
                     </td>
                     <td className="px-6 py-5 text-right">
                       <div className="flex items-center justify-end gap-2">
-                        <button className="p-2 rounded-lg bg-white/[0.03] border border-white/[0.06] text-slate-500 hover:text-white transition-all">
-                          <MoreVertical className="w-4 h-4" />
+                        <button 
+                          onClick={() => setSelectedUser(user)}
+                          className="p-2 rounded-lg bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 hover:bg-indigo-500 hover:text-white transition-all"
+                          title="View Details"
+                        >
+                          <Eye className="w-4 h-4" />
                         </button>
-                        <button className="p-2 rounded-lg bg-rose-500/10 border border-rose-500/20 text-rose-500 hover:bg-rose-500 hover:text-white transition-all">
+                        <button className="p-2 rounded-lg bg-rose-500/10 border border-rose-500/20 text-rose-500 hover:bg-rose-500 hover:text-white transition-all" title="Delete User">
                           <Trash2 className="w-4 h-4" />
                         </button>
                       </div>
@@ -158,6 +164,143 @@ export default function AdminUsers() {
           </div>
         </main>
       </div>
+
+      {/* User Details Modal */}
+      <AnimatePresence>
+        {selectedUser && (
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 flex items-center justify-center p-6 bg-black/80 backdrop-blur-md"
+            onClick={() => setSelectedUser(null)}
+          >
+            <motion.div 
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
+              onClick={e => e.stopPropagation()}
+              className="w-full max-w-lg bg-[#111118] border border-white/[0.08] rounded-[32px] p-8 shadow-2xl relative"
+            >
+              <button 
+                onClick={() => setSelectedUser(null)}
+                className="absolute top-6 right-6 p-2 rounded-full bg-white/[0.05] hover:bg-white/[0.1] text-slate-400 hover:text-white transition-colors"
+              >
+                ✕
+              </button>
+
+              <div className="flex items-start gap-4 mb-8">
+                <div className={`w-16 h-16 rounded-2xl flex items-center justify-center text-2xl font-bold text-white shadow-lg ${
+                  selectedUser.role === "student" ? "bg-emerald-500" : selectedUser.role === "employer" ? "bg-indigo-500" : "bg-amber-500"
+                }`}>
+                  {(selectedUser.name || selectedUser.email.split("@")[0])[0].toUpperCase()}
+                </div>
+                <div>
+                  <h2 className="text-2xl font-bold text-white">{selectedUser.name || selectedUser.email.split("@")[0]}</h2>
+                  <p className="text-slate-400">{selectedUser.email}</p>
+                  <span className={`inline-block mt-2 px-3 py-1 rounded text-[10px] font-black uppercase tracking-widest border ${
+                    selectedUser.role === "student" ? "bg-emerald-500/10 text-emerald-400 border-emerald-500/20" :
+                    selectedUser.role === "employer" ? "bg-indigo-500/10 text-indigo-400 border-indigo-500/20" :
+                    "bg-amber-500/10 text-amber-400 border-amber-500/20"
+                  }`}>
+                    {selectedUser.role} Account
+                  </span>
+                </div>
+              </div>
+
+              <div className="space-y-6">
+                {selectedUser.role === "student" && selectedUser.student && (
+                  <>
+                    <div className="grid grid-cols-2 gap-4">
+                      <div className="bg-white/[0.02] border border-white/[0.04] p-4 rounded-2xl">
+                        <div className="flex items-center gap-2 text-slate-500 mb-1">
+                          <GraduationCap className="w-4 h-4" />
+                          <span className="text-xs font-bold uppercase tracking-wider">Education</span>
+                        </div>
+                        <p className="text-white text-sm font-medium">{selectedUser.student.college || "Not specified"}</p>
+                        <p className="text-slate-400 text-xs">{selectedUser.student.branch} {selectedUser.student.year ? `(${selectedUser.student.year})` : ""}</p>
+                      </div>
+                      <div className="bg-white/[0.02] border border-white/[0.04] p-4 rounded-2xl">
+                        <div className="flex items-center gap-2 text-slate-500 mb-1">
+                          <Star className="w-4 h-4" />
+                          <span className="text-xs font-bold uppercase tracking-wider">Performance</span>
+                        </div>
+                        <p className="text-white text-sm font-medium">{selectedUser.student.rating || "0"} / 5.0</p>
+                        <p className="text-slate-400 text-xs">{selectedUser.student.completedJobs || "0"} Jobs Completed</p>
+                      </div>
+                    </div>
+                    {selectedUser.student.skills && selectedUser.student.skills.length > 0 && (
+                      <div>
+                        <h4 className="text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">Skills</h4>
+                        <div className="flex flex-wrap gap-2">
+                          {selectedUser.student.skills.map((skill: string, idx: number) => (
+                            <span key={idx} className="px-3 py-1 bg-white/[0.05] rounded-lg text-xs text-slate-300 border border-white/[0.1]">
+                              {skill}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+                  </>
+                )}
+
+                {selectedUser.role === "employer" && selectedUser.employer && (
+                  <>
+                    <div className="grid grid-cols-2 gap-4">
+                      <div className="bg-white/[0.02] border border-white/[0.04] p-4 rounded-2xl">
+                        <div className="flex items-center gap-2 text-slate-500 mb-1">
+                          <Building className="w-4 h-4" />
+                          <span className="text-xs font-bold uppercase tracking-wider">Company</span>
+                        </div>
+                        <p className="text-white text-sm font-medium">{selectedUser.employer.companyName || "Not specified"}</p>
+                        <p className="text-slate-400 text-xs">{selectedUser.employer.contactName}</p>
+                      </div>
+                      <div className="bg-white/[0.02] border border-white/[0.04] p-4 rounded-2xl">
+                        <div className="flex items-center gap-2 text-slate-500 mb-1">
+                          <MapPin className="w-4 h-4" />
+                          <span className="text-xs font-bold uppercase tracking-wider">Location & Status</span>
+                        </div>
+                        <p className="text-white text-sm font-medium">{selectedUser.employer.city || "Remote"}</p>
+                        <p className="text-emerald-400 text-xs font-bold mt-1">
+                          {selectedUser.employer.isVerifiedBusiness ? "✓ Verified Business" : "Pending Verification"}
+                        </p>
+                      </div>
+                    </div>
+                    {selectedUser.employer.description && (
+                      <div>
+                        <h4 className="text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">About</h4>
+                        <p className="text-sm text-slate-300 leading-relaxed p-4 bg-white/[0.02] rounded-2xl border border-white/[0.04]">
+                          {selectedUser.employer.description}
+                        </p>
+                      </div>
+                    )}
+                  </>
+                )}
+
+                {/* Fallback if relations aren't loaded or user is admin */}
+                {((selectedUser.role === "student" && !selectedUser.student) || 
+                  (selectedUser.role === "employer" && !selectedUser.employer) || 
+                  selectedUser.role === "admin") && (
+                  <div className="p-6 bg-amber-500/10 border border-amber-500/20 rounded-2xl text-center">
+                    <ShieldCheck className="w-8 h-8 text-amber-500/50 mx-auto mb-3" />
+                    <p className="text-amber-400 text-sm font-medium">Basic profile loaded.</p>
+                    <p className="text-amber-500/60 text-xs mt-1">Detailed relation data not found or not applicable.</p>
+                  </div>
+                )}
+              </div>
+
+              <div className="mt-8 pt-6 border-t border-white/[0.05] flex gap-3">
+                <button 
+                  onClick={() => setSelectedUser(null)}
+                  className="w-full py-3 rounded-xl bg-white/[0.05] hover:bg-white/[0.1] text-white text-sm font-bold transition-colors"
+                >
+                  Close Details
+                </button>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }

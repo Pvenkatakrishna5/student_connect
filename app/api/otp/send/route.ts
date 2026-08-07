@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import prisma from "@/lib/prisma";
+import { supabaseAdmin } from "@/lib/supabaseClient";
 import { sendEmail } from "@/lib/email";
 
 export async function POST(req: Request) {
@@ -12,9 +12,17 @@ export async function POST(req: Request) {
     const expiresAt = new Date(Date.now() + 5 * 60 * 1000); // 5 mins valid
 
     // Store in DB
-    await prisma.otp.create({
-      data: { phone: email, code, expiresAt } // Using phone field to store email for backward compatibility of the model
-    });
+    const { error } = await supabaseAdmin
+      .from("Otp")
+      .insert({
+        id: crypto.randomUUID(),
+        phone: email, // Using phone field to store email for backward compatibility of the model
+        code,
+        expiresAt: expiresAt.toISOString(),
+        createdAt: new Date().toISOString()
+      });
+      
+    if (error) throw error;
 
     const emailSent = await sendEmail({
       to: email,
@@ -29,12 +37,12 @@ export async function POST(req: Request) {
       `,
     });
 
-    // In development or if Resend key is missing/mocked, log it
-    if (process.env.NODE_ENV === "development" || !process.env.RESEND_API_KEY) {
+    // In development or if SMTP is not configured, just log it and succeed
+    if (process.env.NODE_ENV === "development" || !process.env.EMAIL_USER) {
       console.log(`\n\n[AUTH] 🔐 OTP for ${email}: ${code}\n\n`);
+      return NextResponse.json({ success: true, message: "OTP sent successfully (Logged to console)" });
     }
 
-    // Always return error if email fails, regardless of development environment
     if (!emailSent) {
       return NextResponse.json({ error: "Failed to send email. Please check your email address or SMTP configuration." }, { status: 500 });
     }

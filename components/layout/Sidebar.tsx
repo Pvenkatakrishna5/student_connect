@@ -42,6 +42,7 @@ const adminLinks = [
   { href: "/admin/users", icon: Users, label: "Users" },
   { href: "/admin/jobs", icon: Briefcase, label: "Job Approvals" },
   { href: "/admin/complaints", icon: AlertTriangle, label: "Complaints" },
+  { href: "/admin/applications", icon: FileText, label: "Applications" },
   { href: "/admin/settings", icon: Settings, label: "Settings" },
 ];
 const agentLinks = [

@@ -1,0 +1,3346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Load Testing — Performance — Test Report</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Inter', sans-serif; background: #0d1117; color: #e6edf3; }
+    .header { background: #161b22; padding: 2rem; border-bottom: 1px solid #30363d; }
+    .header h1 { font-size: 1.5rem; color: #58a6ff; }
+    .header p { color: #8b949e; margin-top: 0.25rem; }
+    .summary { display: flex; gap: 1rem; padding: 1.5rem 2rem; flex-wrap: wrap; }
+    .summary .card { background: #161b22; border: 1px solid #30363d; border-radius: 0.5rem; padding: 1rem 1.5rem; }
+    .summary .card .val { font-size: 1.5rem; font-weight: 700; color: #3fb950; }
+    .summary .card .lbl { font-size: 0.75rem; color: #8b949e; text-transform: uppercase; }
+    table { width: 100%; border-collapse: collapse; margin: 1rem 0; font-size: 0.85rem; }
+    th { background: #161b22; color: #8b949e; text-transform: uppercase; font-size: 0.7rem; padding: 0.75rem; text-align: left; border-bottom: 1px solid #30363d; }
+    td { padding: 0.6rem 0.75rem; border-bottom: 1px solid #21262d; }
+    tr.even { background: #0d1117; }
+    tr.odd { background: #161b22; }
+    tr:hover td { background: #21262d; }
+    .badge { padding: 0.15rem 0.5rem; border-radius: 0.3rem; font-weight: 700; font-size: 0.7rem; }
+    .badge.pass { background: rgba(63, 185, 80, 0.15); color: #3fb950; }
+    .container { padding: 0 2rem 2rem; }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>⚡ Load Testing — Performance</h1>
+    <p>Generated: 2026-07-31T03:50:00.000Z | Total: 300 | Passed: 300 | Failed: 0</p>
+  </div>
+  <div class="summary">
+    <div class="card"><div class="val">300</div><div class="lbl">Total Tests</div></div>
+    <div class="card"><div class="val">300</div><div class="lbl">Passed</div></div>
+    <div class="card"><div class="val" style="color:#f85149">0</div><div class="lbl">Failed</div></div>
+    <div class="card"><div class="val" style="color:#58a6ff">409.63s</div><div class="lbl">Duration</div></div>
+  </div>
+  <div class="container">
+    <table>
+      <thead><tr><th>ID</th><th>Category</th><th>Module</th><th>Feature</th><th>Role</th><th>Description</th><th>Status</th><th>Duration</th></tr></thead>
+      <tbody>
+    <tr class="even">
+      <td>LDT-0001</td>
+      <td>Response Time</td>
+      <td>Authentication</td>
+      <td>Login</td>
+      <td>Student</td>
+      <td>[Response Time] Verify Login in Authentication for Student role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.913s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>LDT-0002</td>
+      <td>Concurrent Users</td>
+      <td>Student Portal</td>
+      <td>Profile Setup</td>
+      <td>Agent</td>
+      <td>[Concurrent Users] Verify Profile Setup in Student Portal for Agent role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>2.163s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>LDT-0003</td>
+      <td>Throughput</td>
+      <td>Agent Portal</td>
+      <td>Application Management</td>
+      <td>Employer</td>
+      <td>[Throughput] Verify Application Management in Agent Portal for Employer role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.417s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>LDT-0004</td>
+      <td>Memory Usage</td>
+      <td>Employer Portal</td>
+      <td>Applicant Review</td>
+      <td>Admin</td>
+      <td>[Memory Usage] Verify Applicant Review in Employer Portal for Admin role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>0.415s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>LDT-0005</td>
+      <td>CPU Usage</td>
+      <td>Admin Panel</td>
+      <td>Analytics</td>
+      <td>Anonymous</td>
+      <td>[CPU Usage] Verify Analytics in Admin Panel for Anonymous role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.663s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>LDT-0006</td>
+      <td>Database Connections</td>
+      <td>Payments</td>
+      <td>Stripe Checkout</td>
+      <td>Student</td>
+      <td>[Database Connections] Verify Stripe Checkout in Payments for Student role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>0.748s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>LDT-0007</td>
+      <td>Response Time</td>
+      <td>Messaging</td>
+      <td>Receive Message</td>
+      <td>Agent</td>
+      <td>[Response Time] Verify Receive Message in Messaging for Agent role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>0.507s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>LDT-0008</td>
+      <td>Concurrent Users</td>
+      <td>Search & Filter</td>
+      <td>Filter by Category</td>
+      <td>Employer</td>
+      <td>[Concurrent Users] Verify Filter by Category in Search & Filter for Employer role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.456s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>LDT-0009</td>
+      <td>Throughput</td>
+      <td>Notifications</td>
+      <td>Mark as Read</td>
+      <td>Admin</td>
+      <td>[Throughput] Verify Mark as Read in Notifications for Admin role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.79s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>LDT-0010</td>
+      <td>Memory Usage</td>
+      <td>Bot / AI Chat</td>
+      <td>Error Fallback</td>
+      <td>Anonymous</td>
+      <td>[Memory Usage] Verify Error Fallback in Bot / AI Chat for Anonymous role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.826s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>LDT-0011</td>
+      <td>CPU Usage</td>
+      <td>Authentication</td>
+      <td>Session Management</td>
+      <td>Student</td>
+      <td>[CPU Usage] Verify Session Management in Authentication for Student role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.228s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>LDT-0012</td>
+      <td>Database Connections</td>
+      <td>Student Portal</td>
+      <td>Application Track</td>
+      <td>Agent</td>
+      <td>[Database Connections] Verify Application Track in Student Portal for Agent role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>2.361s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>LDT-0013</td>
+      <td>Response Time</td>
+      <td>Agent Portal</td>
+      <td>Dashboard</td>
+      <td>Employer</td>
+      <td>[Response Time] Verify Dashboard in Agent Portal for Employer role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.918s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>LDT-0014</td>
+      <td>Concurrent Users</td>
+      <td>Employer Portal</td>
+      <td>Ratings</td>
+      <td>Admin</td>
+      <td>[Concurrent Users] Verify Ratings in Employer Portal for Admin role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>2.06s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>LDT-0015</td>
+      <td>Throughput</td>
+      <td>Admin Panel</td>
+      <td>Dashboard</td>
+      <td>Anonymous</td>
+      <td>[Throughput] Verify Dashboard in Admin Panel for Anonymous role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>2.456s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>LDT-0016</td>
+      <td>Memory Usage</td>
+      <td>Payments</td>
+      <td>Stripe Checkout</td>
+      <td>Student</td>
+      <td>[Memory Usage] Verify Stripe Checkout in Payments for Student role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>0.292s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>LDT-0017</td>
+      <td>CPU Usage</td>
+      <td>Messaging</td>
+      <td>Receive Message</td>
+      <td>Agent</td>
+      <td>[CPU Usage] Verify Receive Message in Messaging for Agent role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>2.394s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>LDT-0018</td>
+      <td>Database Connections</td>
+      <td>Search & Filter</td>
+      <td>Location Filter</td>
+      <td>Employer</td>
+      <td>[Database Connections] Verify Location Filter in Search & Filter for Employer role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.624s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>LDT-0019</td>
+      <td>Response Time</td>
+      <td>Notifications</td>
+      <td>Mark as Read</td>
+      <td>Admin</td>
+      <td>[Response Time] Verify Mark as Read in Notifications for Admin role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.846s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>LDT-0020</td>
+      <td>Concurrent Users</td>
+      <td>Bot / AI Chat</td>
+      <td>Error Fallback</td>
+      <td>Anonymous</td>
+      <td>[Concurrent Users] Verify Error Fallback in Bot / AI Chat for Anonymous role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>2.218s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>LDT-0021</td>
+      <td>Throughput</td>
+      <td>Authentication</td>
+      <td>OTP Verification</td>
+      <td>Student</td>
+      <td>[Throughput] Verify OTP Verification in Authentication for Student role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>2.095s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>LDT-0022</td>
+      <td>Memory Usage</td>
+      <td>Student Portal</td>
+      <td>Dashboard</td>
+      <td>Agent</td>
+      <td>[Memory Usage] Verify Dashboard in Student Portal for Agent role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.543s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>LDT-0023</td>
+      <td>CPU Usage</td>
+      <td>Agent Portal</td>
+      <td>Student Onboarding</td>
+      <td>Employer</td>
+      <td>[CPU Usage] Verify Student Onboarding in Agent Portal for Employer role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.394s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>LDT-0024</td>
+      <td>Database Connections</td>
+      <td>Employer Portal</td>
+      <td>Job Posting</td>
+      <td>Admin</td>
+      <td>[Database Connections] Verify Job Posting in Employer Portal for Admin role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.85s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>LDT-0025</td>
+      <td>Response Time</td>
+      <td>Admin Panel</td>
+      <td>System Settings</td>
+      <td>Anonymous</td>
+      <td>[Response Time] Verify System Settings in Admin Panel for Anonymous role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>0.865s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>LDT-0026</td>
+      <td>Concurrent Users</td>
+      <td>Payments</td>
+      <td>Stripe Checkout</td>
+      <td>Student</td>
+      <td>[Concurrent Users] Verify Stripe Checkout in Payments for Student role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.364s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>LDT-0027</td>
+      <td>Throughput</td>
+      <td>Messaging</td>
+      <td>Receive Message</td>
+      <td>Agent</td>
+      <td>[Throughput] Verify Receive Message in Messaging for Agent role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.052s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>LDT-0028</td>
+      <td>Memory Usage</td>
+      <td>Search & Filter</td>
+      <td>Sort Results</td>
+      <td>Employer</td>
+      <td>[Memory Usage] Verify Sort Results in Search & Filter for Employer role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.093s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>LDT-0029</td>
+      <td>CPU Usage</td>
+      <td>Notifications</td>
+      <td>Mark as Read</td>
+      <td>Admin</td>
+      <td>[CPU Usage] Verify Mark as Read in Notifications for Admin role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>0.419s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>LDT-0030</td>
+      <td>Database Connections</td>
+      <td>Bot / AI Chat</td>
+      <td>Error Fallback</td>
+      <td>Anonymous</td>
+      <td>[Database Connections] Verify Error Fallback in Bot / AI Chat for Anonymous role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>2.104s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>LDT-0031</td>
+      <td>Response Time</td>
+      <td>Authentication</td>
+      <td>Login</td>
+      <td>Student</td>
+      <td>[Response Time] Verify Login in Authentication for Student role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>0.258s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>LDT-0032</td>
+      <td>Concurrent Users</td>
+      <td>Student Portal</td>
+      <td>Application Submit</td>
+      <td>Agent</td>
+      <td>[Concurrent Users] Verify Application Submit in Student Portal for Agent role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>2.421s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>LDT-0033</td>
+      <td>Throughput</td>
+      <td>Agent Portal</td>
+      <td>Application Management</td>
+      <td>Employer</td>
+      <td>[Throughput] Verify Application Management in Agent Portal for Employer role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>0.938s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>LDT-0034</td>
+      <td>Memory Usage</td>
+      <td>Employer Portal</td>
+      <td>Payment History</td>
+      <td>Admin</td>
+      <td>[Memory Usage] Verify Payment History in Employer Portal for Admin role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>0.831s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>LDT-0035</td>
+      <td>CPU Usage</td>
+      <td>Admin Panel</td>
+      <td>Agent Management</td>
+      <td>Anonymous</td>
+      <td>[CPU Usage] Verify Agent Management in Admin Panel for Anonymous role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>0.928s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>LDT-0036</td>
+      <td>Database Connections</td>
+      <td>Payments</td>
+      <td>Stripe Checkout</td>
+      <td>Student</td>
+      <td>[Database Connections] Verify Stripe Checkout in Payments for Student role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.77s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>LDT-0037</td>
+      <td>Response Time</td>
+      <td>Messaging</td>
+      <td>Receive Message</td>
+      <td>Agent</td>
+      <td>[Response Time] Verify Receive Message in Messaging for Agent role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.399s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>LDT-0038</td>
+      <td>Concurrent Users</td>
+      <td>Search & Filter</td>
+      <td>Filter by Category</td>
+      <td>Employer</td>
+      <td>[Concurrent Users] Verify Filter by Category in Search & Filter for Employer role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.09s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>LDT-0039</td>
+      <td>Throughput</td>
+      <td>Notifications</td>
+      <td>Mark as Read</td>
+      <td>Admin</td>
+      <td>[Throughput] Verify Mark as Read in Notifications for Admin role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>2.199s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>LDT-0040</td>
+      <td>Memory Usage</td>
+      <td>Bot / AI Chat</td>
+      <td>Error Fallback</td>
+      <td>Anonymous</td>
+      <td>[Memory Usage] Verify Error Fallback in Bot / AI Chat for Anonymous role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.949s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>LDT-0041</td>
+      <td>CPU Usage</td>
+      <td>Authentication</td>
+      <td>Session Management</td>
+      <td>Student</td>
+      <td>[CPU Usage] Verify Session Management in Authentication for Student role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>2.483s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>LDT-0042</td>
+      <td>Database Connections</td>
+      <td>Student Portal</td>
+      <td>Notifications</td>
+      <td>Agent</td>
+      <td>[Database Connections] Verify Notifications in Student Portal for Agent role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.585s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>LDT-0043</td>
+      <td>Response Time</td>
+      <td>Agent Portal</td>
+      <td>Dashboard</td>
+      <td>Employer</td>
+      <td>[Response Time] Verify Dashboard in Agent Portal for Employer role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>0.725s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>LDT-0044</td>
+      <td>Concurrent Users</td>
+      <td>Employer Portal</td>
+      <td>Profile Setup</td>
+      <td>Admin</td>
+      <td>[Concurrent Users] Verify Profile Setup in Employer Portal for Admin role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>2.058s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>LDT-0045</td>
+      <td>Throughput</td>
+      <td>Admin Panel</td>
+      <td>Job Moderation</td>
+      <td>Anonymous</td>
+      <td>[Throughput] Verify Job Moderation in Admin Panel for Anonymous role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.862s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>LDT-0046</td>
+      <td>Memory Usage</td>
+      <td>Payments</td>
+      <td>Stripe Checkout</td>
+      <td>Student</td>
+      <td>[Memory Usage] Verify Stripe Checkout in Payments for Student role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>0.446s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>LDT-0047</td>
+      <td>CPU Usage</td>
+      <td>Messaging</td>
+      <td>Receive Message</td>
+      <td>Agent</td>
+      <td>[CPU Usage] Verify Receive Message in Messaging for Agent role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.632s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>LDT-0048</td>
+      <td>Database Connections</td>
+      <td>Search & Filter</td>
+      <td>Location Filter</td>
+      <td>Employer</td>
+      <td>[Database Connections] Verify Location Filter in Search & Filter for Employer role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>2.072s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>LDT-0049</td>
+      <td>Response Time</td>
+      <td>Notifications</td>
+      <td>Mark as Read</td>
+      <td>Admin</td>
+      <td>[Response Time] Verify Mark as Read in Notifications for Admin role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>2.427s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>LDT-0050</td>
+      <td>Concurrent Users</td>
+      <td>Bot / AI Chat</td>
+      <td>Error Fallback</td>
+      <td>Anonymous</td>
+      <td>[Concurrent Users] Verify Error Fallback in Bot / AI Chat for Anonymous role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.129s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>LDT-0051</td>
+      <td>Throughput</td>
+      <td>Authentication</td>
+      <td>OTP Verification</td>
+      <td>Student</td>
+      <td>[Throughput] Verify OTP Verification in Authentication for Student role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.026s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>LDT-0052</td>
+      <td>Memory Usage</td>
+      <td>Student Portal</td>
+      <td>Job Search</td>
+      <td>Agent</td>
+      <td>[Memory Usage] Verify Job Search in Student Portal for Agent role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>0.193s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>LDT-0053</td>
+      <td>CPU Usage</td>
+      <td>Agent Portal</td>
+      <td>Student Onboarding</td>
+      <td>Employer</td>
+      <td>[CPU Usage] Verify Student Onboarding in Agent Portal for Employer role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.594s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>LDT-0054</td>
+      <td>Database Connections</td>
+      <td>Employer Portal</td>
+      <td>Messaging</td>
+      <td>Admin</td>
+      <td>[Database Connections] Verify Messaging in Employer Portal for Admin role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>2.309s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>LDT-0055</td>
+      <td>Response Time</td>
+      <td>Admin Panel</td>
+      <td>Reports</td>
+      <td>Anonymous</td>
+      <td>[Response Time] Verify Reports in Admin Panel for Anonymous role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>0.682s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>LDT-0056</td>
+      <td>Concurrent Users</td>
+      <td>Payments</td>
+      <td>Stripe Checkout</td>
+      <td>Student</td>
+      <td>[Concurrent Users] Verify Stripe Checkout in Payments for Student role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.63s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>LDT-0057</td>
+      <td>Throughput</td>
+      <td>Messaging</td>
+      <td>Receive Message</td>
+      <td>Agent</td>
+      <td>[Throughput] Verify Receive Message in Messaging for Agent role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.698s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>LDT-0058</td>
+      <td>Memory Usage</td>
+      <td>Search & Filter</td>
+      <td>Sort Results</td>
+      <td>Employer</td>
+      <td>[Memory Usage] Verify Sort Results in Search & Filter for Employer role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.06s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>LDT-0059</td>
+      <td>CPU Usage</td>
+      <td>Notifications</td>
+      <td>Mark as Read</td>
+      <td>Admin</td>
+      <td>[CPU Usage] Verify Mark as Read in Notifications for Admin role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.871s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>LDT-0060</td>
+      <td>Database Connections</td>
+      <td>Bot / AI Chat</td>
+      <td>Error Fallback</td>
+      <td>Anonymous</td>
+      <td>[Database Connections] Verify Error Fallback in Bot / AI Chat for Anonymous role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>0.482s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>LDT-0061</td>
+      <td>Response Time</td>
+      <td>Authentication</td>
+      <td>Login</td>
+      <td>Student</td>
+      <td>[Response Time] Verify Login in Authentication for Student role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>0.258s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>LDT-0062</td>
+      <td>Concurrent Users</td>
+      <td>Student Portal</td>
+      <td>Earnings View</td>
+      <td>Agent</td>
+      <td>[Concurrent Users] Verify Earnings View in Student Portal for Agent role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>0.784s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>LDT-0063</td>
+      <td>Throughput</td>
+      <td>Agent Portal</td>
+      <td>Application Management</td>
+      <td>Employer</td>
+      <td>[Throughput] Verify Application Management in Agent Portal for Employer role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>0.569s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>LDT-0064</td>
+      <td>Memory Usage</td>
+      <td>Employer Portal</td>
+      <td>Dashboard</td>
+      <td>Admin</td>
+      <td>[Memory Usage] Verify Dashboard in Employer Portal for Admin role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.422s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>LDT-0065</td>
+      <td>CPU Usage</td>
+      <td>Admin Panel</td>
+      <td>User Management</td>
+      <td>Anonymous</td>
+      <td>[CPU Usage] Verify User Management in Admin Panel for Anonymous role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.233s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>LDT-0066</td>
+      <td>Database Connections</td>
+      <td>Payments</td>
+      <td>Stripe Checkout</td>
+      <td>Student</td>
+      <td>[Database Connections] Verify Stripe Checkout in Payments for Student role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>0.323s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>LDT-0067</td>
+      <td>Response Time</td>
+      <td>Messaging</td>
+      <td>Receive Message</td>
+      <td>Agent</td>
+      <td>[Response Time] Verify Receive Message in Messaging for Agent role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.652s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>LDT-0068</td>
+      <td>Concurrent Users</td>
+      <td>Search & Filter</td>
+      <td>Filter by Category</td>
+      <td>Employer</td>
+      <td>[Concurrent Users] Verify Filter by Category in Search & Filter for Employer role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>0.523s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>LDT-0069</td>
+      <td>Throughput</td>
+      <td>Notifications</td>
+      <td>Mark as Read</td>
+      <td>Admin</td>
+      <td>[Throughput] Verify Mark as Read in Notifications for Admin role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>2.375s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>LDT-0070</td>
+      <td>Memory Usage</td>
+      <td>Bot / AI Chat</td>
+      <td>Error Fallback</td>
+      <td>Anonymous</td>
+      <td>[Memory Usage] Verify Error Fallback in Bot / AI Chat for Anonymous role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.78s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>LDT-0071</td>
+      <td>CPU Usage</td>
+      <td>Authentication</td>
+      <td>Session Management</td>
+      <td>Student</td>
+      <td>[CPU Usage] Verify Session Management in Authentication for Student role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.151s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>LDT-0072</td>
+      <td>Database Connections</td>
+      <td>Student Portal</td>
+      <td>Profile Setup</td>
+      <td>Agent</td>
+      <td>[Database Connections] Verify Profile Setup in Student Portal for Agent role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>0.118s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>LDT-0073</td>
+      <td>Response Time</td>
+      <td>Agent Portal</td>
+      <td>Dashboard</td>
+      <td>Employer</td>
+      <td>[Response Time] Verify Dashboard in Agent Portal for Employer role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>0.385s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>LDT-0074</td>
+      <td>Concurrent Users</td>
+      <td>Employer Portal</td>
+      <td>Applicant Review</td>
+      <td>Admin</td>
+      <td>[Concurrent Users] Verify Applicant Review in Employer Portal for Admin role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.304s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>LDT-0075</td>
+      <td>Throughput</td>
+      <td>Admin Panel</td>
+      <td>Analytics</td>
+      <td>Anonymous</td>
+      <td>[Throughput] Verify Analytics in Admin Panel for Anonymous role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>0.964s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>LDT-0076</td>
+      <td>Memory Usage</td>
+      <td>Payments</td>
+      <td>Stripe Checkout</td>
+      <td>Student</td>
+      <td>[Memory Usage] Verify Stripe Checkout in Payments for Student role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>0.54s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>LDT-0077</td>
+      <td>CPU Usage</td>
+      <td>Messaging</td>
+      <td>Receive Message</td>
+      <td>Agent</td>
+      <td>[CPU Usage] Verify Receive Message in Messaging for Agent role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>0.629s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>LDT-0078</td>
+      <td>Database Connections</td>
+      <td>Search & Filter</td>
+      <td>Location Filter</td>
+      <td>Employer</td>
+      <td>[Database Connections] Verify Location Filter in Search & Filter for Employer role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>0.112s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>LDT-0079</td>
+      <td>Response Time</td>
+      <td>Notifications</td>
+      <td>Mark as Read</td>
+      <td>Admin</td>
+      <td>[Response Time] Verify Mark as Read in Notifications for Admin role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.794s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>LDT-0080</td>
+      <td>Concurrent Users</td>
+      <td>Bot / AI Chat</td>
+      <td>Error Fallback</td>
+      <td>Anonymous</td>
+      <td>[Concurrent Users] Verify Error Fallback in Bot / AI Chat for Anonymous role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.251s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>LDT-0081</td>
+      <td>Throughput</td>
+      <td>Authentication</td>
+      <td>OTP Verification</td>
+      <td>Student</td>
+      <td>[Throughput] Verify OTP Verification in Authentication for Student role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.604s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>LDT-0082</td>
+      <td>Memory Usage</td>
+      <td>Student Portal</td>
+      <td>Application Track</td>
+      <td>Agent</td>
+      <td>[Memory Usage] Verify Application Track in Student Portal for Agent role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.594s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>LDT-0083</td>
+      <td>CPU Usage</td>
+      <td>Agent Portal</td>
+      <td>Student Onboarding</td>
+      <td>Employer</td>
+      <td>[CPU Usage] Verify Student Onboarding in Agent Portal for Employer role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>0.655s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>LDT-0084</td>
+      <td>Database Connections</td>
+      <td>Employer Portal</td>
+      <td>Ratings</td>
+      <td>Admin</td>
+      <td>[Database Connections] Verify Ratings in Employer Portal for Admin role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>0.5s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>LDT-0085</td>
+      <td>Response Time</td>
+      <td>Admin Panel</td>
+      <td>Dashboard</td>
+      <td>Anonymous</td>
+      <td>[Response Time] Verify Dashboard in Admin Panel for Anonymous role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>2.336s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>LDT-0086</td>
+      <td>Concurrent Users</td>
+      <td>Payments</td>
+      <td>Stripe Checkout</td>
+      <td>Student</td>
+      <td>[Concurrent Users] Verify Stripe Checkout in Payments for Student role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>0.501s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>LDT-0087</td>
+      <td>Throughput</td>
+      <td>Messaging</td>
+      <td>Receive Message</td>
+      <td>Agent</td>
+      <td>[Throughput] Verify Receive Message in Messaging for Agent role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>0.998s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>LDT-0088</td>
+      <td>Memory Usage</td>
+      <td>Search & Filter</td>
+      <td>Sort Results</td>
+      <td>Employer</td>
+      <td>[Memory Usage] Verify Sort Results in Search & Filter for Employer role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>2.485s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>LDT-0089</td>
+      <td>CPU Usage</td>
+      <td>Notifications</td>
+      <td>Mark as Read</td>
+      <td>Admin</td>
+      <td>[CPU Usage] Verify Mark as Read in Notifications for Admin role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.659s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>LDT-0090</td>
+      <td>Database Connections</td>
+      <td>Bot / AI Chat</td>
+      <td>Error Fallback</td>
+      <td>Anonymous</td>
+      <td>[Database Connections] Verify Error Fallback in Bot / AI Chat for Anonymous role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>2.367s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>LDT-0091</td>
+      <td>Response Time</td>
+      <td>Authentication</td>
+      <td>Login</td>
+      <td>Student</td>
+      <td>[Response Time] Verify Login in Authentication for Student role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>0.805s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>LDT-0092</td>
+      <td>Concurrent Users</td>
+      <td>Student Portal</td>
+      <td>Dashboard</td>
+      <td>Agent</td>
+      <td>[Concurrent Users] Verify Dashboard in Student Portal for Agent role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>0.629s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>LDT-0093</td>
+      <td>Throughput</td>
+      <td>Agent Portal</td>
+      <td>Application Management</td>
+      <td>Employer</td>
+      <td>[Throughput] Verify Application Management in Agent Portal for Employer role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>0.261s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>LDT-0094</td>
+      <td>Memory Usage</td>
+      <td>Employer Portal</td>
+      <td>Job Posting</td>
+      <td>Admin</td>
+      <td>[Memory Usage] Verify Job Posting in Employer Portal for Admin role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>2.585s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>LDT-0095</td>
+      <td>CPU Usage</td>
+      <td>Admin Panel</td>
+      <td>System Settings</td>
+      <td>Anonymous</td>
+      <td>[CPU Usage] Verify System Settings in Admin Panel for Anonymous role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>2.487s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>LDT-0096</td>
+      <td>Database Connections</td>
+      <td>Payments</td>
+      <td>Stripe Checkout</td>
+      <td>Student</td>
+      <td>[Database Connections] Verify Stripe Checkout in Payments for Student role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.728s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>LDT-0097</td>
+      <td>Response Time</td>
+      <td>Messaging</td>
+      <td>Receive Message</td>
+      <td>Agent</td>
+      <td>[Response Time] Verify Receive Message in Messaging for Agent role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>0.94s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>LDT-0098</td>
+      <td>Concurrent Users</td>
+      <td>Search & Filter</td>
+      <td>Filter by Category</td>
+      <td>Employer</td>
+      <td>[Concurrent Users] Verify Filter by Category in Search & Filter for Employer role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>2.091s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>LDT-0099</td>
+      <td>Throughput</td>
+      <td>Notifications</td>
+      <td>Mark as Read</td>
+      <td>Admin</td>
+      <td>[Throughput] Verify Mark as Read in Notifications for Admin role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>0.358s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>LDT-0100</td>
+      <td>Memory Usage</td>
+      <td>Bot / AI Chat</td>
+      <td>Error Fallback</td>
+      <td>Anonymous</td>
+      <td>[Memory Usage] Verify Error Fallback in Bot / AI Chat for Anonymous role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>2.228s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>LDT-0101</td>
+      <td>CPU Usage</td>
+      <td>Authentication</td>
+      <td>Session Management</td>
+      <td>Student</td>
+      <td>[CPU Usage] Verify Session Management in Authentication for Student role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.754s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>LDT-0102</td>
+      <td>Database Connections</td>
+      <td>Student Portal</td>
+      <td>Application Submit</td>
+      <td>Agent</td>
+      <td>[Database Connections] Verify Application Submit in Student Portal for Agent role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.157s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>LDT-0103</td>
+      <td>Response Time</td>
+      <td>Agent Portal</td>
+      <td>Dashboard</td>
+      <td>Employer</td>
+      <td>[Response Time] Verify Dashboard in Agent Portal for Employer role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.896s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>LDT-0104</td>
+      <td>Concurrent Users</td>
+      <td>Employer Portal</td>
+      <td>Payment History</td>
+      <td>Admin</td>
+      <td>[Concurrent Users] Verify Payment History in Employer Portal for Admin role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>2.037s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>LDT-0105</td>
+      <td>Throughput</td>
+      <td>Admin Panel</td>
+      <td>Agent Management</td>
+      <td>Anonymous</td>
+      <td>[Throughput] Verify Agent Management in Admin Panel for Anonymous role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>2.009s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>LDT-0106</td>
+      <td>Memory Usage</td>
+      <td>Payments</td>
+      <td>Stripe Checkout</td>
+      <td>Student</td>
+      <td>[Memory Usage] Verify Stripe Checkout in Payments for Student role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.881s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>LDT-0107</td>
+      <td>CPU Usage</td>
+      <td>Messaging</td>
+      <td>Receive Message</td>
+      <td>Agent</td>
+      <td>[CPU Usage] Verify Receive Message in Messaging for Agent role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>0.944s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>LDT-0108</td>
+      <td>Database Connections</td>
+      <td>Search & Filter</td>
+      <td>Location Filter</td>
+      <td>Employer</td>
+      <td>[Database Connections] Verify Location Filter in Search & Filter for Employer role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>0.815s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>LDT-0109</td>
+      <td>Response Time</td>
+      <td>Notifications</td>
+      <td>Mark as Read</td>
+      <td>Admin</td>
+      <td>[Response Time] Verify Mark as Read in Notifications for Admin role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.654s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>LDT-0110</td>
+      <td>Concurrent Users</td>
+      <td>Bot / AI Chat</td>
+      <td>Error Fallback</td>
+      <td>Anonymous</td>
+      <td>[Concurrent Users] Verify Error Fallback in Bot / AI Chat for Anonymous role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>2.14s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>LDT-0111</td>
+      <td>Throughput</td>
+      <td>Authentication</td>
+      <td>OTP Verification</td>
+      <td>Student</td>
+      <td>[Throughput] Verify OTP Verification in Authentication for Student role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>0.387s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>LDT-0112</td>
+      <td>Memory Usage</td>
+      <td>Student Portal</td>
+      <td>Notifications</td>
+      <td>Agent</td>
+      <td>[Memory Usage] Verify Notifications in Student Portal for Agent role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.935s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>LDT-0113</td>
+      <td>CPU Usage</td>
+      <td>Agent Portal</td>
+      <td>Student Onboarding</td>
+      <td>Employer</td>
+      <td>[CPU Usage] Verify Student Onboarding in Agent Portal for Employer role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>2.572s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>LDT-0114</td>
+      <td>Database Connections</td>
+      <td>Employer Portal</td>
+      <td>Profile Setup</td>
+      <td>Admin</td>
+      <td>[Database Connections] Verify Profile Setup in Employer Portal for Admin role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.177s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>LDT-0115</td>
+      <td>Response Time</td>
+      <td>Admin Panel</td>
+      <td>Job Moderation</td>
+      <td>Anonymous</td>
+      <td>[Response Time] Verify Job Moderation in Admin Panel for Anonymous role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.045s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>LDT-0116</td>
+      <td>Concurrent Users</td>
+      <td>Payments</td>
+      <td>Stripe Checkout</td>
+      <td>Student</td>
+      <td>[Concurrent Users] Verify Stripe Checkout in Payments for Student role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>0.334s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>LDT-0117</td>
+      <td>Throughput</td>
+      <td>Messaging</td>
+      <td>Receive Message</td>
+      <td>Agent</td>
+      <td>[Throughput] Verify Receive Message in Messaging for Agent role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.93s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>LDT-0118</td>
+      <td>Memory Usage</td>
+      <td>Search & Filter</td>
+      <td>Sort Results</td>
+      <td>Employer</td>
+      <td>[Memory Usage] Verify Sort Results in Search & Filter for Employer role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>2.107s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>LDT-0119</td>
+      <td>CPU Usage</td>
+      <td>Notifications</td>
+      <td>Mark as Read</td>
+      <td>Admin</td>
+      <td>[CPU Usage] Verify Mark as Read in Notifications for Admin role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.944s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>LDT-0120</td>
+      <td>Database Connections</td>
+      <td>Bot / AI Chat</td>
+      <td>Error Fallback</td>
+      <td>Anonymous</td>
+      <td>[Database Connections] Verify Error Fallback in Bot / AI Chat for Anonymous role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.134s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>LDT-0121</td>
+      <td>Response Time</td>
+      <td>Authentication</td>
+      <td>Login</td>
+      <td>Student</td>
+      <td>[Response Time] Verify Login in Authentication for Student role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.371s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>LDT-0122</td>
+      <td>Concurrent Users</td>
+      <td>Student Portal</td>
+      <td>Job Search</td>
+      <td>Agent</td>
+      <td>[Concurrent Users] Verify Job Search in Student Portal for Agent role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.948s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>LDT-0123</td>
+      <td>Throughput</td>
+      <td>Agent Portal</td>
+      <td>Application Management</td>
+      <td>Employer</td>
+      <td>[Throughput] Verify Application Management in Agent Portal for Employer role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.663s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>LDT-0124</td>
+      <td>Memory Usage</td>
+      <td>Employer Portal</td>
+      <td>Messaging</td>
+      <td>Admin</td>
+      <td>[Memory Usage] Verify Messaging in Employer Portal for Admin role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>0.252s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>LDT-0125</td>
+      <td>CPU Usage</td>
+      <td>Admin Panel</td>
+      <td>Reports</td>
+      <td>Anonymous</td>
+      <td>[CPU Usage] Verify Reports in Admin Panel for Anonymous role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>0.431s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>LDT-0126</td>
+      <td>Database Connections</td>
+      <td>Payments</td>
+      <td>Stripe Checkout</td>
+      <td>Student</td>
+      <td>[Database Connections] Verify Stripe Checkout in Payments for Student role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>0.632s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>LDT-0127</td>
+      <td>Response Time</td>
+      <td>Messaging</td>
+      <td>Receive Message</td>
+      <td>Agent</td>
+      <td>[Response Time] Verify Receive Message in Messaging for Agent role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.101s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>LDT-0128</td>
+      <td>Concurrent Users</td>
+      <td>Search & Filter</td>
+      <td>Filter by Category</td>
+      <td>Employer</td>
+      <td>[Concurrent Users] Verify Filter by Category in Search & Filter for Employer role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>0.948s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>LDT-0129</td>
+      <td>Throughput</td>
+      <td>Notifications</td>
+      <td>Mark as Read</td>
+      <td>Admin</td>
+      <td>[Throughput] Verify Mark as Read in Notifications for Admin role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.285s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>LDT-0130</td>
+      <td>Memory Usage</td>
+      <td>Bot / AI Chat</td>
+      <td>Error Fallback</td>
+      <td>Anonymous</td>
+      <td>[Memory Usage] Verify Error Fallback in Bot / AI Chat for Anonymous role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.185s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>LDT-0131</td>
+      <td>CPU Usage</td>
+      <td>Authentication</td>
+      <td>Session Management</td>
+      <td>Student</td>
+      <td>[CPU Usage] Verify Session Management in Authentication for Student role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.679s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>LDT-0132</td>
+      <td>Database Connections</td>
+      <td>Student Portal</td>
+      <td>Earnings View</td>
+      <td>Agent</td>
+      <td>[Database Connections] Verify Earnings View in Student Portal for Agent role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>0.695s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>LDT-0133</td>
+      <td>Response Time</td>
+      <td>Agent Portal</td>
+      <td>Dashboard</td>
+      <td>Employer</td>
+      <td>[Response Time] Verify Dashboard in Agent Portal for Employer role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>0.734s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>LDT-0134</td>
+      <td>Concurrent Users</td>
+      <td>Employer Portal</td>
+      <td>Dashboard</td>
+      <td>Admin</td>
+      <td>[Concurrent Users] Verify Dashboard in Employer Portal for Admin role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.925s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>LDT-0135</td>
+      <td>Throughput</td>
+      <td>Admin Panel</td>
+      <td>User Management</td>
+      <td>Anonymous</td>
+      <td>[Throughput] Verify User Management in Admin Panel for Anonymous role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.031s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>LDT-0136</td>
+      <td>Memory Usage</td>
+      <td>Payments</td>
+      <td>Stripe Checkout</td>
+      <td>Student</td>
+      <td>[Memory Usage] Verify Stripe Checkout in Payments for Student role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>2.483s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>LDT-0137</td>
+      <td>CPU Usage</td>
+      <td>Messaging</td>
+      <td>Receive Message</td>
+      <td>Agent</td>
+      <td>[CPU Usage] Verify Receive Message in Messaging for Agent role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>2.181s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>LDT-0138</td>
+      <td>Database Connections</td>
+      <td>Search & Filter</td>
+      <td>Location Filter</td>
+      <td>Employer</td>
+      <td>[Database Connections] Verify Location Filter in Search & Filter for Employer role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>2.388s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>LDT-0139</td>
+      <td>Response Time</td>
+      <td>Notifications</td>
+      <td>Mark as Read</td>
+      <td>Admin</td>
+      <td>[Response Time] Verify Mark as Read in Notifications for Admin role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>2.384s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>LDT-0140</td>
+      <td>Concurrent Users</td>
+      <td>Bot / AI Chat</td>
+      <td>Error Fallback</td>
+      <td>Anonymous</td>
+      <td>[Concurrent Users] Verify Error Fallback in Bot / AI Chat for Anonymous role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.521s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>LDT-0141</td>
+      <td>Throughput</td>
+      <td>Authentication</td>
+      <td>OTP Verification</td>
+      <td>Student</td>
+      <td>[Throughput] Verify OTP Verification in Authentication for Student role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.896s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>LDT-0142</td>
+      <td>Memory Usage</td>
+      <td>Student Portal</td>
+      <td>Profile Setup</td>
+      <td>Agent</td>
+      <td>[Memory Usage] Verify Profile Setup in Student Portal for Agent role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>2.132s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>LDT-0143</td>
+      <td>CPU Usage</td>
+      <td>Agent Portal</td>
+      <td>Student Onboarding</td>
+      <td>Employer</td>
+      <td>[CPU Usage] Verify Student Onboarding in Agent Portal for Employer role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>0.197s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>LDT-0144</td>
+      <td>Database Connections</td>
+      <td>Employer Portal</td>
+      <td>Applicant Review</td>
+      <td>Admin</td>
+      <td>[Database Connections] Verify Applicant Review in Employer Portal for Admin role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.643s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>LDT-0145</td>
+      <td>Response Time</td>
+      <td>Admin Panel</td>
+      <td>Analytics</td>
+      <td>Anonymous</td>
+      <td>[Response Time] Verify Analytics in Admin Panel for Anonymous role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>0.288s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>LDT-0146</td>
+      <td>Concurrent Users</td>
+      <td>Payments</td>
+      <td>Stripe Checkout</td>
+      <td>Student</td>
+      <td>[Concurrent Users] Verify Stripe Checkout in Payments for Student role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.271s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>LDT-0147</td>
+      <td>Throughput</td>
+      <td>Messaging</td>
+      <td>Receive Message</td>
+      <td>Agent</td>
+      <td>[Throughput] Verify Receive Message in Messaging for Agent role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.039s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>LDT-0148</td>
+      <td>Memory Usage</td>
+      <td>Search & Filter</td>
+      <td>Sort Results</td>
+      <td>Employer</td>
+      <td>[Memory Usage] Verify Sort Results in Search & Filter for Employer role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>0.383s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>LDT-0149</td>
+      <td>CPU Usage</td>
+      <td>Notifications</td>
+      <td>Mark as Read</td>
+      <td>Admin</td>
+      <td>[CPU Usage] Verify Mark as Read in Notifications for Admin role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.752s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>LDT-0150</td>
+      <td>Database Connections</td>
+      <td>Bot / AI Chat</td>
+      <td>Error Fallback</td>
+      <td>Anonymous</td>
+      <td>[Database Connections] Verify Error Fallback in Bot / AI Chat for Anonymous role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>2.541s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>LDT-0151</td>
+      <td>Response Time</td>
+      <td>Authentication</td>
+      <td>Login</td>
+      <td>Student</td>
+      <td>[Response Time] Verify Login in Authentication for Student role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>2.252s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>LDT-0152</td>
+      <td>Concurrent Users</td>
+      <td>Student Portal</td>
+      <td>Application Track</td>
+      <td>Agent</td>
+      <td>[Concurrent Users] Verify Application Track in Student Portal for Agent role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>0.193s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>LDT-0153</td>
+      <td>Throughput</td>
+      <td>Agent Portal</td>
+      <td>Application Management</td>
+      <td>Employer</td>
+      <td>[Throughput] Verify Application Management in Agent Portal for Employer role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.883s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>LDT-0154</td>
+      <td>Memory Usage</td>
+      <td>Employer Portal</td>
+      <td>Ratings</td>
+      <td>Admin</td>
+      <td>[Memory Usage] Verify Ratings in Employer Portal for Admin role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>0.457s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>LDT-0155</td>
+      <td>CPU Usage</td>
+      <td>Admin Panel</td>
+      <td>Dashboard</td>
+      <td>Anonymous</td>
+      <td>[CPU Usage] Verify Dashboard in Admin Panel for Anonymous role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.273s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>LDT-0156</td>
+      <td>Database Connections</td>
+      <td>Payments</td>
+      <td>Stripe Checkout</td>
+      <td>Student</td>
+      <td>[Database Connections] Verify Stripe Checkout in Payments for Student role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.728s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>LDT-0157</td>
+      <td>Response Time</td>
+      <td>Messaging</td>
+      <td>Receive Message</td>
+      <td>Agent</td>
+      <td>[Response Time] Verify Receive Message in Messaging for Agent role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.82s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>LDT-0158</td>
+      <td>Concurrent Users</td>
+      <td>Search & Filter</td>
+      <td>Filter by Category</td>
+      <td>Employer</td>
+      <td>[Concurrent Users] Verify Filter by Category in Search & Filter for Employer role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>0.187s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>LDT-0159</td>
+      <td>Throughput</td>
+      <td>Notifications</td>
+      <td>Mark as Read</td>
+      <td>Admin</td>
+      <td>[Throughput] Verify Mark as Read in Notifications for Admin role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>0.177s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>LDT-0160</td>
+      <td>Memory Usage</td>
+      <td>Bot / AI Chat</td>
+      <td>Error Fallback</td>
+      <td>Anonymous</td>
+      <td>[Memory Usage] Verify Error Fallback in Bot / AI Chat for Anonymous role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.114s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>LDT-0161</td>
+      <td>CPU Usage</td>
+      <td>Authentication</td>
+      <td>Session Management</td>
+      <td>Student</td>
+      <td>[CPU Usage] Verify Session Management in Authentication for Student role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>0.578s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>LDT-0162</td>
+      <td>Database Connections</td>
+      <td>Student Portal</td>
+      <td>Dashboard</td>
+      <td>Agent</td>
+      <td>[Database Connections] Verify Dashboard in Student Portal for Agent role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.371s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>LDT-0163</td>
+      <td>Response Time</td>
+      <td>Agent Portal</td>
+      <td>Dashboard</td>
+      <td>Employer</td>
+      <td>[Response Time] Verify Dashboard in Agent Portal for Employer role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>2.302s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>LDT-0164</td>
+      <td>Concurrent Users</td>
+      <td>Employer Portal</td>
+      <td>Job Posting</td>
+      <td>Admin</td>
+      <td>[Concurrent Users] Verify Job Posting in Employer Portal for Admin role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.346s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>LDT-0165</td>
+      <td>Throughput</td>
+      <td>Admin Panel</td>
+      <td>System Settings</td>
+      <td>Anonymous</td>
+      <td>[Throughput] Verify System Settings in Admin Panel for Anonymous role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>2.045s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>LDT-0166</td>
+      <td>Memory Usage</td>
+      <td>Payments</td>
+      <td>Stripe Checkout</td>
+      <td>Student</td>
+      <td>[Memory Usage] Verify Stripe Checkout in Payments for Student role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>0.985s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>LDT-0167</td>
+      <td>CPU Usage</td>
+      <td>Messaging</td>
+      <td>Receive Message</td>
+      <td>Agent</td>
+      <td>[CPU Usage] Verify Receive Message in Messaging for Agent role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>2.556s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>LDT-0168</td>
+      <td>Database Connections</td>
+      <td>Search & Filter</td>
+      <td>Location Filter</td>
+      <td>Employer</td>
+      <td>[Database Connections] Verify Location Filter in Search & Filter for Employer role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.296s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>LDT-0169</td>
+      <td>Response Time</td>
+      <td>Notifications</td>
+      <td>Mark as Read</td>
+      <td>Admin</td>
+      <td>[Response Time] Verify Mark as Read in Notifications for Admin role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.632s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>LDT-0170</td>
+      <td>Concurrent Users</td>
+      <td>Bot / AI Chat</td>
+      <td>Error Fallback</td>
+      <td>Anonymous</td>
+      <td>[Concurrent Users] Verify Error Fallback in Bot / AI Chat for Anonymous role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>2.596s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>LDT-0171</td>
+      <td>Throughput</td>
+      <td>Authentication</td>
+      <td>OTP Verification</td>
+      <td>Student</td>
+      <td>[Throughput] Verify OTP Verification in Authentication for Student role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>0.38s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>LDT-0172</td>
+      <td>Memory Usage</td>
+      <td>Student Portal</td>
+      <td>Application Submit</td>
+      <td>Agent</td>
+      <td>[Memory Usage] Verify Application Submit in Student Portal for Agent role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>0.334s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>LDT-0173</td>
+      <td>CPU Usage</td>
+      <td>Agent Portal</td>
+      <td>Student Onboarding</td>
+      <td>Employer</td>
+      <td>[CPU Usage] Verify Student Onboarding in Agent Portal for Employer role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>0.363s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>LDT-0174</td>
+      <td>Database Connections</td>
+      <td>Employer Portal</td>
+      <td>Payment History</td>
+      <td>Admin</td>
+      <td>[Database Connections] Verify Payment History in Employer Portal for Admin role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>2.467s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>LDT-0175</td>
+      <td>Response Time</td>
+      <td>Admin Panel</td>
+      <td>Agent Management</td>
+      <td>Anonymous</td>
+      <td>[Response Time] Verify Agent Management in Admin Panel for Anonymous role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>2.062s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>LDT-0176</td>
+      <td>Concurrent Users</td>
+      <td>Payments</td>
+      <td>Stripe Checkout</td>
+      <td>Student</td>
+      <td>[Concurrent Users] Verify Stripe Checkout in Payments for Student role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>0.589s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>LDT-0177</td>
+      <td>Throughput</td>
+      <td>Messaging</td>
+      <td>Receive Message</td>
+      <td>Agent</td>
+      <td>[Throughput] Verify Receive Message in Messaging for Agent role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>2.513s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>LDT-0178</td>
+      <td>Memory Usage</td>
+      <td>Search & Filter</td>
+      <td>Sort Results</td>
+      <td>Employer</td>
+      <td>[Memory Usage] Verify Sort Results in Search & Filter for Employer role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>0.772s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>LDT-0179</td>
+      <td>CPU Usage</td>
+      <td>Notifications</td>
+      <td>Mark as Read</td>
+      <td>Admin</td>
+      <td>[CPU Usage] Verify Mark as Read in Notifications for Admin role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>2.011s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>LDT-0180</td>
+      <td>Database Connections</td>
+      <td>Bot / AI Chat</td>
+      <td>Error Fallback</td>
+      <td>Anonymous</td>
+      <td>[Database Connections] Verify Error Fallback in Bot / AI Chat for Anonymous role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.289s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>LDT-0181</td>
+      <td>Response Time</td>
+      <td>Authentication</td>
+      <td>Login</td>
+      <td>Student</td>
+      <td>[Response Time] Verify Login in Authentication for Student role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.919s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>LDT-0182</td>
+      <td>Concurrent Users</td>
+      <td>Student Portal</td>
+      <td>Notifications</td>
+      <td>Agent</td>
+      <td>[Concurrent Users] Verify Notifications in Student Portal for Agent role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.578s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>LDT-0183</td>
+      <td>Throughput</td>
+      <td>Agent Portal</td>
+      <td>Application Management</td>
+      <td>Employer</td>
+      <td>[Throughput] Verify Application Management in Agent Portal for Employer role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>0.315s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>LDT-0184</td>
+      <td>Memory Usage</td>
+      <td>Employer Portal</td>
+      <td>Profile Setup</td>
+      <td>Admin</td>
+      <td>[Memory Usage] Verify Profile Setup in Employer Portal for Admin role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.634s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>LDT-0185</td>
+      <td>CPU Usage</td>
+      <td>Admin Panel</td>
+      <td>Job Moderation</td>
+      <td>Anonymous</td>
+      <td>[CPU Usage] Verify Job Moderation in Admin Panel for Anonymous role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.138s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>LDT-0186</td>
+      <td>Database Connections</td>
+      <td>Payments</td>
+      <td>Stripe Checkout</td>
+      <td>Student</td>
+      <td>[Database Connections] Verify Stripe Checkout in Payments for Student role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>0.753s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>LDT-0187</td>
+      <td>Response Time</td>
+      <td>Messaging</td>
+      <td>Receive Message</td>
+      <td>Agent</td>
+      <td>[Response Time] Verify Receive Message in Messaging for Agent role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.19s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>LDT-0188</td>
+      <td>Concurrent Users</td>
+      <td>Search & Filter</td>
+      <td>Filter by Category</td>
+      <td>Employer</td>
+      <td>[Concurrent Users] Verify Filter by Category in Search & Filter for Employer role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>0.189s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>LDT-0189</td>
+      <td>Throughput</td>
+      <td>Notifications</td>
+      <td>Mark as Read</td>
+      <td>Admin</td>
+      <td>[Throughput] Verify Mark as Read in Notifications for Admin role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.673s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>LDT-0190</td>
+      <td>Memory Usage</td>
+      <td>Bot / AI Chat</td>
+      <td>Error Fallback</td>
+      <td>Anonymous</td>
+      <td>[Memory Usage] Verify Error Fallback in Bot / AI Chat for Anonymous role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.842s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>LDT-0191</td>
+      <td>CPU Usage</td>
+      <td>Authentication</td>
+      <td>Session Management</td>
+      <td>Student</td>
+      <td>[CPU Usage] Verify Session Management in Authentication for Student role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>0.878s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>LDT-0192</td>
+      <td>Database Connections</td>
+      <td>Student Portal</td>
+      <td>Job Search</td>
+      <td>Agent</td>
+      <td>[Database Connections] Verify Job Search in Student Portal for Agent role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>2.596s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>LDT-0193</td>
+      <td>Response Time</td>
+      <td>Agent Portal</td>
+      <td>Dashboard</td>
+      <td>Employer</td>
+      <td>[Response Time] Verify Dashboard in Agent Portal for Employer role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>0.306s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>LDT-0194</td>
+      <td>Concurrent Users</td>
+      <td>Employer Portal</td>
+      <td>Messaging</td>
+      <td>Admin</td>
+      <td>[Concurrent Users] Verify Messaging in Employer Portal for Admin role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>0.593s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>LDT-0195</td>
+      <td>Throughput</td>
+      <td>Admin Panel</td>
+      <td>Reports</td>
+      <td>Anonymous</td>
+      <td>[Throughput] Verify Reports in Admin Panel for Anonymous role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>0.268s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>LDT-0196</td>
+      <td>Memory Usage</td>
+      <td>Payments</td>
+      <td>Stripe Checkout</td>
+      <td>Student</td>
+      <td>[Memory Usage] Verify Stripe Checkout in Payments for Student role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.319s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>LDT-0197</td>
+      <td>CPU Usage</td>
+      <td>Messaging</td>
+      <td>Receive Message</td>
+      <td>Agent</td>
+      <td>[CPU Usage] Verify Receive Message in Messaging for Agent role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.744s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>LDT-0198</td>
+      <td>Database Connections</td>
+      <td>Search & Filter</td>
+      <td>Location Filter</td>
+      <td>Employer</td>
+      <td>[Database Connections] Verify Location Filter in Search & Filter for Employer role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>0.905s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>LDT-0199</td>
+      <td>Response Time</td>
+      <td>Notifications</td>
+      <td>Mark as Read</td>
+      <td>Admin</td>
+      <td>[Response Time] Verify Mark as Read in Notifications for Admin role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>0.47s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>LDT-0200</td>
+      <td>Concurrent Users</td>
+      <td>Bot / AI Chat</td>
+      <td>Error Fallback</td>
+      <td>Anonymous</td>
+      <td>[Concurrent Users] Verify Error Fallback in Bot / AI Chat for Anonymous role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>2.14s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>LDT-0201</td>
+      <td>Throughput</td>
+      <td>Authentication</td>
+      <td>OTP Verification</td>
+      <td>Student</td>
+      <td>[Throughput] Verify OTP Verification in Authentication for Student role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>0.305s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>LDT-0202</td>
+      <td>Memory Usage</td>
+      <td>Student Portal</td>
+      <td>Earnings View</td>
+      <td>Agent</td>
+      <td>[Memory Usage] Verify Earnings View in Student Portal for Agent role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>2.169s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>LDT-0203</td>
+      <td>CPU Usage</td>
+      <td>Agent Portal</td>
+      <td>Student Onboarding</td>
+      <td>Employer</td>
+      <td>[CPU Usage] Verify Student Onboarding in Agent Portal for Employer role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>0.538s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>LDT-0204</td>
+      <td>Database Connections</td>
+      <td>Employer Portal</td>
+      <td>Dashboard</td>
+      <td>Admin</td>
+      <td>[Database Connections] Verify Dashboard in Employer Portal for Admin role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>0.915s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>LDT-0205</td>
+      <td>Response Time</td>
+      <td>Admin Panel</td>
+      <td>User Management</td>
+      <td>Anonymous</td>
+      <td>[Response Time] Verify User Management in Admin Panel for Anonymous role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>0.326s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>LDT-0206</td>
+      <td>Concurrent Users</td>
+      <td>Payments</td>
+      <td>Stripe Checkout</td>
+      <td>Student</td>
+      <td>[Concurrent Users] Verify Stripe Checkout in Payments for Student role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>0.246s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>LDT-0207</td>
+      <td>Throughput</td>
+      <td>Messaging</td>
+      <td>Receive Message</td>
+      <td>Agent</td>
+      <td>[Throughput] Verify Receive Message in Messaging for Agent role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>2.254s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>LDT-0208</td>
+      <td>Memory Usage</td>
+      <td>Search & Filter</td>
+      <td>Sort Results</td>
+      <td>Employer</td>
+      <td>[Memory Usage] Verify Sort Results in Search & Filter for Employer role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>0.379s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>LDT-0209</td>
+      <td>CPU Usage</td>
+      <td>Notifications</td>
+      <td>Mark as Read</td>
+      <td>Admin</td>
+      <td>[CPU Usage] Verify Mark as Read in Notifications for Admin role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.741s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>LDT-0210</td>
+      <td>Database Connections</td>
+      <td>Bot / AI Chat</td>
+      <td>Error Fallback</td>
+      <td>Anonymous</td>
+      <td>[Database Connections] Verify Error Fallback in Bot / AI Chat for Anonymous role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>2.184s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>LDT-0211</td>
+      <td>Response Time</td>
+      <td>Authentication</td>
+      <td>Login</td>
+      <td>Student</td>
+      <td>[Response Time] Verify Login in Authentication for Student role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>2.177s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>LDT-0212</td>
+      <td>Concurrent Users</td>
+      <td>Student Portal</td>
+      <td>Profile Setup</td>
+      <td>Agent</td>
+      <td>[Concurrent Users] Verify Profile Setup in Student Portal for Agent role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>0.809s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>LDT-0213</td>
+      <td>Throughput</td>
+      <td>Agent Portal</td>
+      <td>Application Management</td>
+      <td>Employer</td>
+      <td>[Throughput] Verify Application Management in Agent Portal for Employer role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>0.941s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>LDT-0214</td>
+      <td>Memory Usage</td>
+      <td>Employer Portal</td>
+      <td>Applicant Review</td>
+      <td>Admin</td>
+      <td>[Memory Usage] Verify Applicant Review in Employer Portal for Admin role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>2.28s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>LDT-0215</td>
+      <td>CPU Usage</td>
+      <td>Admin Panel</td>
+      <td>Analytics</td>
+      <td>Anonymous</td>
+      <td>[CPU Usage] Verify Analytics in Admin Panel for Anonymous role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>2.409s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>LDT-0216</td>
+      <td>Database Connections</td>
+      <td>Payments</td>
+      <td>Stripe Checkout</td>
+      <td>Student</td>
+      <td>[Database Connections] Verify Stripe Checkout in Payments for Student role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.646s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>LDT-0217</td>
+      <td>Response Time</td>
+      <td>Messaging</td>
+      <td>Receive Message</td>
+      <td>Agent</td>
+      <td>[Response Time] Verify Receive Message in Messaging for Agent role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>2.599s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>LDT-0218</td>
+      <td>Concurrent Users</td>
+      <td>Search & Filter</td>
+      <td>Filter by Category</td>
+      <td>Employer</td>
+      <td>[Concurrent Users] Verify Filter by Category in Search & Filter for Employer role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>0.272s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>LDT-0219</td>
+      <td>Throughput</td>
+      <td>Notifications</td>
+      <td>Mark as Read</td>
+      <td>Admin</td>
+      <td>[Throughput] Verify Mark as Read in Notifications for Admin role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>0.77s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>LDT-0220</td>
+      <td>Memory Usage</td>
+      <td>Bot / AI Chat</td>
+      <td>Error Fallback</td>
+      <td>Anonymous</td>
+      <td>[Memory Usage] Verify Error Fallback in Bot / AI Chat for Anonymous role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>0.645s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>LDT-0221</td>
+      <td>CPU Usage</td>
+      <td>Authentication</td>
+      <td>Session Management</td>
+      <td>Student</td>
+      <td>[CPU Usage] Verify Session Management in Authentication for Student role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.893s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>LDT-0222</td>
+      <td>Database Connections</td>
+      <td>Student Portal</td>
+      <td>Application Track</td>
+      <td>Agent</td>
+      <td>[Database Connections] Verify Application Track in Student Portal for Agent role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.882s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>LDT-0223</td>
+      <td>Response Time</td>
+      <td>Agent Portal</td>
+      <td>Dashboard</td>
+      <td>Employer</td>
+      <td>[Response Time] Verify Dashboard in Agent Portal for Employer role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>2.483s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>LDT-0224</td>
+      <td>Concurrent Users</td>
+      <td>Employer Portal</td>
+      <td>Ratings</td>
+      <td>Admin</td>
+      <td>[Concurrent Users] Verify Ratings in Employer Portal for Admin role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>2.053s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>LDT-0225</td>
+      <td>Throughput</td>
+      <td>Admin Panel</td>
+      <td>Dashboard</td>
+      <td>Anonymous</td>
+      <td>[Throughput] Verify Dashboard in Admin Panel for Anonymous role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>2.217s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>LDT-0226</td>
+      <td>Memory Usage</td>
+      <td>Payments</td>
+      <td>Stripe Checkout</td>
+      <td>Student</td>
+      <td>[Memory Usage] Verify Stripe Checkout in Payments for Student role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>0.297s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>LDT-0227</td>
+      <td>CPU Usage</td>
+      <td>Messaging</td>
+      <td>Receive Message</td>
+      <td>Agent</td>
+      <td>[CPU Usage] Verify Receive Message in Messaging for Agent role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.465s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>LDT-0228</td>
+      <td>Database Connections</td>
+      <td>Search & Filter</td>
+      <td>Location Filter</td>
+      <td>Employer</td>
+      <td>[Database Connections] Verify Location Filter in Search & Filter for Employer role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.807s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>LDT-0229</td>
+      <td>Response Time</td>
+      <td>Notifications</td>
+      <td>Mark as Read</td>
+      <td>Admin</td>
+      <td>[Response Time] Verify Mark as Read in Notifications for Admin role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.489s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>LDT-0230</td>
+      <td>Concurrent Users</td>
+      <td>Bot / AI Chat</td>
+      <td>Error Fallback</td>
+      <td>Anonymous</td>
+      <td>[Concurrent Users] Verify Error Fallback in Bot / AI Chat for Anonymous role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>2.196s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>LDT-0231</td>
+      <td>Throughput</td>
+      <td>Authentication</td>
+      <td>OTP Verification</td>
+      <td>Student</td>
+      <td>[Throughput] Verify OTP Verification in Authentication for Student role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>2.337s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>LDT-0232</td>
+      <td>Memory Usage</td>
+      <td>Student Portal</td>
+      <td>Dashboard</td>
+      <td>Agent</td>
+      <td>[Memory Usage] Verify Dashboard in Student Portal for Agent role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.748s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>LDT-0233</td>
+      <td>CPU Usage</td>
+      <td>Agent Portal</td>
+      <td>Student Onboarding</td>
+      <td>Employer</td>
+      <td>[CPU Usage] Verify Student Onboarding in Agent Portal for Employer role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>2.118s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>LDT-0234</td>
+      <td>Database Connections</td>
+      <td>Employer Portal</td>
+      <td>Job Posting</td>
+      <td>Admin</td>
+      <td>[Database Connections] Verify Job Posting in Employer Portal for Admin role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>0.292s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>LDT-0235</td>
+      <td>Response Time</td>
+      <td>Admin Panel</td>
+      <td>System Settings</td>
+      <td>Anonymous</td>
+      <td>[Response Time] Verify System Settings in Admin Panel for Anonymous role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>0.515s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>LDT-0236</td>
+      <td>Concurrent Users</td>
+      <td>Payments</td>
+      <td>Stripe Checkout</td>
+      <td>Student</td>
+      <td>[Concurrent Users] Verify Stripe Checkout in Payments for Student role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>2.525s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>LDT-0237</td>
+      <td>Throughput</td>
+      <td>Messaging</td>
+      <td>Receive Message</td>
+      <td>Agent</td>
+      <td>[Throughput] Verify Receive Message in Messaging for Agent role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.245s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>LDT-0238</td>
+      <td>Memory Usage</td>
+      <td>Search & Filter</td>
+      <td>Sort Results</td>
+      <td>Employer</td>
+      <td>[Memory Usage] Verify Sort Results in Search & Filter for Employer role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>2.178s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>LDT-0239</td>
+      <td>CPU Usage</td>
+      <td>Notifications</td>
+      <td>Mark as Read</td>
+      <td>Admin</td>
+      <td>[CPU Usage] Verify Mark as Read in Notifications for Admin role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>0.297s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>LDT-0240</td>
+      <td>Database Connections</td>
+      <td>Bot / AI Chat</td>
+      <td>Error Fallback</td>
+      <td>Anonymous</td>
+      <td>[Database Connections] Verify Error Fallback in Bot / AI Chat for Anonymous role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>2.291s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>LDT-0241</td>
+      <td>Response Time</td>
+      <td>Authentication</td>
+      <td>Login</td>
+      <td>Student</td>
+      <td>[Response Time] Verify Login in Authentication for Student role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>2.276s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>LDT-0242</td>
+      <td>Concurrent Users</td>
+      <td>Student Portal</td>
+      <td>Application Submit</td>
+      <td>Agent</td>
+      <td>[Concurrent Users] Verify Application Submit in Student Portal for Agent role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>0.625s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>LDT-0243</td>
+      <td>Throughput</td>
+      <td>Agent Portal</td>
+      <td>Application Management</td>
+      <td>Employer</td>
+      <td>[Throughput] Verify Application Management in Agent Portal for Employer role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>0.555s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>LDT-0244</td>
+      <td>Memory Usage</td>
+      <td>Employer Portal</td>
+      <td>Payment History</td>
+      <td>Admin</td>
+      <td>[Memory Usage] Verify Payment History in Employer Portal for Admin role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.113s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>LDT-0245</td>
+      <td>CPU Usage</td>
+      <td>Admin Panel</td>
+      <td>Agent Management</td>
+      <td>Anonymous</td>
+      <td>[CPU Usage] Verify Agent Management in Admin Panel for Anonymous role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.048s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>LDT-0246</td>
+      <td>Database Connections</td>
+      <td>Payments</td>
+      <td>Stripe Checkout</td>
+      <td>Student</td>
+      <td>[Database Connections] Verify Stripe Checkout in Payments for Student role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>2.137s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>LDT-0247</td>
+      <td>Response Time</td>
+      <td>Messaging</td>
+      <td>Receive Message</td>
+      <td>Agent</td>
+      <td>[Response Time] Verify Receive Message in Messaging for Agent role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.997s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>LDT-0248</td>
+      <td>Concurrent Users</td>
+      <td>Search & Filter</td>
+      <td>Filter by Category</td>
+      <td>Employer</td>
+      <td>[Concurrent Users] Verify Filter by Category in Search & Filter for Employer role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>0.515s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>LDT-0249</td>
+      <td>Throughput</td>
+      <td>Notifications</td>
+      <td>Mark as Read</td>
+      <td>Admin</td>
+      <td>[Throughput] Verify Mark as Read in Notifications for Admin role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.389s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>LDT-0250</td>
+      <td>Memory Usage</td>
+      <td>Bot / AI Chat</td>
+      <td>Error Fallback</td>
+      <td>Anonymous</td>
+      <td>[Memory Usage] Verify Error Fallback in Bot / AI Chat for Anonymous role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>0.8s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>LDT-0251</td>
+      <td>CPU Usage</td>
+      <td>Authentication</td>
+      <td>Session Management</td>
+      <td>Student</td>
+      <td>[CPU Usage] Verify Session Management in Authentication for Student role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.69s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>LDT-0252</td>
+      <td>Database Connections</td>
+      <td>Student Portal</td>
+      <td>Notifications</td>
+      <td>Agent</td>
+      <td>[Database Connections] Verify Notifications in Student Portal for Agent role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>2.424s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>LDT-0253</td>
+      <td>Response Time</td>
+      <td>Agent Portal</td>
+      <td>Dashboard</td>
+      <td>Employer</td>
+      <td>[Response Time] Verify Dashboard in Agent Portal for Employer role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>0.87s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>LDT-0254</td>
+      <td>Concurrent Users</td>
+      <td>Employer Portal</td>
+      <td>Profile Setup</td>
+      <td>Admin</td>
+      <td>[Concurrent Users] Verify Profile Setup in Employer Portal for Admin role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.037s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>LDT-0255</td>
+      <td>Throughput</td>
+      <td>Admin Panel</td>
+      <td>Job Moderation</td>
+      <td>Anonymous</td>
+      <td>[Throughput] Verify Job Moderation in Admin Panel for Anonymous role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>0.452s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>LDT-0256</td>
+      <td>Memory Usage</td>
+      <td>Payments</td>
+      <td>Stripe Checkout</td>
+      <td>Student</td>
+      <td>[Memory Usage] Verify Stripe Checkout in Payments for Student role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>0.68s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>LDT-0257</td>
+      <td>CPU Usage</td>
+      <td>Messaging</td>
+      <td>Receive Message</td>
+      <td>Agent</td>
+      <td>[CPU Usage] Verify Receive Message in Messaging for Agent role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>0.291s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>LDT-0258</td>
+      <td>Database Connections</td>
+      <td>Search & Filter</td>
+      <td>Location Filter</td>
+      <td>Employer</td>
+      <td>[Database Connections] Verify Location Filter in Search & Filter for Employer role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>0.551s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>LDT-0259</td>
+      <td>Response Time</td>
+      <td>Notifications</td>
+      <td>Mark as Read</td>
+      <td>Admin</td>
+      <td>[Response Time] Verify Mark as Read in Notifications for Admin role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.446s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>LDT-0260</td>
+      <td>Concurrent Users</td>
+      <td>Bot / AI Chat</td>
+      <td>Error Fallback</td>
+      <td>Anonymous</td>
+      <td>[Concurrent Users] Verify Error Fallback in Bot / AI Chat for Anonymous role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.543s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>LDT-0261</td>
+      <td>Throughput</td>
+      <td>Authentication</td>
+      <td>OTP Verification</td>
+      <td>Student</td>
+      <td>[Throughput] Verify OTP Verification in Authentication for Student role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>0.936s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>LDT-0262</td>
+      <td>Memory Usage</td>
+      <td>Student Portal</td>
+      <td>Job Search</td>
+      <td>Agent</td>
+      <td>[Memory Usage] Verify Job Search in Student Portal for Agent role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>0.366s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>LDT-0263</td>
+      <td>CPU Usage</td>
+      <td>Agent Portal</td>
+      <td>Student Onboarding</td>
+      <td>Employer</td>
+      <td>[CPU Usage] Verify Student Onboarding in Agent Portal for Employer role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>2.548s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>LDT-0264</td>
+      <td>Database Connections</td>
+      <td>Employer Portal</td>
+      <td>Messaging</td>
+      <td>Admin</td>
+      <td>[Database Connections] Verify Messaging in Employer Portal for Admin role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>2.451s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>LDT-0265</td>
+      <td>Response Time</td>
+      <td>Admin Panel</td>
+      <td>Reports</td>
+      <td>Anonymous</td>
+      <td>[Response Time] Verify Reports in Admin Panel for Anonymous role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.873s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>LDT-0266</td>
+      <td>Concurrent Users</td>
+      <td>Payments</td>
+      <td>Stripe Checkout</td>
+      <td>Student</td>
+      <td>[Concurrent Users] Verify Stripe Checkout in Payments for Student role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.726s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>LDT-0267</td>
+      <td>Throughput</td>
+      <td>Messaging</td>
+      <td>Receive Message</td>
+      <td>Agent</td>
+      <td>[Throughput] Verify Receive Message in Messaging for Agent role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.665s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>LDT-0268</td>
+      <td>Memory Usage</td>
+      <td>Search & Filter</td>
+      <td>Sort Results</td>
+      <td>Employer</td>
+      <td>[Memory Usage] Verify Sort Results in Search & Filter for Employer role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>2.049s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>LDT-0269</td>
+      <td>CPU Usage</td>
+      <td>Notifications</td>
+      <td>Mark as Read</td>
+      <td>Admin</td>
+      <td>[CPU Usage] Verify Mark as Read in Notifications for Admin role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.696s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>LDT-0270</td>
+      <td>Database Connections</td>
+      <td>Bot / AI Chat</td>
+      <td>Error Fallback</td>
+      <td>Anonymous</td>
+      <td>[Database Connections] Verify Error Fallback in Bot / AI Chat for Anonymous role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>0.821s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>LDT-0271</td>
+      <td>Response Time</td>
+      <td>Authentication</td>
+      <td>Login</td>
+      <td>Student</td>
+      <td>[Response Time] Verify Login in Authentication for Student role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>2.282s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>LDT-0272</td>
+      <td>Concurrent Users</td>
+      <td>Student Portal</td>
+      <td>Earnings View</td>
+      <td>Agent</td>
+      <td>[Concurrent Users] Verify Earnings View in Student Portal for Agent role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>2.497s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>LDT-0273</td>
+      <td>Throughput</td>
+      <td>Agent Portal</td>
+      <td>Application Management</td>
+      <td>Employer</td>
+      <td>[Throughput] Verify Application Management in Agent Portal for Employer role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.969s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>LDT-0274</td>
+      <td>Memory Usage</td>
+      <td>Employer Portal</td>
+      <td>Dashboard</td>
+      <td>Admin</td>
+      <td>[Memory Usage] Verify Dashboard in Employer Portal for Admin role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.96s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>LDT-0275</td>
+      <td>CPU Usage</td>
+      <td>Admin Panel</td>
+      <td>User Management</td>
+      <td>Anonymous</td>
+      <td>[CPU Usage] Verify User Management in Admin Panel for Anonymous role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.502s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>LDT-0276</td>
+      <td>Database Connections</td>
+      <td>Payments</td>
+      <td>Stripe Checkout</td>
+      <td>Student</td>
+      <td>[Database Connections] Verify Stripe Checkout in Payments for Student role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.368s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>LDT-0277</td>
+      <td>Response Time</td>
+      <td>Messaging</td>
+      <td>Receive Message</td>
+      <td>Agent</td>
+      <td>[Response Time] Verify Receive Message in Messaging for Agent role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>0.486s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>LDT-0278</td>
+      <td>Concurrent Users</td>
+      <td>Search & Filter</td>
+      <td>Filter by Category</td>
+      <td>Employer</td>
+      <td>[Concurrent Users] Verify Filter by Category in Search & Filter for Employer role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.204s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>LDT-0279</td>
+      <td>Throughput</td>
+      <td>Notifications</td>
+      <td>Mark as Read</td>
+      <td>Admin</td>
+      <td>[Throughput] Verify Mark as Read in Notifications for Admin role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>2.05s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>LDT-0280</td>
+      <td>Memory Usage</td>
+      <td>Bot / AI Chat</td>
+      <td>Error Fallback</td>
+      <td>Anonymous</td>
+      <td>[Memory Usage] Verify Error Fallback in Bot / AI Chat for Anonymous role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>2.215s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>LDT-0281</td>
+      <td>CPU Usage</td>
+      <td>Authentication</td>
+      <td>Session Management</td>
+      <td>Student</td>
+      <td>[CPU Usage] Verify Session Management in Authentication for Student role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>0.738s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>LDT-0282</td>
+      <td>Database Connections</td>
+      <td>Student Portal</td>
+      <td>Profile Setup</td>
+      <td>Agent</td>
+      <td>[Database Connections] Verify Profile Setup in Student Portal for Agent role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>0.114s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>LDT-0283</td>
+      <td>Response Time</td>
+      <td>Agent Portal</td>
+      <td>Dashboard</td>
+      <td>Employer</td>
+      <td>[Response Time] Verify Dashboard in Agent Portal for Employer role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>0.789s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>LDT-0284</td>
+      <td>Concurrent Users</td>
+      <td>Employer Portal</td>
+      <td>Applicant Review</td>
+      <td>Admin</td>
+      <td>[Concurrent Users] Verify Applicant Review in Employer Portal for Admin role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.054s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>LDT-0285</td>
+      <td>Throughput</td>
+      <td>Admin Panel</td>
+      <td>Analytics</td>
+      <td>Anonymous</td>
+      <td>[Throughput] Verify Analytics in Admin Panel for Anonymous role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>2.373s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>LDT-0286</td>
+      <td>Memory Usage</td>
+      <td>Payments</td>
+      <td>Stripe Checkout</td>
+      <td>Student</td>
+      <td>[Memory Usage] Verify Stripe Checkout in Payments for Student role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.995s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>LDT-0287</td>
+      <td>CPU Usage</td>
+      <td>Messaging</td>
+      <td>Receive Message</td>
+      <td>Agent</td>
+      <td>[CPU Usage] Verify Receive Message in Messaging for Agent role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>2.288s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>LDT-0288</td>
+      <td>Database Connections</td>
+      <td>Search & Filter</td>
+      <td>Location Filter</td>
+      <td>Employer</td>
+      <td>[Database Connections] Verify Location Filter in Search & Filter for Employer role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>0.849s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>LDT-0289</td>
+      <td>Response Time</td>
+      <td>Notifications</td>
+      <td>Mark as Read</td>
+      <td>Admin</td>
+      <td>[Response Time] Verify Mark as Read in Notifications for Admin role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>0.447s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>LDT-0290</td>
+      <td>Concurrent Users</td>
+      <td>Bot / AI Chat</td>
+      <td>Error Fallback</td>
+      <td>Anonymous</td>
+      <td>[Concurrent Users] Verify Error Fallback in Bot / AI Chat for Anonymous role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>0.389s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>LDT-0291</td>
+      <td>Throughput</td>
+      <td>Authentication</td>
+      <td>OTP Verification</td>
+      <td>Student</td>
+      <td>[Throughput] Verify OTP Verification in Authentication for Student role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.014s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>LDT-0292</td>
+      <td>Memory Usage</td>
+      <td>Student Portal</td>
+      <td>Application Track</td>
+      <td>Agent</td>
+      <td>[Memory Usage] Verify Application Track in Student Portal for Agent role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>0.39s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>LDT-0293</td>
+      <td>CPU Usage</td>
+      <td>Agent Portal</td>
+      <td>Student Onboarding</td>
+      <td>Employer</td>
+      <td>[CPU Usage] Verify Student Onboarding in Agent Portal for Employer role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>2.284s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>LDT-0294</td>
+      <td>Database Connections</td>
+      <td>Employer Portal</td>
+      <td>Ratings</td>
+      <td>Admin</td>
+      <td>[Database Connections] Verify Ratings in Employer Portal for Admin role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>0.128s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>LDT-0295</td>
+      <td>Response Time</td>
+      <td>Admin Panel</td>
+      <td>Dashboard</td>
+      <td>Anonymous</td>
+      <td>[Response Time] Verify Dashboard in Admin Panel for Anonymous role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>0.258s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>LDT-0296</td>
+      <td>Concurrent Users</td>
+      <td>Payments</td>
+      <td>Stripe Checkout</td>
+      <td>Student</td>
+      <td>[Concurrent Users] Verify Stripe Checkout in Payments for Student role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>0.911s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>LDT-0297</td>
+      <td>Throughput</td>
+      <td>Messaging</td>
+      <td>Receive Message</td>
+      <td>Agent</td>
+      <td>[Throughput] Verify Receive Message in Messaging for Agent role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>2.467s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>LDT-0298</td>
+      <td>Memory Usage</td>
+      <td>Search & Filter</td>
+      <td>Sort Results</td>
+      <td>Employer</td>
+      <td>[Memory Usage] Verify Sort Results in Search & Filter for Employer role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.189s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>LDT-0299</td>
+      <td>CPU Usage</td>
+      <td>Notifications</td>
+      <td>Mark as Read</td>
+      <td>Admin</td>
+      <td>[CPU Usage] Verify Mark as Read in Notifications for Admin role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>0.547s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>LDT-0300</td>
+      <td>Database Connections</td>
+      <td>Bot / AI Chat</td>
+      <td>Error Fallback</td>
+      <td>Anonymous</td>
+      <td>[Database Connections] Verify Error Fallback in Bot / AI Chat for Anonymous role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>0.717s</td>
+    </tr>
+  </tbody>
+    </table>
+  </div>
+</body>
+</html>

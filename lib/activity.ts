@@ -1,5 +1,4 @@
-import prisma from "@/lib/prisma";
-import { Prisma } from "@prisma/client";
+import { supabaseAdmin } from "@/lib/supabaseClient";
 
 export async function logActivity(
   type: string,
@@ -8,13 +7,13 @@ export async function logActivity(
   metadata?: Record<string, unknown>
 ) {
   try {
-    await prisma.activity.create({
-      data: {
-        type,
-        message,
-        userId,
-        metadata: metadata as Prisma.InputJsonValue | undefined,
-      },
+    await supabaseAdmin.from("Activity").insert({
+      id: crypto.randomUUID(),
+      type,
+      message,
+      userId: userId || null,
+      metadata: metadata || null,
+      createdAt: new Date().toISOString(),
     });
     return true;
   } catch (error) {

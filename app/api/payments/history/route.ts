@@ -1,5 +1,5 @@
 import { auth } from "@/lib/auth";
-import prisma from "@/lib/prisma";
+import { supabaseAdmin } from "@/lib/supabaseClient";
 import { NextResponse } from "next/server";
 
 export async function GET() {
@@ -13,48 +13,68 @@ export async function GET() {
 
     if (role === "student") {
       // Find student profile first
-      const student = await prisma.student.findUnique({
-        where: { userId: session.user.id }
-      });
+      const { data: student, error: studentError } = await supabaseAdmin
+        .from("Student")
+        .select("id")
+        .eq("userId", session.user.id)
+        .single();
 
-      if (!student) {
+      if (studentError || !student) {
         return NextResponse.json({ error: "Student profile not found" }, { status: 404 });
       }
 
       // Fetch student earnings
-      const earnings = await prisma.earning.findMany({
-        where: { studentId: student.id },
-        orderBy: { createdAt: "desc" }
-      });
+      const { data: earnings, error: earningsError } = await supabaseAdmin
+        .from("Earning")
+        .select("*")
+        .eq("studentId", student.id)
+        .order("createdAt", { ascending: false });
+        
+      if (earningsError) throw earningsError;
 
-      return NextResponse.json({ role, data: earnings });
+      return NextResponse.json({ role, data: earnings || [] });
     }
 
     if (role === "employer") {
       // Find employer profile
-      const employer = await prisma.employer.findUnique({
-        where: { userId: session.user.id }
-      });
+      const { data: employer, error: employerError } = await supabaseAdmin
+        .from("Employer")
+        .select("id")
+        .eq("userId", session.user.id)
+        .single();
 
-      if (!employer) {
+      if (employerError || !employer) {
         return NextResponse.json({ error: "Employer profile not found" }, { status: 404 });
       }
 
       // Fetch employer payments
-      const payments = await prisma.payment.findMany({
-        where: { employerId: employer.id },
-        include: {
-          application: {
-            include: {
-              job: { select: { title: true } },
-              student: { select: { name: true } }
-            }
-          }
-        },
-        orderBy: { createdAt: "desc" }
+      const { data: payments, error: paymentsError } = await supabaseAdmin
+        .from("Payment")
+        .select(`
+          *,
+          Application(
+            Job(title),
+            Student(name)
+          )
+        `)
+        .eq("employerId", employer.id)
+        .order("createdAt", { ascending: false });
+        
+      if (paymentsError) throw paymentsError;
+
+      // Restructure to match Prisma's output shape for the frontend
+      const mappedPayments = (payments || []).map(p => {
+        const { Application, ...rest } = p;
+        return {
+          ...rest,
+          application: Application ? {
+            job: Application.Job,
+            student: Application.Student
+          } : null
+        };
       });
 
-      return NextResponse.json({ role, data: payments });
+      return NextResponse.json({ role, data: mappedPayments });
     }
 
     return NextResponse.json({ error: "Invalid role access" }, { status: 403 });

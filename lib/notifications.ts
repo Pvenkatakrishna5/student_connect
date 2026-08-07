@@ -1,4 +1,4 @@
-import prisma from "@/lib/prisma";
+import { supabaseAdmin } from "@/lib/supabaseClient";
 
 export async function createNotification(
   recipientId: string,
@@ -8,8 +8,15 @@ export async function createNotification(
   link?: string
 ) {
   try {
-    await prisma.notification.create({
-      data: { recipientId, title, message, type, link },
+    await supabaseAdmin.from("Notification").insert({
+      id: crypto.randomUUID(),
+      recipientId,
+      title,
+      message,
+      type,
+      link: link || null,
+      read: false,
+      createdAt: new Date().toISOString(),
     });
     return true;
   } catch (error) {

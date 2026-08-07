@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import prisma from "@/lib/prisma";
+import { supabaseAdmin } from "@/lib/supabaseClient";
 import { logActivity } from "@/lib/activity";
 import { createNotification } from "@/lib/notifications";
 import { sendEmail } from "@/lib/email";
@@ -16,44 +16,53 @@ export async function GET(req: NextRequest) {
     const page = parseInt(searchParams.get("page") || "1");
     const limit = parseInt(searchParams.get("limit") || "12");
 
-    const where: Record<string, unknown> = {};
+    let query = supabaseAdmin.from("Job").select("*, Employer(*)", { count: "exact" });
 
     if (employerUserId) {
       // Resolve userId → employer.id
-      const employer = await prisma.employer.findUnique({ where: { userId: employerUserId } });
+      const { data: employer } = await supabaseAdmin
+        .from("Employer")
+        .select("id")
+        .eq("userId", employerUserId)
+        .single();
       if (!employer) return NextResponse.json({ jobs: [], total: 0, page: 1, pages: 0 });
-      where.employerId = employer.id;
+      query = query.eq("employerId", employer.id);
     } else if (statusParam) {
-      // Allow explicit status filter (for admin pending view)
-      where.status = statusParam;
+      query = query.eq("status", statusParam);
     } else {
-      where.status = "active";
+      query = query.eq("status", "active");
     }
 
-    if (category) where.category = category;
-    if (isRemote === "true") where.isRemote = true;
+    if (category) query = query.eq("category", category);
+    if (isRemote === "true") query = query.eq("isRemote", true);
     if (location && location !== "Remote") {
-      where.location = { contains: location, mode: "insensitive" };
+      query = query.ilike("location", `%${location}%`);
     }
     if (search) {
-      where.OR = [
-        { title: { contains: search, mode: "insensitive" } },
-        { description: { contains: search, mode: "insensitive" } },
-      ];
+      // Supabase doesn't support OR across different columns easily inline,
+      // so we use .or() filter
+      query = query.or(`title.ilike.%${search}%,description.ilike.%${search}%`);
     }
 
-    const [total, jobs] = await Promise.all([
-      prisma.job.count({ where }),
-      prisma.job.findMany({
-        where,
-        include: { employer: true },
-        orderBy: { createdAt: "desc" },
-        skip: (page - 1) * limit,
-        take: limit,
-      }),
-    ]);
+    const from = (page - 1) * limit;
+    const to = from + limit - 1;
 
-    return NextResponse.json({ jobs, total, page, pages: Math.ceil(total / limit) });
+    const { data: jobs, count: total, error } = await query
+      .order("createdAt", { ascending: false })
+      .range(from, to);
+
+    if (error) {
+      console.error("Jobs GET error:", error);
+      return NextResponse.json({ error: "Failed to fetch jobs" }, { status: 500 });
+    }
+
+    // Rename Employer to employer for frontend compatibility
+    const mapped = (jobs || []).map((j: any) => {
+      const { Employer, ...rest } = j;
+      return { ...rest, employer: Employer };
+    });
+
+    return NextResponse.json({ jobs: mapped, total: total || 0, page, pages: Math.ceil((total || 0) / limit) });
   } catch (err) {
     console.error("Jobs GET error:", err);
     return NextResponse.json({ error: "Failed to fetch jobs" }, { status: 500 });
@@ -68,39 +77,50 @@ export async function POST(req: NextRequest) {
 
     let employerId = body.employerId;
     if (employerUserId) {
-      const employer = await prisma.employer.findUnique({ where: { userId: employerUserId } });
+      const { data: employer } = await supabaseAdmin
+        .from("Employer")
+        .select("id")
+        .eq("userId", employerUserId)
+        .single();
       if (!employer) return NextResponse.json({ error: "Employer profile not found" }, { status: 404 });
       employerId = employer.id;
     }
 
-    const job = await prisma.job.create({
-      data: { ...jobData, employerId, status: "active" },
-    });
+    const { data: job, error } = await supabaseAdmin
+      .from("Job")
+      .insert({ id: crypto.randomUUID(), ...jobData, employerId, status: "active", updatedAt: new Date().toISOString() })
+      .select()
+      .single();
+
+    if (error) throw error;
 
     await logActivity("job_posted", `New job posted: ${body.title}`, employerUserId || employerId, {
       jobId: job.id,
     });
 
     // Notify all active students about the new job
-    const students = await prisma.user.findMany({
-      where: { role: "student", isActive: true },
-      select: { id: true, email: true },
-    });
+    const { data: students } = await supabaseAdmin
+      .from("User")
+      .select("id, email")
+      .eq("role", "student")
+      .eq("isActive", true);
 
-    if (students.length > 0) {
-      const notifications = students.map((student) => ({
+    if (students && students.length > 0) {
+      const notifications = students.map((student: any) => ({
+        id: crypto.randomUUID(),
         recipientId: student.id,
         title: "New Job Posted!",
         message: `An employer has posted a new job: "${job.title}". Check it out!`,
         link: `/student/jobs/${job.id}`,
+        type: "info",
+        read: false,
+        createdAt: new Date().toISOString(),
       }));
-      await prisma.notification.createMany({
-        data: notifications,
-      });
+      await supabaseAdmin.from("Notification").insert(notifications);
 
       // Send email notifications
       const appUrl = process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000";
-      const emailPromises = students.map(student => {
+      const emailPromises = students.map((student: any) => {
         if (student.email) {
           return sendEmail({
             to: student.email,
@@ -141,15 +161,23 @@ export async function PATCH(req: NextRequest) {
   try {
     const { id, ...updates } = await req.json();
 
-    const job = await prisma.job.update({
-      where: { id },
-      data: updates,
-    });
+    const { data: job, error } = await supabaseAdmin
+      .from("Job")
+      .update({ ...updates, updatedAt: new Date().toISOString() })
+      .eq("id", id)
+      .select()
+      .single();
+
+    if (error) throw error;
 
     if (updates.status) {
       const isApproved = updates.status === "active";
       // Look up employer userId for correct notification recipient
-      const employer = await prisma.employer.findUnique({ where: { id: job.employerId } });
+      const { data: employer } = await supabaseAdmin
+        .from("Employer")
+        .select("userId")
+        .eq("id", job.employerId)
+        .single();
       if (employer) {
         await createNotification(
           employer.userId,

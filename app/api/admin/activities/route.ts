@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import prisma from "@/lib/prisma";
+import { supabaseAdmin } from "@/lib/supabaseClient";
 import { auth } from "@/lib/auth";
 
 export async function GET() {
@@ -9,17 +9,26 @@ export async function GET() {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
-    const activities = await prisma.activity.findMany({
-      include: {
-        user: {
-          select: { email: true, role: true },
-        },
-      },
-      orderBy: { createdAt: "desc" },
-      take: 50,
+    const { data: activities, error } = await supabaseAdmin
+      .from("Activity")
+      .select(`
+        *,
+        User(email, role)
+      `)
+      .order("createdAt", { ascending: false })
+      .limit(50);
+      
+    if (error) throw error;
+    
+    const mapped = (activities || []).map(a => {
+      const { User, ...rest } = a;
+      return {
+        ...rest,
+        user: Array.isArray(User) ? User[0] : User
+      };
     });
 
-    return NextResponse.json(activities);
+    return NextResponse.json(mapped);
   } catch (error) {
     return NextResponse.json({ error: "Server error" }, { status: 500 });
   }

@@ -1,7 +1,7 @@
 import NextAuth from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 import bcrypt from "bcryptjs";
-import prisma from "@/lib/prisma";
+import { supabaseAdmin } from "@/lib/supabaseClient";
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
   secret: process.env.NEXTAUTH_SECRET,
@@ -40,11 +40,13 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
         const pass = credentials.password as string;
 
         try {
-          const user = await prisma.user.findUnique({
-            where: { email: email },
-          });
+          const { data: user, error } = await supabaseAdmin
+            .from("User")
+            .select("*")
+            .eq("email", email)
+            .single();
 
-          if (!user) {
+          if (error || !user) {
             console.error(`Authorize failed: User not found (${email})`);
             return null;
           }
@@ -62,10 +64,18 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
 
           let profileName = "";
           if (user.role === "student") {
-            const student = await prisma.student.findUnique({ where: { userId: user.id } }).catch(() => null);
+            const { data: student } = await supabaseAdmin
+              .from("Student")
+              .select("name")
+              .eq("userId", user.id)
+              .single();
             profileName = student?.name || "Student";
           } else if (user.role === "employer") {
-            const employer = await prisma.employer.findUnique({ where: { userId: user.id } }).catch(() => null);
+            const { data: employer } = await supabaseAdmin
+              .from("Employer")
+              .select("companyName")
+              .eq("userId", user.id)
+              .single();
             profileName = employer?.companyName || "Employer";
           } else if (user.role === "agent") {
             profileName = "Verified Agent";

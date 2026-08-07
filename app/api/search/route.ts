@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import prisma from "@/lib/prisma";
+import { supabaseAdmin } from "@/lib/supabaseClient";
 import { SAMPLE_JOBS } from "@/lib/data";
 
 export async function GET(req: NextRequest) {
@@ -11,57 +11,46 @@ export async function GET(req: NextRequest) {
     const minPay = parseInt(searchParams.get("minPay") || "0");
     const type = searchParams.get("type") || "";
 
-    const where: Record<string, unknown> = { status: "active" };
-    const andConditions: Record<string, unknown>[] = [];
+    let dbQuery = supabaseAdmin
+      .from("Job")
+      .select("*, Employer(companyName, rating, city, isVerifiedBusiness)")
+      .eq("status", "active");
 
     if (query) {
-      andConditions.push({
-        OR: [
-          { title: { contains: query, mode: "insensitive" } },
-          { description: { contains: query, mode: "insensitive" } },
-          { skillsRequired: { has: query } },
-        ],
-      });
+      dbQuery = dbQuery.or(`title.ilike.%${query}%,description.ilike.%${query}%`);
+      // Note: searching arrays (skillsRequired) is complex in Supabase JS without RPC.
+      // For now, title and description text search is handled.
     }
 
     if (category && category !== "All") {
-      andConditions.push({ category });
+      dbQuery = dbQuery.eq("category", category);
     }
 
     if (location) {
-      andConditions.push({ location: { contains: location, mode: "insensitive" } });
+      dbQuery = dbQuery.ilike("location", `%${location}%`);
     }
 
     if (minPay > 0) {
-      andConditions.push({ payAmount: { gte: minPay } });
+      dbQuery = dbQuery.gte("payAmount", minPay);
     }
 
     if (type) {
-      andConditions.push({ payType: type });
-    }
-
-    if (andConditions.length > 0) {
-      where.AND = andConditions;
+      dbQuery = dbQuery.eq("payType", type);
     }
 
     try {
-      const jobs = await prisma.job.findMany({
-        where,
-        include: {
-          employer: {
-            select: {
-              companyName: true,
-              rating: true,
-              city: true,
-              isVerifiedBusiness: true,
-            },
-          },
-        },
-        orderBy: { createdAt: "desc" },
-        take: 50,
+      const { data: jobs, error } = await dbQuery
+        .order("createdAt", { ascending: false })
+        .limit(50);
+
+      if (error) throw error;
+      
+      const mapped = (jobs || []).map(j => {
+        const { Employer, ...rest } = j;
+        return { ...rest, employer: Employer };
       });
 
-      return NextResponse.json(jobs);
+      return NextResponse.json(mapped);
     } catch (dbErr) {
       console.error("Search DB query failed, serving sample jobs:", dbErr);
       let fallback = SAMPLE_JOBS;

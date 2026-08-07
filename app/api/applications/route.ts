@@ -1,148 +1,189 @@
-import { NextRequest, NextResponse } from "next/server";
-import prisma from "@/lib/prisma";
-import { createNotification } from "@/lib/notifications";
-import { logActivity } from "@/lib/activity";
-import { sendEmail, sendNewApplicantEmail, sendApplicationUpdateEmail } from "@/lib/email";
+import { auth } from "@/lib/auth";
+import { NextResponse } from "next/server";
+import { supabaseAdmin } from "@/lib/supabaseClient";
 
-export async function POST(req: NextRequest) {
+export async function GET(req: Request) {
   try {
-    const { jobId, studentId, coverNote } = await req.json();
-
-    // The frontend sends session.user.id as studentId, so we need to resolve it to Student.id
-    const student = await prisma.student.findUnique({
-      where: { userId: studentId }
-    });
-
-    if (!student) {
-      return NextResponse.json({ error: "Student profile not found" }, { status: 404 });
+    const session = await auth();
+    if (!session?.user?.id) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
-    const actualStudentId = student.id;
-
-    // Check if already applied
-    const existing = await prisma.application.findUnique({
-      where: { jobId_studentId: { jobId, studentId: actualStudentId } },
-    });
-    if (existing) return NextResponse.json({ error: "Already applied" }, { status: 409 });
-
-    const job = await prisma.job.findUnique({ where: { id: jobId } });
-    if (!job) return NextResponse.json({ error: "Job not found" }, { status: 404 });
-
-    const app = await prisma.application.create({
-      data: { jobId, studentId: actualStudentId, employerId: job.employerId, coverNote },
-    });
-
-    await prisma.job.update({
-      where: { id: jobId },
-      data: { applicantsCount: { increment: 1 } },
-    });
-
-    // Notify employer via userId (not employer.id — Notification.recipientId is a User.id)
-    const employer = await prisma.employer.findUnique({ where: { id: job.employerId } });
-    if (employer) {
-      await createNotification(
-        employer.userId,
-        "New Applicant!",
-        `A student has applied for your position: ${job.title}`,
-        "info",
-        "/employer/applicants"
-      );
-
-      const employerUser = await prisma.user.findUnique({ where: { id: employer.userId } });
-      if (employerUser?.email) {
-        sendNewApplicantEmail(
-          employerUser.email, 
-          employer.contactName || employer.companyName, 
-          student.name, 
-          job.title
-        ).catch(e => console.error(e));
-      }
-    }
-
-    await logActivity("application_submitted", `New application for ${job.title}`, studentId);
-
-    return NextResponse.json(app, { status: 201 });
-  } catch (err: unknown) {
-    const message = err instanceof Error ? err.message : "Server error";
-    return NextResponse.json({ error: message }, { status: 500 });
-  }
-}
-
-export async function GET(req: NextRequest) {
-  try {
     const { searchParams } = new URL(req.url);
-    const studentId = searchParams.get("studentId");
     const jobId = searchParams.get("jobId");
-    const employerUserId = searchParams.get("employerId"); // comes as userId from frontend
+    const role = session.user.role;
 
-    const where: Record<string, string> = {};
-    if (studentId) where.studentId = studentId;
-    if (jobId) where.jobId = jobId;
+    if (role === "employer") {
+      // Find employer profile first
+      const { data: employer } = await supabaseAdmin
+        .from("Employer")
+        .select("id")
+        .eq("userId", session.user.id)
+        .single();
+        
+      if (!employer) return NextResponse.json({ error: "Employer not found" }, { status: 404 });
 
-    if (employerUserId) {
-      // Resolve userId → employer.id
-      const employer = await prisma.employer.findUnique({ where: { userId: employerUserId } });
-      if (!employer) return NextResponse.json([]);
-      where.employerId = employer.id;
+      let query = supabaseAdmin
+        .from("Application")
+        .select("*, Student(*), Job(*)")
+        .eq("employerId", employer.id);
+        
+      if (jobId) {
+        query = query.eq("jobId", jobId);
+      }
+      
+      const { data: applications, error } = await query.order("appliedAt", { ascending: false });
+      if (error) throw error;
+      
+      const mapped = (applications || []).map(a => {
+        const { Student, Job, ...rest } = a;
+        return { ...rest, student: Student, job: Job };
+      });
+      
+      return NextResponse.json(mapped);
+    } 
+    
+    if (role === "student") {
+      // Find student profile first
+      const { data: student } = await supabaseAdmin
+        .from("Student")
+        .select("id")
+        .eq("userId", session.user.id)
+        .single();
+        
+      if (!student) return NextResponse.json({ error: "Student not found" }, { status: 404 });
+
+      const { data: applications, error } = await supabaseAdmin
+        .from("Application")
+        .select("*, Employer(*), Job(*)")
+        .eq("studentId", student.id)
+        .order("appliedAt", { ascending: false });
+        
+      if (error) throw error;
+      
+      const mapped = (applications || []).map(a => {
+        const { Employer, Job, ...rest } = a;
+        return { ...rest, employer: Employer, job: Job };
+      });
+      
+      return NextResponse.json(mapped);
     }
 
-    const apps = await prisma.application.findMany({
-      where,
-      include: {
-        job: { include: { employer: true } },
-        student: { include: { user: { select: { email: true } } } },
-      },
-      orderBy: { appliedAt: "desc" },
-    });
-
-    return NextResponse.json(apps);
-  } catch (err: unknown) {
-    const message = err instanceof Error ? err.message : "Server error";
-    return NextResponse.json({ error: message }, { status: 500 });
+    return NextResponse.json({ error: "Invalid role" }, { status: 403 });
+  } catch (error: any) {
+    console.error("Applications GET Error:", error);
+    return NextResponse.json({ error: "Server Error" }, { status: 500 });
   }
 }
 
-export async function PATCH(req: NextRequest) {
+export async function POST(req: Request) {
   try {
-    const { id, status } = await req.json();
-
-    const app = await prisma.application.update({
-      where: { id },
-      data: { status },
-      include: {
-        job: { include: { employer: true } },
-        student: { include: { user: { select: { email: true } } } },
-      },
-    });
-
-    if (!app) return NextResponse.json({ error: "Application not found" }, { status: 404 });
-
-    const student = app.student;
-    const job = app.job;
-    const studentUserId = student.userId;
-
-    await createNotification(
-      studentUserId,
-      "Application Update",
-      `Your application for ${job.title} is now ${status}.`,
-      status === "selected" ? "success" : status === "rejected" ? "error" : "info",
-      "/student/applications"
-    );
-
-    const studentEmail = student.user?.email;
-    if (studentEmail) {
-      sendApplicationUpdateEmail(
-        studentEmail,
-        student.name,
-        job.title,
-        status,
-        job.employer?.companyName || "Employer"
-      ).catch(e => console.error(e));
+    const session = await auth();
+    if (!session?.user?.id || session.user.role !== "student") {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
-    return NextResponse.json(app);
-  } catch (err: unknown) {
-    const message = err instanceof Error ? err.message : "Server error";
-    return NextResponse.json({ error: message }, { status: 500 });
+    const { jobId, employerId, coverLetter, paymentMethod } = await req.json();
+    
+    // Find student ID
+    const { data: student } = await supabaseAdmin
+      .from("Student")
+      .select("id")
+      .eq("userId", session.user.id)
+      .single();
+      
+    if (!student) return NextResponse.json({ error: "Student not found" }, { status: 404 });
+
+    const { data: existingApp } = await supabaseAdmin
+      .from("Application")
+      .select("id")
+      .eq("jobId", jobId)
+      .eq("studentId", student.id)
+      .single();
+
+    if (existingApp) {
+      return NextResponse.json({ error: "Already applied" }, { status: 400 });
+    }
+
+    const { data: application, error } = await supabaseAdmin
+      .from("Application")
+      .insert({
+        id: crypto.randomUUID(),
+        jobId,
+        studentId: student.id,
+        employerId,
+        coverNote: coverLetter || "",
+        status: "applied",
+        appliedAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString()
+      })
+      .select()
+      .single();
+      
+    if (error) throw error;
+
+    return NextResponse.json(application, { status: 201 });
+  } catch (error: any) {
+    console.error("Applications POST Error:", error);
+    return NextResponse.json({ error: "Server Error" }, { status: 500 });
+  }
+}
+
+export async function PATCH(req: Request) {
+  try {
+    const session = await auth();
+    if (!session?.user?.id || session.user.role !== "employer") {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+
+    const { applicationId, status } = await req.json();
+    
+    // Find employer ID
+    const { data: employer } = await supabaseAdmin
+      .from("Employer")
+      .select("id")
+      .eq("userId", session.user.id)
+      .single();
+      
+    if (!employer) return NextResponse.json({ error: "Employer not found" }, { status: 404 });
+
+    const { data: application, error } = await supabaseAdmin
+      .from("Application")
+      .update({ status, updatedAt: new Date().toISOString() })
+      .eq("id", applicationId)
+      .eq("employerId", employer.id)
+      .select("*, Student(userId)")
+      .single();
+      
+    if (error || !application) {
+      return NextResponse.json({ error: "Application not found or unauthorized" }, { status: 404 });
+    }
+
+    // Dynamic import for createNotification to avoid circular deps if any
+    const { createNotification } = await import("@/lib/notifications");
+    
+    if (status === "selected") {
+      await createNotification(
+        application.Student.userId,
+        "Application Accepted! 🎉",
+        "You have been selected for a job! Check your applications.",
+        "success",
+        "/student/applications"
+      );
+    } else if (status === "rejected") {
+      await createNotification(
+        application.Student.userId,
+        "Application Status Update",
+        "Unfortunately, you were not selected for this position.",
+        "error",
+        "/student/applications"
+      );
+    }
+
+    const { Student, ...rest } = application;
+    return NextResponse.json({ ...rest, student: Student });
+  } catch (error: any) {
+    console.error("Applications PATCH Error:", error);
+    return NextResponse.json({ error: "Server Error" }, { status: 500 });
   }
 }

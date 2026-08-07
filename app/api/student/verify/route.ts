@@ -1,6 +1,6 @@
 import { auth } from "@/lib/auth";
 import { NextResponse } from "next/server";
-import prisma from "@/lib/prisma";
+import { supabaseAdmin } from "@/lib/supabaseClient";
 import { logActivity } from "@/lib/activity";
 
 export async function POST(req: Request) {
@@ -16,15 +16,17 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: "Invalid Aadhaar number" }, { status: 400 });
     }
 
-    const student = await prisma.student.update({
-      where: { userId: session.user.id },
-      data: { 
+    const { data: student, error } = await supabaseAdmin
+      .from("Student")
+      .update({ 
         aadhaarNumber: aadhaarNumber,
         isAadhaarVerified: false // Forces it into the Agent Verification Queue
-      },
-    });
+      })
+      .eq("userId", session.user.id)
+      .select()
+      .single();
 
-    if (!student) {
+    if (error || !student) {
       return NextResponse.json({ error: "Student profile not found" }, { status: 404 });
     }
 

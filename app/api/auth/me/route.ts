@@ -1,6 +1,6 @@
 import { auth } from "@/lib/auth";
 import { NextResponse } from "next/server";
-import prisma from "@/lib/prisma";
+import { supabaseAdmin } from "@/lib/supabaseClient";
 
 export async function GET() {
   try {
@@ -12,13 +12,19 @@ export async function GET() {
     let profile = null;
 
     if (session.user.role === "student") {
-      profile = await prisma.student.findUnique({
-        where: { userId: session.user.id },
-      });
+      const { data } = await supabaseAdmin
+        .from("Student")
+        .select("*")
+        .eq("userId", session.user.id)
+        .single();
+      profile = data;
     } else if (session.user.role === "employer") {
-      profile = await prisma.employer.findUnique({
-        where: { userId: session.user.id },
-      });
+      const { data } = await supabaseAdmin
+        .from("Employer")
+        .select("*")
+        .eq("userId", session.user.id)
+        .single();
+      profile = data;
     }
 
     return NextResponse.json({

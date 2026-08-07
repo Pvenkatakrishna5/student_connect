@@ -22,6 +22,37 @@ export default function StudentProfileSetup() {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
 
+  const handleNextStep = (targetStep: number) => {
+    // If going backwards, allow it without validation
+    if (targetStep < step) {
+      setError("");
+      setStep(targetStep);
+      return;
+    }
+
+    // Validate step 0 before allowing moving past it
+    if (step === 0 || targetStep > 0) {
+      if (!form.name || !form.phone || !form.dob || !form.gender || !form.city || !form.bio) {
+        setError("Please fill out all Personal Information fields.");
+        setTimeout(() => setError(""), 3000);
+        return;
+      }
+    }
+
+    // Validate step 1 before allowing moving past it
+    if (step === 1 || targetStep > 1) {
+      if (!form.college || !form.branch || !form.degree || !form.year || !form.cgpa) {
+        setError("Please fill out all Academic Information fields.");
+        setTimeout(() => setError(""), 3000);
+        return;
+      }
+    }
+
+    setError("");
+    setStep(targetStep);
+  };
+
+
   const [form, setForm] = useState({
     // Personal
     name: "",
@@ -129,6 +160,14 @@ export default function StudentProfileSetup() {
     setError("");
     setSuccess("");
 
+    if (goToDashboard) {
+      if (form.skills.length === 0 || !form.resumeUrl) {
+        setError("Please add at least one skill and your resume link.");
+        setSaving(false);
+        return;
+      }
+    }
+
     try {
       const payload: Record<string, unknown> = {
         name: form.name,
@@ -183,7 +222,7 @@ export default function StudentProfileSetup() {
   }
 
   const labelCls = "text-[10px] font-black uppercase tracking-widest text-slate-500 px-1 block mb-2";
-  const inputCls = "w-full px-5 py-4 bg-white/[0.03] border border-white/[0.06] rounded-2xl text-sm text-white focus:outline-none focus:ring-2 focus:ring-emerald-500/10 focus:border-emerald-500/40 transition-all outline-none placeholder:text-slate-700";
+  const inputCls = "w-full px-5 py-4 bg-white/[0.03] border border-white/[0.06] rounded-2xl text-sm text-white focus:outline-none focus:ring-2 focus:ring-emerald-500/10 focus:border-emerald-500/40 transition-all outline-none placeholder:text-slate-700 [&>option]:bg-[#050508] [&>option]:text-white";
 
   if (loading || status === "loading") {
     return (
@@ -240,7 +279,7 @@ export default function StudentProfileSetup() {
                 <button
                   key={s}
                   type="button"
-                  onClick={() => setStep(i)}
+                  onClick={() => handleNextStep(i)}
                   className={`flex items-center gap-2.5 px-5 py-3 rounded-2xl text-xs font-black uppercase tracking-widest transition-all border ${
                     isActive
                       ? "bg-emerald-500/10 border-emerald-500/30 text-emerald-400 shadow-lg shadow-emerald-500/5"
@@ -286,18 +325,18 @@ export default function StudentProfileSetup() {
                       <input className={inputCls} placeholder="Arjun Kumar" value={form.name} onChange={e => set("name", e.target.value)} />
                     </div>
                     <div className="space-y-2">
-                      <label className={labelCls}>Phone Number</label>
+                      <label className={labelCls}>Phone Number <span className="text-rose-400">*</span></label>
                       <input className={inputCls} placeholder="+91 9876543210" value={form.phone} onChange={e => set("phone", e.target.value)} />
                     </div>
                   </div>
 
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                     <div className="space-y-2">
-                      <label className={labelCls}>Date of Birth</label>
+                      <label className={labelCls}>Date of Birth <span className="text-rose-400">*</span></label>
                       <input type="date" className={inputCls} value={form.dob} onChange={e => set("dob", e.target.value)} />
                     </div>
                     <div className="space-y-2">
-                      <label className={labelCls}>Gender</label>
+                      <label className={labelCls}>Gender <span className="text-rose-400">*</span></label>
                       <select className={inputCls} value={form.gender} onChange={e => set("gender", e.target.value)}>
                         <option value="">Select</option>
                         {GENDERS.map(g => <option key={g} value={g}>{g}</option>)}
@@ -306,7 +345,7 @@ export default function StudentProfileSetup() {
                   </div>
 
                   <div className="space-y-2">
-                    <label className={labelCls}>Location</label>
+                    <label className={labelCls}>Location <span className="text-rose-400">*</span></label>
                     <select className={inputCls} value={form.city} onChange={e => set("city", e.target.value)}>
                       <option value="">Select city</option>
                       {CITIES.map(c => <option key={c} value={c}>{c}</option>)}
@@ -314,7 +353,7 @@ export default function StudentProfileSetup() {
                   </div>
 
                   <div className="space-y-2">
-                    <label className={labelCls}>Bio / About Me</label>
+                    <label className={labelCls}>Bio / About Me <span className="text-rose-400">*</span></label>
                     <textarea
                       className={`${inputCls} min-h-[120px] resize-none`}
                       placeholder="Tell employers about yourself, your goals and what you enjoy doing..."
@@ -326,7 +365,7 @@ export default function StudentProfileSetup() {
                   <div className="flex justify-end pt-2">
                     <button
                       type="button"
-                      onClick={() => setStep(1)}
+                      onClick={() => handleNextStep(1)}
                       className="px-8 py-4 rounded-2xl bg-emerald-500 text-black font-black text-sm hover:bg-emerald-400 transition-all flex items-center gap-3 shadow-xl shadow-emerald-500/10"
                     >
                       Academic Details <ArrowRight className="w-4 h-4" />
@@ -341,17 +380,17 @@ export default function StudentProfileSetup() {
                   <h3 className="text-lg font-bold text-white flex items-center gap-3"><GraduationCap className="w-5 h-5 text-indigo-400" /> Academic Information</h3>
 
                   <div className="space-y-2">
-                    <label className={labelCls}>College / University Name</label>
+                    <label className={labelCls}>College / University Name <span className="text-rose-400">*</span></label>
                     <input className={inputCls} placeholder="IIT Madras" value={form.college} onChange={e => set("college", e.target.value)} />
                   </div>
 
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                     <div className="space-y-2">
-                      <label className={labelCls}>Department / Branch</label>
+                      <label className={labelCls}>Department / Branch <span className="text-rose-400">*</span></label>
                       <input className={inputCls} placeholder="Computer Science" value={form.branch} onChange={e => set("branch", e.target.value)} />
                     </div>
                     <div className="space-y-2">
-                      <label className={labelCls}>Degree</label>
+                      <label className={labelCls}>Degree <span className="text-rose-400">*</span></label>
                       <select className={inputCls} value={form.degree} onChange={e => set("degree", e.target.value)}>
                         <option value="">Select Degree</option>
                         {DEGREES.map(d => <option key={d} value={d}>{d}</option>)}
@@ -361,14 +400,14 @@ export default function StudentProfileSetup() {
 
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                     <div className="space-y-2">
-                      <label className={labelCls}>Year of Study</label>
+                      <label className={labelCls}>Year of Study <span className="text-rose-400">*</span></label>
                       <select className={inputCls} value={form.year} onChange={e => set("year", e.target.value)}>
                         <option value="">Select</option>
                         {["1st Year", "2nd Year", "3rd Year", "4th Year", "PG"].map(y => <option key={y} value={y}>{y}</option>)}
                       </select>
                     </div>
                     <div className="space-y-2">
-                      <label className={labelCls}>CGPA</label>
+                      <label className={labelCls}>CGPA <span className="text-rose-400">*</span></label>
                       <input type="number" step="0.01" min="0" max="10" className={inputCls} placeholder="8.5" value={form.cgpa} onChange={e => set("cgpa", e.target.value)} />
                     </div>
                   </div>
@@ -377,7 +416,7 @@ export default function StudentProfileSetup() {
                     <button type="button" onClick={() => setStep(0)} className="flex-1 py-4 rounded-2xl text-sm font-bold text-slate-500 hover:text-white transition-all flex items-center justify-center gap-2">
                       <ArrowLeft className="w-4 h-4" /> Back
                     </button>
-                    <button type="button" onClick={() => setStep(2)} className="flex-[2] py-4 rounded-2xl bg-emerald-500 text-black font-black text-sm hover:bg-emerald-400 transition-all flex items-center justify-center gap-3 shadow-xl shadow-emerald-500/10">
+                    <button type="button" onClick={() => handleNextStep(2)} className="flex-[2] py-4 rounded-2xl bg-emerald-500 text-black font-black text-sm hover:bg-emerald-400 transition-all flex items-center justify-center gap-3 shadow-xl shadow-emerald-500/10">
                       Professional Info <ArrowRight className="w-4 h-4" />
                     </button>
                   </div>
@@ -491,7 +530,7 @@ export default function StudentProfileSetup() {
                   <div className="space-y-3 p-8 rounded-[32px] bg-white/[0.01] border border-white/[0.04]">
                     <h3 className="text-lg font-bold text-white flex items-center gap-3"><Upload className="w-5 h-5 text-rose-400" /> Resume</h3>
                     <div className="space-y-2">
-                      <label className={labelCls}>Resume Link (Google Drive, Dropbox, etc.)</label>
+                      <label className={labelCls}>Resume Link (Google Drive, Dropbox, etc.) <span className="text-rose-400">*</span></label>
                       <input className={inputCls} placeholder="https://drive.google.com/your-resume" value={form.resumeUrl} onChange={e => set("resumeUrl", e.target.value)} />
                     </div>
                   </div>
@@ -514,19 +553,6 @@ export default function StudentProfileSetup() {
               )}
             </motion.div>
           </AnimatePresence>
-
-          {/* Skip option */}
-          <div className="text-center">
-            <button
-              type="button"
-              onClick={() => {
-                handleSave(true);
-              }}
-              className="text-xs text-slate-600 hover:text-slate-400 transition-colors font-bold"
-            >
-              Skip for now & go to dashboard →
-            </button>
-          </div>
         </div>
       </div>
     </div>

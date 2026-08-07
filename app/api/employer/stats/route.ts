@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import prisma from "@/lib/prisma";
+import { supabaseAdmin } from "@/lib/supabaseClient";
 import { auth } from "@/lib/auth";
 
 export async function GET() {
@@ -9,29 +9,45 @@ export async function GET() {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
-    const employerId = session.user.id;
+    const employerUserId = session.user.id;
 
-    // Find the employer's Prisma record (id != userId)
-    const employer = await prisma.employer.findUnique({ where: { userId: employerId } });
-    if (!employer) return NextResponse.json({ error: "Employer not found" }, { status: 404 });
+    // Find the employer's record
+    const { data: employer, error: empErr } = await supabaseAdmin
+      .from("Employer")
+      .select("id")
+      .eq("userId", employerUserId)
+      .single();
+      
+    if (empErr || !employer) return NextResponse.json({ error: "Employer not found" }, { status: 404 });
 
-    const [activeJobsCount, totalApplicants, hiredCount] = await prisma.$transaction([
-      prisma.job.count({ where: { employerId: employer.id, status: "active" } }),
-      prisma.application.count({ where: { employerId: employer.id } }),
-      prisma.application.count({ where: { employerId: employer.id, status: "selected" } }),
+    // Concurrent counting
+    const [
+      { count: activeJobsCount },
+      { count: totalApplicants },
+      { count: hiredCount }
+    ] = await Promise.all([
+      supabaseAdmin.from("Job").select("*", { count: "exact", head: true })
+        .eq("employerId", employer.id)
+        .eq("status", "active"),
+      supabaseAdmin.from("Application").select("*", { count: "exact", head: true })
+        .eq("employerId", employer.id),
+      supabaseAdmin.from("Application").select("*", { count: "exact", head: true })
+        .eq("employerId", employer.id)
+        .eq("status", "selected")
     ]);
 
-    const recentJobs = await prisma.job.findMany({
-      where: { employerId: employer.id },
-      orderBy: { createdAt: "desc" },
-      take: 5,
-    });
+    const { data: recentJobs } = await supabaseAdmin
+      .from("Job")
+      .select("*")
+      .eq("employerId", employer.id)
+      .order("createdAt", { ascending: false })
+      .limit(5);
 
     return NextResponse.json({
-      activeJobs: activeJobsCount,
-      totalApplicants,
-      hiredStudents: hiredCount,
-      recentJobs: recentJobs.map((j: any) => ({ ...j, timeAgo: "Recently" })),
+      activeJobs: activeJobsCount || 0,
+      totalApplicants: totalApplicants || 0,
+      hiredStudents: hiredCount || 0,
+      recentJobs: (recentJobs || []).map((j: any) => ({ ...j, timeAgo: "Recently" })),
     });
   } catch (error) {
     console.error("Employer stats error:", error);

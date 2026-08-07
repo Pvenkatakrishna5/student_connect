@@ -1,45 +1,65 @@
 import { NextResponse } from "next/server";
-import prisma from "@/lib/prisma";
-import { auth } from "@/lib/auth";
+import { supabaseAdmin } from "@/lib/supabaseClient";
 
-export async function GET() {
+export async function GET(req: Request) {
   try {
-    const session = await auth();
-    if (!session?.user?.id) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    const { searchParams } = new URL(req.url);
+    const userId = searchParams.get("userId");
 
-    const notifications = await prisma.notification.findMany({
-      where: { recipientId: session.user.id },
-      orderBy: { createdAt: "desc" },
-      take: 20,
-    });
+    if (!userId) {
+      return NextResponse.json({ error: "userId is required" }, { status: 400 });
+    }
 
-    return NextResponse.json(notifications);
-  } catch (error) {
-    return NextResponse.json({ error: "Server error" }, { status: 500 });
+    const { data: notifications, error } = await supabaseAdmin
+      .from("Notification")
+      .select("*")
+      .eq("recipientId", userId)
+      .order("createdAt", { ascending: false });
+
+    if (error) throw error;
+
+    return NextResponse.json(notifications || []);
+  } catch (err: any) {
+    return NextResponse.json({ error: err.message }, { status: 500 });
   }
 }
 
 export async function PATCH(req: Request) {
   try {
-    const session = await auth();
-    if (!session?.user?.id) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    const { id } = await req.json();
+    if (!id) return NextResponse.json({ error: "id required" }, { status: 400 });
 
-    const { id, readAll } = await req.json();
+    const { data: notification, error } = await supabaseAdmin
+      .from("Notification")
+      .update({ read: true })
+      .eq("id", id)
+      .select()
+      .single();
 
-    if (readAll) {
-      await prisma.notification.updateMany({
-        where: { recipientId: session.user.id, read: false },
-        data: { read: true },
-      });
-    } else if (id) {
-      await prisma.notification.update({
-        where: { id },
-        data: { read: true },
-      });
-    }
+    if (error) throw error;
 
-    return NextResponse.json({ success: true });
-  } catch (error) {
-    return NextResponse.json({ error: "Server error" }, { status: 500 });
+    return NextResponse.json(notification);
+  } catch (err: any) {
+    return NextResponse.json({ error: err.message }, { status: 500 });
+  }
+}
+
+export async function PUT(req: Request) {
+  try {
+    const { userId } = await req.json();
+    if (!userId) return NextResponse.json({ error: "userId required" }, { status: 400 });
+
+    const { data, error } = await supabaseAdmin
+      .from("Notification")
+      .update({ read: true })
+      .eq("recipientId", userId)
+      .eq("read", false)
+      .select(); // need to return something to avoid error in some versions
+
+    if (error) throw error;
+
+    return NextResponse.json({ success: true, updated: data?.length || 0 });
+  } catch (err: any) {
+    return NextResponse.json({ error: err.message }, { status: 500 });
   }
 }

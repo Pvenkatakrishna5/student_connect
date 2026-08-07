@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import prisma from "@/lib/prisma";
+import { supabaseAdmin } from "@/lib/supabaseClient";
 import { auth } from "@/lib/auth";
 
 export async function GET(req: Request) {
@@ -19,17 +19,25 @@ export async function GET(req: Request) {
     }
 
     // Find student record by userId
-    const student = await prisma.student.findUnique({ where: { userId: studentUserId } });
+    const { data: student } = await supabaseAdmin
+      .from("Student")
+      .select("id")
+      .eq("userId", studentUserId)
+      .single();
+      
     if (!student) return NextResponse.json({ error: "Student not found" }, { status: 404 });
 
-    const hiredApplications = await prisma.application.findMany({
-      where: { 
-        studentId: student.id, 
-        status: { in: ["selected", "completed"] } 
-      },
-      include: { job: true, employer: true },
-      orderBy: { updatedAt: 'asc' }
-    });
+    const { data: applications, error } = await supabaseAdmin
+      .from("Application")
+      .select("*, Job(*), Employer(*)")
+      .eq("studentId", student.id)
+      .in("status", ["selected", "completed"])
+      .order("updatedAt", { ascending: true });
+      
+    if (error) throw error;
+    
+    // Fallback if null
+    const hiredApplications = applications || [];
 
     let totalEarned = 0;
     let pendingEarned = 0;
@@ -39,7 +47,7 @@ export async function GET(req: Request) {
     const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
     const payments = hiredApplications.map((app) => {
-      const amount = app.job?.payAmount || 0;
+      const amount = app.Job?.payAmount || 0;
       const date = new Date(app.updatedAt);
       
       if (app.status === "completed") {
@@ -50,8 +58,8 @@ export async function GET(req: Request) {
       }
 
       return {
-        job: app.job?.title || "Unknown",
-        employer: app.employer?.companyName || "Employer",
+        job: app.Job?.title || "Unknown",
+        employer: app.Employer?.companyName || "Employer",
         amount,
         date: date.toLocaleDateString("en-IN"),
         status: app.status === "completed" ? "paid" : "processing",

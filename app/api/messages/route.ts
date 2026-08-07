@@ -1,134 +1,132 @@
 import { auth } from "@/lib/auth";
-import { NextResponse } from "next/server";
-import prisma from "@/lib/prisma";
+import { NextRequest, NextResponse } from "next/server";
+import { supabaseAdmin } from "@/lib/supabaseClient";
 
-export async function GET(req: Request) {
+export async function GET(req: NextRequest) {
   try {
     const session = await auth();
-    if (!session?.user?.id) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-
-    const { searchParams } = new URL(req.url);
-    const otherUserId = searchParams.get("userId");
-    const userId = session.user.id;
-
-    if (otherUserId) {
-      // Fetch direct chat history
-      const messages = await prisma.message.findMany({
-        where: {
-          OR: [
-            { senderId: userId, receiverId: otherUserId },
-            { senderId: otherUserId, receiverId: userId },
-          ],
-        },
-        orderBy: { createdAt: "asc" },
-      });
-      return NextResponse.json(messages);
+    if (!session?.user?.id) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
-    // Fetch recent conversations — get latest message per unique conversation partner
-    const conversations = await prisma.$queryRaw<
-      Array<{
-        otherId: string;
-        lastMessage: string;
-        createdAt: Date;
-        isRead: boolean;
-        senderId: string;
-      }>
-    >`
-      WITH LatestMessages AS (
-        SELECT 
-          CASE WHEN "senderId" = ${userId} THEN "receiverId" ELSE "senderId" END AS "otherId",
-          content,
-          "createdAt",
-          "isRead",
-          "senderId",
-          ROW_NUMBER() OVER (
-            PARTITION BY CASE WHEN "senderId" = ${userId} THEN "receiverId" ELSE "senderId" END 
-            ORDER BY "createdAt" DESC
-          ) as rn
-        FROM "Message"
-        WHERE "senderId" = ${userId} OR "receiverId" = ${userId}
-      )
-      SELECT 
-        "otherId",
-        content AS "lastMessage",
-        "createdAt",
-        "isRead",
-        "senderId"
-      FROM LatestMessages
-      WHERE rn = 1
-    `;
-
-    // Attach user details for each conversation
-    const populated = await Promise.all(
-      conversations.map(async (conv) => {
-        const user = await prisma.user.findUnique({
-          where: { id: conv.otherId },
-          select: { id: true, role: true, student: { select: { name: true } }, employer: { select: { companyName: true } } },
-        });
-        const name = user?.student?.name || user?.employer?.companyName || "Unknown";
-        return { ...conv, user: { ...user, name } };
-      })
-    );
-
-    populated.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
-
-    return NextResponse.json(populated);
-  } catch (error: unknown) {
-    const message = error instanceof Error ? error.message : "Internal server error";
+    const { searchParams } = new URL(req.url);
+    const peerId = searchParams.get("peerId");
+    
+    if (peerId) {
+      // 1. Fetch messages between current user and peerId
+      const { data: messages, error } = await supabaseAdmin
+        .from("Message")
+        .select("*")
+        .or(`and(senderId.eq.${session.user.id},receiverId.eq.${peerId}),and(senderId.eq.${peerId},receiverId.eq.${session.user.id})`)
+        .order("createdAt", { ascending: true });
+        
+      if (error) throw error;
+      
+      // Also mark as read
+      if (messages && messages.length > 0) {
+        const unreadIds = messages
+          .filter(m => m.receiverId === session.user.id && !m.read)
+          .map(m => m.id);
+          
+        if (unreadIds.length > 0) {
+          await supabaseAdmin
+            .from("Message")
+            .update({ read: true })
+            .in("id", unreadIds);
+        }
+      }
+      
+      return NextResponse.json(messages || []);
+    } else {
+      // 2. Fetch all conversations for current user
+      // Since we can't easily do Prisma's $queryRaw for DISTINCT ON in pure Supabase JS
+      // without creating a custom Postgres function, we'll fetch recent messages
+      // and process them in-memory (acceptable for now)
+      
+      const { data: recentMsgs, error } = await supabaseAdmin
+        .from("Message")
+        .select("*")
+        .or(`senderId.eq.${session.user.id},receiverId.eq.${session.user.id}`)
+        .order("createdAt", { ascending: false })
+        .limit(100);
+        
+      if (error) throw error;
+      
+      // Group by peerId to find latest message per conversation
+      const convosMap = new Map();
+      (recentMsgs || []).forEach(msg => {
+        const peerId = msg.senderId === session.user.id ? msg.receiverId : msg.senderId;
+        if (!convosMap.has(peerId)) {
+          convosMap.set(peerId, {
+            ...msg,
+            peerId
+          });
+        }
+      });
+      
+      const conversations = Array.from(convosMap.values());
+      const peerIds = conversations.map(c => c.peerId);
+      
+      // Fetch peer names
+      const { data: students } = await supabaseAdmin
+        .from("Student")
+        .select("userId, name")
+        .in("userId", peerIds);
+        
+      const { data: employers } = await supabaseAdmin
+        .from("Employer")
+        .select("userId, companyName")
+        .in("userId", peerIds);
+        
+      // Map names to conversations
+      const enrichedConversations = conversations.map(c => {
+        const student = students?.find(s => s.userId === c.peerId);
+        const employer = employers?.find(e => e.userId === c.peerId);
+        
+        return {
+          ...c,
+          peerName: student ? student.name : employer ? employer.companyName : "Unknown User"
+        };
+      });
+      
+      return NextResponse.json(enrichedConversations);
+    }
+  } catch (error: any) {
     console.error("Messages GET Error:", error);
-    return NextResponse.json({ error: message }, { status: 500 });
+    return NextResponse.json({ error: error.message }, { status: 500 });
   }
 }
 
 export async function POST(req: Request) {
   try {
     const session = await auth();
-    if (!session?.user?.id) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-
-    const { receiverId, content } = await req.json();
-    if (!receiverId || !content) {
-      return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
+    if (!session?.user?.id) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
-    const newMessage = await prisma.message.create({
-      data: {
+    const { receiverId, content } = await req.json();
+
+    if (!receiverId || !content) {
+      return NextResponse.json({ error: "Receiver ID and content are required" }, { status: 400 });
+    }
+
+    const { data: message, error } = await supabaseAdmin
+      .from("Message")
+      .insert({
+        id: crypto.randomUUID(),
         senderId: session.user.id,
         receiverId,
         content,
-      },
-    });
+        read: false,
+        createdAt: new Date().toISOString()
+      })
+      .select()
+      .single();
+      
+    if (error) throw error;
 
-    return NextResponse.json(newMessage);
-  } catch (error: unknown) {
-    const message = error instanceof Error ? error.message : "Internal server error";
-    console.error("Message POST Error:", error);
-    return NextResponse.json({ error: message }, { status: 500 });
+    return NextResponse.json(message, { status: 201 });
+  } catch (error: any) {
+    return NextResponse.json({ error: error.message }, { status: 500 });
   }
 }
-
-export async function PATCH(req: Request) {
-  try {
-    const session = await auth();
-    if (!session?.user?.id) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-
-    const { otherUserId } = await req.json();
-    if (!otherUserId) return NextResponse.json({ error: "Missing userId" }, { status: 400 });
-
-    await prisma.message.updateMany({
-      where: {
-        senderId: otherUserId,
-        receiverId: session.user.id,
-        isRead: false,
-      },
-      data: { isRead: true },
-    });
-
-    return NextResponse.json({ success: true });
-  } catch (error: unknown) {
-    const message = error instanceof Error ? error.message : "Internal server error";
-    console.error("Message PATCH Error:", error);
-    return NextResponse.json({ error: message }, { status: 500 });
-  }
-}
-

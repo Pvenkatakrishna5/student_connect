@@ -190,7 +190,12 @@ export default function EmployerApplicants() {
                         </div>
                         
                         <div className="flex gap-2">
-                          {processingId === app.id ? (
+                          {!app.isAdminVerified ? (
+                            <div className="flex items-center gap-2 px-4 py-2 bg-amber-500/10 border border-amber-500/20 rounded-xl text-amber-400" title="Waiting for platform admin to verify this application">
+                              <ShieldCheck className="w-5 h-5" />
+                              <span className="text-[10px] font-bold uppercase tracking-widest leading-tight text-left">Pending Admin<br/>Verification</span>
+                            </div>
+                          ) : processingId === app.id ? (
                             <div className="p-3"><Loader2 className="w-5 h-5 animate-spin text-indigo-500" /></div>
                           ) : (
                             <>

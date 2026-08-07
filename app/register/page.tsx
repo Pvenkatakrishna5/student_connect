@@ -14,6 +14,14 @@ export default function RegisterPage() {
   const router = useRouter();
   const [role, setRole] = useState<Role>("student");
   const [step, setStep] = useState(0);
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const r = params.get("role");
+    if (r === "employer" || r === "agent") {
+      setRole(r as Role);
+    }
+  }, []);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
@@ -106,6 +114,16 @@ export default function RegisterPage() {
   async function handleSubmit() {
     setLoading(true);
     setError("");
+    
+    if (role === "student") {
+      const hasAvailability = Object.values(form.availability).some(slots => slots.length > 0);
+      if (!hasAvailability) {
+        setError("Please select at least one availability slot.");
+        setLoading(false);
+        return;
+      }
+    }
+
     try {
       const res = await fetch("/api/auth/register", {
         method: "POST",
@@ -128,8 +146,35 @@ export default function RegisterPage() {
     } catch { setError("Something went wrong. Please try again."); setLoading(false); }
   }
 
+  const handleStudentNextStep = (targetStep: number) => {
+    if (targetStep < step) {
+      setError("");
+      setStep(targetStep);
+      return;
+    }
+
+    if (step === 1 || targetStep > 1) {
+      if (!form.college || !form.branch || !form.year || !form.city) {
+        setError("Please fill out all Academic fields.");
+        setTimeout(() => setError(""), 3000);
+        return;
+      }
+    }
+
+    if (step === 2 || targetStep > 2) {
+      if (form.skills.length === 0) {
+        setError("Please select at least one skill.");
+        setTimeout(() => setError(""), 3000);
+        return;
+      }
+    }
+
+    setError("");
+    setStep(targetStep);
+  };
+
   const labelCls = "text-[10px] font-black uppercase tracking-widest text-slate-500 px-1 block mb-2";
-  const inputCls = "w-full px-5 py-4 bg-white/[0.03] border border-white/[0.06] rounded-2xl text-sm text-white focus:outline-none focus:ring-2 focus:ring-emerald-500/10 focus:border-emerald-500/40 transition-all outline-none placeholder:text-slate-700";
+  const inputCls = "w-full px-5 py-4 bg-white/[0.03] border border-white/[0.06] rounded-2xl text-sm text-white focus:outline-none focus:ring-2 focus:ring-emerald-500/10 focus:border-emerald-500/40 transition-all outline-none placeholder:text-slate-700 [&>option]:bg-[#050508] [&>option]:text-white";
 
   return (
     <div className="min-h-screen flex bg-[#050508]">
@@ -356,16 +401,16 @@ export default function RegisterPage() {
                 {role === "student" && step === 1 && (
                   <div className="space-y-5">
                     <div className="space-y-2">
-                      <label className={labelCls}>College / University Name</label>
+                      <label className={labelCls}>College / University Name <span className="text-rose-400">*</span></label>
                       <input className={inputCls} placeholder="IIT Madras" value={form.college} onChange={e => set("college", e.target.value)} />
                     </div>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                       <div className="space-y-2">
-                        <label className={labelCls}>Major / Branch</label>
+                        <label className={labelCls}>Major / Branch <span className="text-rose-400">*</span></label>
                         <input className={inputCls} placeholder="Computer Science" value={form.branch} onChange={e => set("branch", e.target.value)} />
                       </div>
                       <div className="space-y-2">
-                        <label className={labelCls}>Academic Year</label>
+                        <label className={labelCls}>Academic Year <span className="text-rose-400">*</span></label>
                         <select className={inputCls} value={form.year} onChange={e => set("year", e.target.value)}>
                           <option value="">Select</option>
                           {["1st Year", "2nd Year", "3rd Year", "4th Year", "PG"].map(y => <option key={y} value={y}>{y}</option>)}
@@ -373,7 +418,7 @@ export default function RegisterPage() {
                       </div>
                     </div>
                     <div className="space-y-2">
-                      <label className={labelCls}>Current City</label>
+                      <label className={labelCls}>Current City <span className="text-rose-400">*</span></label>
                       <select className={inputCls} value={form.city} onChange={e => set("city", e.target.value)}>
                         <option value="">Select city</option>
                         {CITIES.map(c => <option key={c} value={c}>{c}</option>)}
@@ -383,7 +428,7 @@ export default function RegisterPage() {
                       <button type="button" onClick={() => setStep(0)} className="flex-1 py-4 rounded-2xl text-sm font-bold text-slate-500 hover:text-white transition-all flex items-center justify-center gap-2">
                         <ArrowLeft className="w-4 h-4" /> Back
                       </button>
-                      <button type="button" onClick={() => setStep(2)} className="flex-[2] py-4 rounded-2xl bg-emerald-500 text-black font-black text-sm hover:bg-emerald-400 transition-all flex items-center justify-center gap-3 shadow-xl shadow-emerald-500/10">
+                      <button type="button" onClick={() => handleStudentNextStep(2)} className="flex-[2] py-4 rounded-2xl bg-emerald-500 text-black font-black text-sm hover:bg-emerald-400 transition-all flex items-center justify-center gap-3 shadow-xl shadow-emerald-500/10">
                         Skills Profile <ArrowRight className="w-4 h-4" />
                       </button>
                     </div>
@@ -417,7 +462,7 @@ export default function RegisterPage() {
                       <button type="button" onClick={() => setStep(1)} className="flex-1 py-4 rounded-2xl text-sm font-bold text-slate-500 hover:text-white transition-all flex items-center justify-center gap-2">
                         <ArrowLeft className="w-4 h-4" /> Back
                       </button>
-                      <button type="button" onClick={() => setStep(3)} className="flex-[2] py-4 rounded-2xl bg-emerald-500 text-black font-black text-sm hover:bg-emerald-400 transition-all flex items-center justify-center gap-3 shadow-xl shadow-emerald-500/10">
+                      <button type="button" onClick={() => handleStudentNextStep(3)} className="flex-[2] py-4 rounded-2xl bg-emerald-500 text-black font-black text-sm hover:bg-emerald-400 transition-all flex items-center justify-center gap-3 shadow-xl shadow-emerald-500/10">
                         Work Schedule <ArrowRight className="w-4 h-4" />
                       </button>
                     </div>

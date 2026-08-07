@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import bcrypt from "bcryptjs";
-import prisma from "@/lib/prisma";
+import { supabaseAdmin } from "@/lib/supabaseClient";
 import { logActivity } from "@/lib/activity";
 import { sendWelcomeEmail } from "@/lib/email";
 
@@ -20,9 +20,12 @@ export async function POST(req: NextRequest) {
 
     let existing = null;
     try {
-      existing = await prisma.user.findUnique({
-        where: { email: emailLower },
-      });
+      const { data } = await supabaseAdmin
+        .from("User")
+        .select("id")
+        .eq("email", emailLower)
+        .single();
+      existing = data;
     } catch (dbErr) {
       console.error("Database connection failure in registration lookup:", dbErr);
       return NextResponse.json({ error: "Database unavailable" }, { status: 500 });
@@ -36,14 +39,22 @@ export async function POST(req: NextRequest) {
 
     let user;
     try {
-      user = await prisma.user.create({
-        data: {
+      const { data, error } = await supabaseAdmin
+        .from("User")
+        .insert({
+          id: crypto.randomUUID(),
           email: emailLower,
           passwordHash,
           role,
           isVerified: true, // Auto-verified for zero-friction production login
-        },
-      });
+          isActive: true,
+          updatedAt: new Date().toISOString(),
+        })
+        .select()
+        .single();
+
+      if (error) throw error;
+      user = data;
     } catch (dbErr) {
       console.error("Database connection failure during user creation in registration:", dbErr);
       return NextResponse.json({ error: "Database unavailable" }, { status: 500 });
@@ -51,6 +62,7 @@ export async function POST(req: NextRequest) {
 
     if (role === "student") {
       const studentData = {
+        id: crypto.randomUUID(),
         userId: user.id,
         name: name || "",
         college: college || "",
@@ -63,21 +75,24 @@ export async function POST(req: NextRequest) {
         skills: skills || [],
         availability: availability || {},
         profileCompleted: false,
+        updatedAt: new Date().toISOString(),
       };
-      await prisma.student.create({ data: studentData });
+      await supabaseAdmin.from("Student").insert(studentData);
 
       await logActivity("user_registered", `New student joined: ${name || email}`, user.id);
     } else if (role === "employer") {
       const employerData = {
+        id: crypto.randomUUID(),
         userId: user.id,
         companyName: companyName || "",
         contactName: contactName || "",
         city: city || "",
         phone: phone || "",
-        approvalStatus: "pending" as const,
+        approvalStatus: "pending",
         profileCompleted: false,
+        updatedAt: new Date().toISOString(),
       };
-      await prisma.employer.create({ data: employerData });
+      await supabaseAdmin.from("Employer").insert(employerData);
 
       await logActivity("user_registered", `New employer joined: ${companyName || email}`, user.id);
     } else if (role === "agent") {
@@ -91,10 +106,6 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ success: true, userId: user.id }, { status: 201 });
   } catch (err: unknown) {
     console.error("Registration server error:", err);
-    const message = err instanceof Error ? err.message : "";
-    if (message.includes("Database connection") || message.includes("tenant") || message.includes("pool") || message.includes("reach database")) {
-      return NextResponse.json({ error: "Database unavailable" }, { status: 500 });
-    }
     return NextResponse.json({ error: "Database unavailable" }, { status: 500 });
   }
 }

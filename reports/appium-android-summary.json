@@ -1,0 +1,10 @@
+{
+  "suite": "Appium — Android Tests",
+  "summary": {
+    "total": 300,
+    "passed": 300,
+    "failed": 0,
+    "skipped": 0,
+    "duration": "401.92s"
+  }
+}

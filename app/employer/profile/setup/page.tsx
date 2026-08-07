@@ -9,7 +9,7 @@ import {
 } from "lucide-react";
 import { CITIES } from "@/lib/utils";
 
-const SETUP_STEPS = ["Company", "Contact", "Verification"];
+const SETUP_STEPS = ["Company", "Contact"];
 const INDUSTRY_TYPES = [
   "Information Technology", "Education", "Healthcare", "Finance", "E-Commerce",
   "Marketing & Advertising", "Media & Entertainment", "Manufacturing",
@@ -29,6 +29,37 @@ export default function EmployerProfileSetup() {
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
+
+  const handleNextStep = (targetStep: number) => {
+    // If going backwards, allow it without validation
+    if (targetStep < step) {
+      setError("");
+      setStep(targetStep);
+      return;
+    }
+
+    // Validate step 0 before allowing moving past it
+    if (step === 0 || targetStep > 0) {
+      if (!form.companyName || !form.description || !form.industryType || !form.companySize || !form.website || !form.companyAddress || !form.city) {
+        setError("Please fill out all Company Information fields.");
+        setTimeout(() => setError(""), 3000);
+        return;
+      }
+    }
+
+    // Validate step 1 before allowing moving past it
+    if (step === 1 || targetStep > 1) {
+      if (!form.contactName || !form.hrDesignation || !form.phone) {
+        setError("Please fill out all Contact Information fields.");
+        setTimeout(() => setError(""), 3000);
+        return;
+      }
+    }
+
+    setError("");
+    setStep(targetStep);
+  };
+
 
   const [form, setForm] = useState({
     // Company Info
@@ -104,6 +135,8 @@ export default function EmployerProfileSetup() {
     setError("");
     setSuccess("");
 
+    // Verification validation removed as per request
+
     try {
       const payload: Record<string, unknown> = { ...form };
 
@@ -139,7 +172,7 @@ export default function EmployerProfileSetup() {
   }
 
   const labelCls = "text-[10px] font-black uppercase tracking-widest text-slate-500 px-1 block mb-2";
-  const inputCls = "w-full px-5 py-4 bg-white/[0.03] border border-white/[0.06] rounded-2xl text-sm text-white focus:outline-none focus:ring-2 focus:ring-emerald-500/10 focus:border-emerald-500/40 transition-all outline-none placeholder:text-slate-700";
+  const inputCls = "w-full px-5 py-4 bg-white/[0.03] border border-white/[0.06] rounded-2xl text-sm text-white focus:outline-none focus:ring-2 focus:ring-emerald-500/10 focus:border-emerald-500/40 transition-all outline-none placeholder:text-slate-700 [&>option]:bg-[#050508] [&>option]:text-white";
 
   if (loading || status === "loading") {
     return (
@@ -207,7 +240,7 @@ export default function EmployerProfileSetup() {
                 <button
                   key={s}
                   type="button"
-                  onClick={() => setStep(i)}
+                  onClick={() => handleNextStep(i)}
                   className={`flex items-center gap-2.5 px-5 py-3 rounded-2xl text-xs font-black uppercase tracking-widest transition-all border ${
                     isActive
                       ? "bg-emerald-500/10 border-emerald-500/30 text-emerald-400 shadow-lg shadow-emerald-500/5"
@@ -253,7 +286,7 @@ export default function EmployerProfileSetup() {
                   </div>
 
                   <div className="space-y-2">
-                    <label className={labelCls}>Company Description</label>
+                    <label className={labelCls}>Company Description <span className="text-rose-400">*</span></label>
                     <textarea
                       className={`${inputCls} min-h-[120px] resize-none`}
                       placeholder="Tell students about your company, mission, culture, and what makes you unique..."
@@ -264,14 +297,14 @@ export default function EmployerProfileSetup() {
 
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                     <div className="space-y-2">
-                      <label className={labelCls}>Industry Type</label>
+                      <label className={labelCls}>Industry Type <span className="text-rose-400">*</span></label>
                       <select className={inputCls} value={form.industryType} onChange={e => set("industryType", e.target.value)}>
                         <option value="">Select Industry</option>
                         {INDUSTRY_TYPES.map(t => <option key={t} value={t}>{t}</option>)}
                       </select>
                     </div>
                     <div className="space-y-2">
-                      <label className={labelCls}>Company Size</label>
+                      <label className={labelCls}>Company Size <span className="text-rose-400">*</span></label>
                       <select className={inputCls} value={form.companySize} onChange={e => set("companySize", e.target.value)}>
                         <option value="">Select</option>
                         {COMPANY_SIZES.map(s => <option key={s} value={s}>{s}</option>)}
@@ -280,17 +313,17 @@ export default function EmployerProfileSetup() {
                   </div>
 
                   <div className="space-y-2">
-                    <label className={labelCls}>Website</label>
+                    <label className={labelCls}>Website <span className="text-rose-400">*</span></label>
                     <input className={inputCls} placeholder="https://www.company.com" value={form.website} onChange={e => set("website", e.target.value)} />
                   </div>
 
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                     <div className="space-y-2">
-                      <label className={labelCls}>Company Address</label>
+                      <label className={labelCls}>Company Address <span className="text-rose-400">*</span></label>
                       <input className={inputCls} placeholder="123 Tech Park, Whitefield" value={form.companyAddress} onChange={e => set("companyAddress", e.target.value)} />
                     </div>
                     <div className="space-y-2">
-                      <label className={labelCls}>City</label>
+                      <label className={labelCls}>City <span className="text-rose-400">*</span></label>
                       <select className={inputCls} value={form.city} onChange={e => set("city", e.target.value)}>
                         <option value="">Select city</option>
                         {CITIES.map(c => <option key={c} value={c}>{c}</option>)}
@@ -301,7 +334,7 @@ export default function EmployerProfileSetup() {
                   <div className="flex justify-end pt-2">
                     <button
                       type="button"
-                      onClick={() => setStep(1)}
+                      onClick={() => handleNextStep(1)}
                       className="px-8 py-4 rounded-2xl bg-emerald-500 text-black font-black text-sm hover:bg-emerald-400 transition-all flex items-center gap-3 shadow-xl shadow-emerald-500/10"
                     >
                       Contact Details <ArrowRight className="w-4 h-4" />
@@ -321,13 +354,13 @@ export default function EmployerProfileSetup() {
                       <input className={inputCls} placeholder="Suresh Kumar" value={form.contactName} onChange={e => set("contactName", e.target.value)} />
                     </div>
                     <div className="space-y-2">
-                      <label className={labelCls}>Designation</label>
+                      <label className={labelCls}>Designation <span className="text-rose-400">*</span></label>
                       <input className={inputCls} placeholder="HR Manager" value={form.hrDesignation} onChange={e => set("hrDesignation", e.target.value)} />
                     </div>
                   </div>
 
                   <div className="space-y-2">
-                    <label className={labelCls}>Phone Number</label>
+                    <label className={labelCls}>Phone Number <span className="text-rose-400">*</span></label>
                     <input className={inputCls} placeholder="+91 9876543210" value={form.phone} onChange={e => set("phone", e.target.value)} />
                   </div>
 
@@ -338,57 +371,6 @@ export default function EmployerProfileSetup() {
 
                   <div className="flex gap-4 pt-2">
                     <button type="button" onClick={() => setStep(0)} className="flex-1 py-4 rounded-2xl text-sm font-bold text-slate-500 hover:text-white transition-all flex items-center justify-center gap-2">
-                      <ArrowLeft className="w-4 h-4" /> Back
-                    </button>
-                    <button type="button" onClick={() => setStep(2)} className="flex-[2] py-4 rounded-2xl bg-emerald-500 text-black font-black text-sm hover:bg-emerald-400 transition-all flex items-center justify-center gap-3 shadow-xl shadow-emerald-500/10">
-                      Verification <ArrowRight className="w-4 h-4" />
-                    </button>
-                  </div>
-                </div>
-              )}
-
-              {/* Step 2: Verification Information */}
-              {step === 2 && (
-                <div className="space-y-6 p-8 rounded-[32px] bg-white/[0.01] border border-white/[0.04]">
-                  <h3 className="text-lg font-bold text-white flex items-center gap-3"><ShieldCheck className="w-5 h-5 text-amber-400" /> Verification Information</h3>
-
-                  <p className="text-xs text-slate-500 leading-relaxed">
-                    Providing verification details helps us confirm your business faster. This information is kept confidential and only used for admin review.
-                  </p>
-
-                  <div className="space-y-2">
-                    <label className={labelCls}>Business Registration Number</label>
-                    <input className={inputCls} placeholder="e.g., U72200KA2020PTC123456" value={form.businessRegNo} onChange={e => set("businessRegNo", e.target.value)} />
-                  </div>
-
-                  <div className="space-y-2">
-                    <label className={labelCls}>GST Number <span className="text-slate-700">(Optional)</span></label>
-                    <input className={inputCls} placeholder="e.g., 29AABCU9603R1ZM" value={form.gstNo} onChange={e => set("gstNo", e.target.value)} />
-                  </div>
-
-                  <div className="space-y-2">
-                    <label className={labelCls}>Company Verification Document Link</label>
-                    <input className={inputCls} placeholder="https://drive.google.com/your-document" value={form.verificationDocUrl} onChange={e => set("verificationDocUrl", e.target.value)} />
-                    <p className="text-[10px] text-slate-700 px-1">Upload your business registration certificate, incorporation document, or letterhead to Google Drive / Dropbox and paste the link here.</p>
-                  </div>
-
-                  <div className="p-5 rounded-2xl bg-amber-500/5 border border-amber-500/20 flex items-start gap-4">
-                    <AlertTriangle className="w-5 h-5 text-amber-400 shrink-0 mt-0.5" />
-                    <div>
-                      <p className="text-xs text-slate-400 leading-relaxed">
-                        After submission, your profile will be reviewed by our admin team. You&apos;ll receive a notification once your account is approved. Only approved employers can:
-                      </p>
-                      <ul className="text-xs text-slate-500 mt-2 space-y-1 list-disc list-inside">
-                        <li>Post job vacancies</li>
-                        <li>View student applicants</li>
-                        <li>Chat with students</li>
-                        <li>Schedule interviews</li>
-                      </ul>
-                    </div>
-                  </div>
-
-                  <div className="flex gap-4 pt-2">
-                    <button type="button" onClick={() => setStep(1)} className="flex-1 py-4 rounded-2xl text-sm font-bold text-slate-500 hover:text-white transition-all flex items-center justify-center gap-2">
                       <ArrowLeft className="w-4 h-4" /> Back
                     </button>
                     <button
@@ -402,19 +384,10 @@ export default function EmployerProfileSetup() {
                   </div>
                 </div>
               )}
+
+
             </motion.div>
           </AnimatePresence>
-
-          {/* Skip option */}
-          <div className="text-center">
-            <button
-              type="button"
-              onClick={() => handleSave(true)}
-              className="text-xs text-slate-600 hover:text-slate-400 transition-colors font-bold"
-            >
-              Skip for now & go to dashboard →
-            </button>
-          </div>
         </div>
       </div>
     </div>

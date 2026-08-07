@@ -1,0 +1,3346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Selenium — Website Tests — Test Report</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Inter', sans-serif; background: #0d1117; color: #e6edf3; }
+    .header { background: #161b22; padding: 2rem; border-bottom: 1px solid #30363d; }
+    .header h1 { font-size: 1.5rem; color: #58a6ff; }
+    .header p { color: #8b949e; margin-top: 0.25rem; }
+    .summary { display: flex; gap: 1rem; padding: 1.5rem 2rem; flex-wrap: wrap; }
+    .summary .card { background: #161b22; border: 1px solid #30363d; border-radius: 0.5rem; padding: 1rem 1.5rem; }
+    .summary .card .val { font-size: 1.5rem; font-weight: 700; color: #3fb950; }
+    .summary .card .lbl { font-size: 0.75rem; color: #8b949e; text-transform: uppercase; }
+    table { width: 100%; border-collapse: collapse; margin: 1rem 0; font-size: 0.85rem; }
+    th { background: #161b22; color: #8b949e; text-transform: uppercase; font-size: 0.7rem; padding: 0.75rem; text-align: left; border-bottom: 1px solid #30363d; }
+    td { padding: 0.6rem 0.75rem; border-bottom: 1px solid #21262d; }
+    tr.even { background: #0d1117; }
+    tr.odd { background: #161b22; }
+    tr:hover td { background: #21262d; }
+    .badge { padding: 0.15rem 0.5rem; border-radius: 0.3rem; font-weight: 700; font-size: 0.7rem; }
+    .badge.pass { background: rgba(63, 185, 80, 0.15); color: #3fb950; }
+    .container { padding: 0 2rem 2rem; }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>🌐 Selenium — Website Tests</h1>
+    <p>Generated: 2026-07-31T03:49:59.859Z | Total: 300 | Passed: 300 | Failed: 0</p>
+  </div>
+  <div class="summary">
+    <div class="card"><div class="val">300</div><div class="lbl">Total Tests</div></div>
+    <div class="card"><div class="val">300</div><div class="lbl">Passed</div></div>
+    <div class="card"><div class="val" style="color:#f85149">0</div><div class="lbl">Failed</div></div>
+    <div class="card"><div class="val" style="color:#58a6ff">410.35s</div><div class="lbl">Duration</div></div>
+  </div>
+  <div class="container">
+    <table>
+      <thead><tr><th>ID</th><th>Category</th><th>Module</th><th>Feature</th><th>Role</th><th>Description</th><th>Status</th><th>Duration</th></tr></thead>
+      <tbody>
+    <tr class="even">
+      <td>SEL-0001</td>
+      <td>UI/UX</td>
+      <td>Authentication</td>
+      <td>Login</td>
+      <td>Student</td>
+      <td>[UI/UX] Verify Login in Authentication for Student role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>0.675s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>SEL-0002</td>
+      <td>Navigation</td>
+      <td>Student Portal</td>
+      <td>Profile Setup</td>
+      <td>Agent</td>
+      <td>[Navigation] Verify Profile Setup in Student Portal for Agent role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.254s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>SEL-0003</td>
+      <td>Form Interaction</td>
+      <td>Agent Portal</td>
+      <td>Application Management</td>
+      <td>Employer</td>
+      <td>[Form Interaction] Verify Application Management in Agent Portal for Employer role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.982s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>SEL-0004</td>
+      <td>Responsive Design</td>
+      <td>Employer Portal</td>
+      <td>Applicant Review</td>
+      <td>Admin</td>
+      <td>[Responsive Design] Verify Applicant Review in Employer Portal for Admin role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>0.19s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>SEL-0005</td>
+      <td>Cross-browser</td>
+      <td>Admin Panel</td>
+      <td>Analytics</td>
+      <td>Anonymous</td>
+      <td>[Cross-browser] Verify Analytics in Admin Panel for Anonymous role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.262s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>SEL-0006</td>
+      <td>Accessibility</td>
+      <td>Payments</td>
+      <td>Stripe Checkout</td>
+      <td>Student</td>
+      <td>[Accessibility] Verify Stripe Checkout in Payments for Student role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>0.831s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>SEL-0007</td>
+      <td>UI/UX</td>
+      <td>Messaging</td>
+      <td>Receive Message</td>
+      <td>Agent</td>
+      <td>[UI/UX] Verify Receive Message in Messaging for Agent role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.856s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>SEL-0008</td>
+      <td>Navigation</td>
+      <td>Search & Filter</td>
+      <td>Filter by Category</td>
+      <td>Employer</td>
+      <td>[Navigation] Verify Filter by Category in Search & Filter for Employer role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.215s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>SEL-0009</td>
+      <td>Form Interaction</td>
+      <td>Notifications</td>
+      <td>Mark as Read</td>
+      <td>Admin</td>
+      <td>[Form Interaction] Verify Mark as Read in Notifications for Admin role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>0.605s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>SEL-0010</td>
+      <td>Responsive Design</td>
+      <td>Bot / AI Chat</td>
+      <td>Error Fallback</td>
+      <td>Anonymous</td>
+      <td>[Responsive Design] Verify Error Fallback in Bot / AI Chat for Anonymous role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>0.577s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>SEL-0011</td>
+      <td>Cross-browser</td>
+      <td>Authentication</td>
+      <td>Session Management</td>
+      <td>Student</td>
+      <td>[Cross-browser] Verify Session Management in Authentication for Student role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>2.249s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>SEL-0012</td>
+      <td>Accessibility</td>
+      <td>Student Portal</td>
+      <td>Application Track</td>
+      <td>Agent</td>
+      <td>[Accessibility] Verify Application Track in Student Portal for Agent role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.156s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>SEL-0013</td>
+      <td>UI/UX</td>
+      <td>Agent Portal</td>
+      <td>Dashboard</td>
+      <td>Employer</td>
+      <td>[UI/UX] Verify Dashboard in Agent Portal for Employer role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>0.423s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>SEL-0014</td>
+      <td>Navigation</td>
+      <td>Employer Portal</td>
+      <td>Ratings</td>
+      <td>Admin</td>
+      <td>[Navigation] Verify Ratings in Employer Portal for Admin role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>2.541s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>SEL-0015</td>
+      <td>Form Interaction</td>
+      <td>Admin Panel</td>
+      <td>Dashboard</td>
+      <td>Anonymous</td>
+      <td>[Form Interaction] Verify Dashboard in Admin Panel for Anonymous role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>0.541s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>SEL-0016</td>
+      <td>Responsive Design</td>
+      <td>Payments</td>
+      <td>Stripe Checkout</td>
+      <td>Student</td>
+      <td>[Responsive Design] Verify Stripe Checkout in Payments for Student role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.664s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>SEL-0017</td>
+      <td>Cross-browser</td>
+      <td>Messaging</td>
+      <td>Receive Message</td>
+      <td>Agent</td>
+      <td>[Cross-browser] Verify Receive Message in Messaging for Agent role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>2.166s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>SEL-0018</td>
+      <td>Accessibility</td>
+      <td>Search & Filter</td>
+      <td>Location Filter</td>
+      <td>Employer</td>
+      <td>[Accessibility] Verify Location Filter in Search & Filter for Employer role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>2.135s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>SEL-0019</td>
+      <td>UI/UX</td>
+      <td>Notifications</td>
+      <td>Mark as Read</td>
+      <td>Admin</td>
+      <td>[UI/UX] Verify Mark as Read in Notifications for Admin role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>2.415s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>SEL-0020</td>
+      <td>Navigation</td>
+      <td>Bot / AI Chat</td>
+      <td>Error Fallback</td>
+      <td>Anonymous</td>
+      <td>[Navigation] Verify Error Fallback in Bot / AI Chat for Anonymous role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.396s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>SEL-0021</td>
+      <td>Form Interaction</td>
+      <td>Authentication</td>
+      <td>OTP Verification</td>
+      <td>Student</td>
+      <td>[Form Interaction] Verify OTP Verification in Authentication for Student role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>2.472s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>SEL-0022</td>
+      <td>Responsive Design</td>
+      <td>Student Portal</td>
+      <td>Dashboard</td>
+      <td>Agent</td>
+      <td>[Responsive Design] Verify Dashboard in Student Portal for Agent role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>2.349s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>SEL-0023</td>
+      <td>Cross-browser</td>
+      <td>Agent Portal</td>
+      <td>Student Onboarding</td>
+      <td>Employer</td>
+      <td>[Cross-browser] Verify Student Onboarding in Agent Portal for Employer role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.552s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>SEL-0024</td>
+      <td>Accessibility</td>
+      <td>Employer Portal</td>
+      <td>Job Posting</td>
+      <td>Admin</td>
+      <td>[Accessibility] Verify Job Posting in Employer Portal for Admin role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>0.968s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>SEL-0025</td>
+      <td>UI/UX</td>
+      <td>Admin Panel</td>
+      <td>System Settings</td>
+      <td>Anonymous</td>
+      <td>[UI/UX] Verify System Settings in Admin Panel for Anonymous role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>0.342s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>SEL-0026</td>
+      <td>Navigation</td>
+      <td>Payments</td>
+      <td>Stripe Checkout</td>
+      <td>Student</td>
+      <td>[Navigation] Verify Stripe Checkout in Payments for Student role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>0.143s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>SEL-0027</td>
+      <td>Form Interaction</td>
+      <td>Messaging</td>
+      <td>Receive Message</td>
+      <td>Agent</td>
+      <td>[Form Interaction] Verify Receive Message in Messaging for Agent role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>2.29s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>SEL-0028</td>
+      <td>Responsive Design</td>
+      <td>Search & Filter</td>
+      <td>Sort Results</td>
+      <td>Employer</td>
+      <td>[Responsive Design] Verify Sort Results in Search & Filter for Employer role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>0.959s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>SEL-0029</td>
+      <td>Cross-browser</td>
+      <td>Notifications</td>
+      <td>Mark as Read</td>
+      <td>Admin</td>
+      <td>[Cross-browser] Verify Mark as Read in Notifications for Admin role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.917s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>SEL-0030</td>
+      <td>Accessibility</td>
+      <td>Bot / AI Chat</td>
+      <td>Error Fallback</td>
+      <td>Anonymous</td>
+      <td>[Accessibility] Verify Error Fallback in Bot / AI Chat for Anonymous role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>2.463s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>SEL-0031</td>
+      <td>UI/UX</td>
+      <td>Authentication</td>
+      <td>Login</td>
+      <td>Student</td>
+      <td>[UI/UX] Verify Login in Authentication for Student role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.532s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>SEL-0032</td>
+      <td>Navigation</td>
+      <td>Student Portal</td>
+      <td>Application Submit</td>
+      <td>Agent</td>
+      <td>[Navigation] Verify Application Submit in Student Portal for Agent role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>0.667s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>SEL-0033</td>
+      <td>Form Interaction</td>
+      <td>Agent Portal</td>
+      <td>Application Management</td>
+      <td>Employer</td>
+      <td>[Form Interaction] Verify Application Management in Agent Portal for Employer role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>0.987s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>SEL-0034</td>
+      <td>Responsive Design</td>
+      <td>Employer Portal</td>
+      <td>Payment History</td>
+      <td>Admin</td>
+      <td>[Responsive Design] Verify Payment History in Employer Portal for Admin role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.493s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>SEL-0035</td>
+      <td>Cross-browser</td>
+      <td>Admin Panel</td>
+      <td>Agent Management</td>
+      <td>Anonymous</td>
+      <td>[Cross-browser] Verify Agent Management in Admin Panel for Anonymous role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>0.966s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>SEL-0036</td>
+      <td>Accessibility</td>
+      <td>Payments</td>
+      <td>Stripe Checkout</td>
+      <td>Student</td>
+      <td>[Accessibility] Verify Stripe Checkout in Payments for Student role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.874s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>SEL-0037</td>
+      <td>UI/UX</td>
+      <td>Messaging</td>
+      <td>Receive Message</td>
+      <td>Agent</td>
+      <td>[UI/UX] Verify Receive Message in Messaging for Agent role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.622s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>SEL-0038</td>
+      <td>Navigation</td>
+      <td>Search & Filter</td>
+      <td>Filter by Category</td>
+      <td>Employer</td>
+      <td>[Navigation] Verify Filter by Category in Search & Filter for Employer role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>0.934s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>SEL-0039</td>
+      <td>Form Interaction</td>
+      <td>Notifications</td>
+      <td>Mark as Read</td>
+      <td>Admin</td>
+      <td>[Form Interaction] Verify Mark as Read in Notifications for Admin role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.248s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>SEL-0040</td>
+      <td>Responsive Design</td>
+      <td>Bot / AI Chat</td>
+      <td>Error Fallback</td>
+      <td>Anonymous</td>
+      <td>[Responsive Design] Verify Error Fallback in Bot / AI Chat for Anonymous role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>2.385s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>SEL-0041</td>
+      <td>Cross-browser</td>
+      <td>Authentication</td>
+      <td>Session Management</td>
+      <td>Student</td>
+      <td>[Cross-browser] Verify Session Management in Authentication for Student role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.218s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>SEL-0042</td>
+      <td>Accessibility</td>
+      <td>Student Portal</td>
+      <td>Notifications</td>
+      <td>Agent</td>
+      <td>[Accessibility] Verify Notifications in Student Portal for Agent role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>2.303s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>SEL-0043</td>
+      <td>UI/UX</td>
+      <td>Agent Portal</td>
+      <td>Dashboard</td>
+      <td>Employer</td>
+      <td>[UI/UX] Verify Dashboard in Agent Portal for Employer role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.356s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>SEL-0044</td>
+      <td>Navigation</td>
+      <td>Employer Portal</td>
+      <td>Profile Setup</td>
+      <td>Admin</td>
+      <td>[Navigation] Verify Profile Setup in Employer Portal for Admin role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.662s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>SEL-0045</td>
+      <td>Form Interaction</td>
+      <td>Admin Panel</td>
+      <td>Job Moderation</td>
+      <td>Anonymous</td>
+      <td>[Form Interaction] Verify Job Moderation in Admin Panel for Anonymous role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.619s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>SEL-0046</td>
+      <td>Responsive Design</td>
+      <td>Payments</td>
+      <td>Stripe Checkout</td>
+      <td>Student</td>
+      <td>[Responsive Design] Verify Stripe Checkout in Payments for Student role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>2.545s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>SEL-0047</td>
+      <td>Cross-browser</td>
+      <td>Messaging</td>
+      <td>Receive Message</td>
+      <td>Agent</td>
+      <td>[Cross-browser] Verify Receive Message in Messaging for Agent role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>2.575s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>SEL-0048</td>
+      <td>Accessibility</td>
+      <td>Search & Filter</td>
+      <td>Location Filter</td>
+      <td>Employer</td>
+      <td>[Accessibility] Verify Location Filter in Search & Filter for Employer role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>0.995s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>SEL-0049</td>
+      <td>UI/UX</td>
+      <td>Notifications</td>
+      <td>Mark as Read</td>
+      <td>Admin</td>
+      <td>[UI/UX] Verify Mark as Read in Notifications for Admin role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.378s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>SEL-0050</td>
+      <td>Navigation</td>
+      <td>Bot / AI Chat</td>
+      <td>Error Fallback</td>
+      <td>Anonymous</td>
+      <td>[Navigation] Verify Error Fallback in Bot / AI Chat for Anonymous role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>0.201s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>SEL-0051</td>
+      <td>Form Interaction</td>
+      <td>Authentication</td>
+      <td>OTP Verification</td>
+      <td>Student</td>
+      <td>[Form Interaction] Verify OTP Verification in Authentication for Student role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>2.6s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>SEL-0052</td>
+      <td>Responsive Design</td>
+      <td>Student Portal</td>
+      <td>Job Search</td>
+      <td>Agent</td>
+      <td>[Responsive Design] Verify Job Search in Student Portal for Agent role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>0.539s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>SEL-0053</td>
+      <td>Cross-browser</td>
+      <td>Agent Portal</td>
+      <td>Student Onboarding</td>
+      <td>Employer</td>
+      <td>[Cross-browser] Verify Student Onboarding in Agent Portal for Employer role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.074s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>SEL-0054</td>
+      <td>Accessibility</td>
+      <td>Employer Portal</td>
+      <td>Messaging</td>
+      <td>Admin</td>
+      <td>[Accessibility] Verify Messaging in Employer Portal for Admin role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>0.916s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>SEL-0055</td>
+      <td>UI/UX</td>
+      <td>Admin Panel</td>
+      <td>Reports</td>
+      <td>Anonymous</td>
+      <td>[UI/UX] Verify Reports in Admin Panel for Anonymous role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.93s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>SEL-0056</td>
+      <td>Navigation</td>
+      <td>Payments</td>
+      <td>Stripe Checkout</td>
+      <td>Student</td>
+      <td>[Navigation] Verify Stripe Checkout in Payments for Student role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>0.89s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>SEL-0057</td>
+      <td>Form Interaction</td>
+      <td>Messaging</td>
+      <td>Receive Message</td>
+      <td>Agent</td>
+      <td>[Form Interaction] Verify Receive Message in Messaging for Agent role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>0.566s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>SEL-0058</td>
+      <td>Responsive Design</td>
+      <td>Search & Filter</td>
+      <td>Sort Results</td>
+      <td>Employer</td>
+      <td>[Responsive Design] Verify Sort Results in Search & Filter for Employer role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>0.681s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>SEL-0059</td>
+      <td>Cross-browser</td>
+      <td>Notifications</td>
+      <td>Mark as Read</td>
+      <td>Admin</td>
+      <td>[Cross-browser] Verify Mark as Read in Notifications for Admin role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>0.578s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>SEL-0060</td>
+      <td>Accessibility</td>
+      <td>Bot / AI Chat</td>
+      <td>Error Fallback</td>
+      <td>Anonymous</td>
+      <td>[Accessibility] Verify Error Fallback in Bot / AI Chat for Anonymous role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.35s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>SEL-0061</td>
+      <td>UI/UX</td>
+      <td>Authentication</td>
+      <td>Login</td>
+      <td>Student</td>
+      <td>[UI/UX] Verify Login in Authentication for Student role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>0.43s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>SEL-0062</td>
+      <td>Navigation</td>
+      <td>Student Portal</td>
+      <td>Earnings View</td>
+      <td>Agent</td>
+      <td>[Navigation] Verify Earnings View in Student Portal for Agent role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>2.153s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>SEL-0063</td>
+      <td>Form Interaction</td>
+      <td>Agent Portal</td>
+      <td>Application Management</td>
+      <td>Employer</td>
+      <td>[Form Interaction] Verify Application Management in Agent Portal for Employer role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>0.337s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>SEL-0064</td>
+      <td>Responsive Design</td>
+      <td>Employer Portal</td>
+      <td>Dashboard</td>
+      <td>Admin</td>
+      <td>[Responsive Design] Verify Dashboard in Employer Portal for Admin role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.646s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>SEL-0065</td>
+      <td>Cross-browser</td>
+      <td>Admin Panel</td>
+      <td>User Management</td>
+      <td>Anonymous</td>
+      <td>[Cross-browser] Verify User Management in Admin Panel for Anonymous role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.036s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>SEL-0066</td>
+      <td>Accessibility</td>
+      <td>Payments</td>
+      <td>Stripe Checkout</td>
+      <td>Student</td>
+      <td>[Accessibility] Verify Stripe Checkout in Payments for Student role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.739s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>SEL-0067</td>
+      <td>UI/UX</td>
+      <td>Messaging</td>
+      <td>Receive Message</td>
+      <td>Agent</td>
+      <td>[UI/UX] Verify Receive Message in Messaging for Agent role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.054s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>SEL-0068</td>
+      <td>Navigation</td>
+      <td>Search & Filter</td>
+      <td>Filter by Category</td>
+      <td>Employer</td>
+      <td>[Navigation] Verify Filter by Category in Search & Filter for Employer role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>0.677s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>SEL-0069</td>
+      <td>Form Interaction</td>
+      <td>Notifications</td>
+      <td>Mark as Read</td>
+      <td>Admin</td>
+      <td>[Form Interaction] Verify Mark as Read in Notifications for Admin role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>0.414s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>SEL-0070</td>
+      <td>Responsive Design</td>
+      <td>Bot / AI Chat</td>
+      <td>Error Fallback</td>
+      <td>Anonymous</td>
+      <td>[Responsive Design] Verify Error Fallback in Bot / AI Chat for Anonymous role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.099s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>SEL-0071</td>
+      <td>Cross-browser</td>
+      <td>Authentication</td>
+      <td>Session Management</td>
+      <td>Student</td>
+      <td>[Cross-browser] Verify Session Management in Authentication for Student role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.122s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>SEL-0072</td>
+      <td>Accessibility</td>
+      <td>Student Portal</td>
+      <td>Profile Setup</td>
+      <td>Agent</td>
+      <td>[Accessibility] Verify Profile Setup in Student Portal for Agent role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>0.234s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>SEL-0073</td>
+      <td>UI/UX</td>
+      <td>Agent Portal</td>
+      <td>Dashboard</td>
+      <td>Employer</td>
+      <td>[UI/UX] Verify Dashboard in Agent Portal for Employer role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>2.007s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>SEL-0074</td>
+      <td>Navigation</td>
+      <td>Employer Portal</td>
+      <td>Applicant Review</td>
+      <td>Admin</td>
+      <td>[Navigation] Verify Applicant Review in Employer Portal for Admin role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>2.117s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>SEL-0075</td>
+      <td>Form Interaction</td>
+      <td>Admin Panel</td>
+      <td>Analytics</td>
+      <td>Anonymous</td>
+      <td>[Form Interaction] Verify Analytics in Admin Panel for Anonymous role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>2.045s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>SEL-0076</td>
+      <td>Responsive Design</td>
+      <td>Payments</td>
+      <td>Stripe Checkout</td>
+      <td>Student</td>
+      <td>[Responsive Design] Verify Stripe Checkout in Payments for Student role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>0.853s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>SEL-0077</td>
+      <td>Cross-browser</td>
+      <td>Messaging</td>
+      <td>Receive Message</td>
+      <td>Agent</td>
+      <td>[Cross-browser] Verify Receive Message in Messaging for Agent role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>0.601s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>SEL-0078</td>
+      <td>Accessibility</td>
+      <td>Search & Filter</td>
+      <td>Location Filter</td>
+      <td>Employer</td>
+      <td>[Accessibility] Verify Location Filter in Search & Filter for Employer role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>2.574s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>SEL-0079</td>
+      <td>UI/UX</td>
+      <td>Notifications</td>
+      <td>Mark as Read</td>
+      <td>Admin</td>
+      <td>[UI/UX] Verify Mark as Read in Notifications for Admin role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>0.736s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>SEL-0080</td>
+      <td>Navigation</td>
+      <td>Bot / AI Chat</td>
+      <td>Error Fallback</td>
+      <td>Anonymous</td>
+      <td>[Navigation] Verify Error Fallback in Bot / AI Chat for Anonymous role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>0.588s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>SEL-0081</td>
+      <td>Form Interaction</td>
+      <td>Authentication</td>
+      <td>OTP Verification</td>
+      <td>Student</td>
+      <td>[Form Interaction] Verify OTP Verification in Authentication for Student role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>0.839s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>SEL-0082</td>
+      <td>Responsive Design</td>
+      <td>Student Portal</td>
+      <td>Application Track</td>
+      <td>Agent</td>
+      <td>[Responsive Design] Verify Application Track in Student Portal for Agent role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>0.944s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>SEL-0083</td>
+      <td>Cross-browser</td>
+      <td>Agent Portal</td>
+      <td>Student Onboarding</td>
+      <td>Employer</td>
+      <td>[Cross-browser] Verify Student Onboarding in Agent Portal for Employer role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.95s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>SEL-0084</td>
+      <td>Accessibility</td>
+      <td>Employer Portal</td>
+      <td>Ratings</td>
+      <td>Admin</td>
+      <td>[Accessibility] Verify Ratings in Employer Portal for Admin role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>0.983s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>SEL-0085</td>
+      <td>UI/UX</td>
+      <td>Admin Panel</td>
+      <td>Dashboard</td>
+      <td>Anonymous</td>
+      <td>[UI/UX] Verify Dashboard in Admin Panel for Anonymous role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.275s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>SEL-0086</td>
+      <td>Navigation</td>
+      <td>Payments</td>
+      <td>Stripe Checkout</td>
+      <td>Student</td>
+      <td>[Navigation] Verify Stripe Checkout in Payments for Student role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>2.543s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>SEL-0087</td>
+      <td>Form Interaction</td>
+      <td>Messaging</td>
+      <td>Receive Message</td>
+      <td>Agent</td>
+      <td>[Form Interaction] Verify Receive Message in Messaging for Agent role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.515s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>SEL-0088</td>
+      <td>Responsive Design</td>
+      <td>Search & Filter</td>
+      <td>Sort Results</td>
+      <td>Employer</td>
+      <td>[Responsive Design] Verify Sort Results in Search & Filter for Employer role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>0.354s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>SEL-0089</td>
+      <td>Cross-browser</td>
+      <td>Notifications</td>
+      <td>Mark as Read</td>
+      <td>Admin</td>
+      <td>[Cross-browser] Verify Mark as Read in Notifications for Admin role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.628s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>SEL-0090</td>
+      <td>Accessibility</td>
+      <td>Bot / AI Chat</td>
+      <td>Error Fallback</td>
+      <td>Anonymous</td>
+      <td>[Accessibility] Verify Error Fallback in Bot / AI Chat for Anonymous role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>0.958s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>SEL-0091</td>
+      <td>UI/UX</td>
+      <td>Authentication</td>
+      <td>Login</td>
+      <td>Student</td>
+      <td>[UI/UX] Verify Login in Authentication for Student role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>2.129s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>SEL-0092</td>
+      <td>Navigation</td>
+      <td>Student Portal</td>
+      <td>Dashboard</td>
+      <td>Agent</td>
+      <td>[Navigation] Verify Dashboard in Student Portal for Agent role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>0.498s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>SEL-0093</td>
+      <td>Form Interaction</td>
+      <td>Agent Portal</td>
+      <td>Application Management</td>
+      <td>Employer</td>
+      <td>[Form Interaction] Verify Application Management in Agent Portal for Employer role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.681s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>SEL-0094</td>
+      <td>Responsive Design</td>
+      <td>Employer Portal</td>
+      <td>Job Posting</td>
+      <td>Admin</td>
+      <td>[Responsive Design] Verify Job Posting in Employer Portal for Admin role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.653s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>SEL-0095</td>
+      <td>Cross-browser</td>
+      <td>Admin Panel</td>
+      <td>System Settings</td>
+      <td>Anonymous</td>
+      <td>[Cross-browser] Verify System Settings in Admin Panel for Anonymous role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.169s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>SEL-0096</td>
+      <td>Accessibility</td>
+      <td>Payments</td>
+      <td>Stripe Checkout</td>
+      <td>Student</td>
+      <td>[Accessibility] Verify Stripe Checkout in Payments for Student role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>2.075s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>SEL-0097</td>
+      <td>UI/UX</td>
+      <td>Messaging</td>
+      <td>Receive Message</td>
+      <td>Agent</td>
+      <td>[UI/UX] Verify Receive Message in Messaging for Agent role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.383s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>SEL-0098</td>
+      <td>Navigation</td>
+      <td>Search & Filter</td>
+      <td>Filter by Category</td>
+      <td>Employer</td>
+      <td>[Navigation] Verify Filter by Category in Search & Filter for Employer role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>2.577s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>SEL-0099</td>
+      <td>Form Interaction</td>
+      <td>Notifications</td>
+      <td>Mark as Read</td>
+      <td>Admin</td>
+      <td>[Form Interaction] Verify Mark as Read in Notifications for Admin role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>0.888s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>SEL-0100</td>
+      <td>Responsive Design</td>
+      <td>Bot / AI Chat</td>
+      <td>Error Fallback</td>
+      <td>Anonymous</td>
+      <td>[Responsive Design] Verify Error Fallback in Bot / AI Chat for Anonymous role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>0.704s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>SEL-0101</td>
+      <td>Cross-browser</td>
+      <td>Authentication</td>
+      <td>Session Management</td>
+      <td>Student</td>
+      <td>[Cross-browser] Verify Session Management in Authentication for Student role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>2.103s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>SEL-0102</td>
+      <td>Accessibility</td>
+      <td>Student Portal</td>
+      <td>Application Submit</td>
+      <td>Agent</td>
+      <td>[Accessibility] Verify Application Submit in Student Portal for Agent role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.64s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>SEL-0103</td>
+      <td>UI/UX</td>
+      <td>Agent Portal</td>
+      <td>Dashboard</td>
+      <td>Employer</td>
+      <td>[UI/UX] Verify Dashboard in Agent Portal for Employer role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>2.077s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>SEL-0104</td>
+      <td>Navigation</td>
+      <td>Employer Portal</td>
+      <td>Payment History</td>
+      <td>Admin</td>
+      <td>[Navigation] Verify Payment History in Employer Portal for Admin role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>2.079s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>SEL-0105</td>
+      <td>Form Interaction</td>
+      <td>Admin Panel</td>
+      <td>Agent Management</td>
+      <td>Anonymous</td>
+      <td>[Form Interaction] Verify Agent Management in Admin Panel for Anonymous role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.919s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>SEL-0106</td>
+      <td>Responsive Design</td>
+      <td>Payments</td>
+      <td>Stripe Checkout</td>
+      <td>Student</td>
+      <td>[Responsive Design] Verify Stripe Checkout in Payments for Student role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.815s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>SEL-0107</td>
+      <td>Cross-browser</td>
+      <td>Messaging</td>
+      <td>Receive Message</td>
+      <td>Agent</td>
+      <td>[Cross-browser] Verify Receive Message in Messaging for Agent role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>0.928s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>SEL-0108</td>
+      <td>Accessibility</td>
+      <td>Search & Filter</td>
+      <td>Location Filter</td>
+      <td>Employer</td>
+      <td>[Accessibility] Verify Location Filter in Search & Filter for Employer role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>0.941s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>SEL-0109</td>
+      <td>UI/UX</td>
+      <td>Notifications</td>
+      <td>Mark as Read</td>
+      <td>Admin</td>
+      <td>[UI/UX] Verify Mark as Read in Notifications for Admin role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>0.886s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>SEL-0110</td>
+      <td>Navigation</td>
+      <td>Bot / AI Chat</td>
+      <td>Error Fallback</td>
+      <td>Anonymous</td>
+      <td>[Navigation] Verify Error Fallback in Bot / AI Chat for Anonymous role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>2.284s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>SEL-0111</td>
+      <td>Form Interaction</td>
+      <td>Authentication</td>
+      <td>OTP Verification</td>
+      <td>Student</td>
+      <td>[Form Interaction] Verify OTP Verification in Authentication for Student role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>2.541s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>SEL-0112</td>
+      <td>Responsive Design</td>
+      <td>Student Portal</td>
+      <td>Notifications</td>
+      <td>Agent</td>
+      <td>[Responsive Design] Verify Notifications in Student Portal for Agent role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.887s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>SEL-0113</td>
+      <td>Cross-browser</td>
+      <td>Agent Portal</td>
+      <td>Student Onboarding</td>
+      <td>Employer</td>
+      <td>[Cross-browser] Verify Student Onboarding in Agent Portal for Employer role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>2.38s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>SEL-0114</td>
+      <td>Accessibility</td>
+      <td>Employer Portal</td>
+      <td>Profile Setup</td>
+      <td>Admin</td>
+      <td>[Accessibility] Verify Profile Setup in Employer Portal for Admin role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>0.977s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>SEL-0115</td>
+      <td>UI/UX</td>
+      <td>Admin Panel</td>
+      <td>Job Moderation</td>
+      <td>Anonymous</td>
+      <td>[UI/UX] Verify Job Moderation in Admin Panel for Anonymous role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.008s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>SEL-0116</td>
+      <td>Navigation</td>
+      <td>Payments</td>
+      <td>Stripe Checkout</td>
+      <td>Student</td>
+      <td>[Navigation] Verify Stripe Checkout in Payments for Student role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>0.339s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>SEL-0117</td>
+      <td>Form Interaction</td>
+      <td>Messaging</td>
+      <td>Receive Message</td>
+      <td>Agent</td>
+      <td>[Form Interaction] Verify Receive Message in Messaging for Agent role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.363s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>SEL-0118</td>
+      <td>Responsive Design</td>
+      <td>Search & Filter</td>
+      <td>Sort Results</td>
+      <td>Employer</td>
+      <td>[Responsive Design] Verify Sort Results in Search & Filter for Employer role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.352s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>SEL-0119</td>
+      <td>Cross-browser</td>
+      <td>Notifications</td>
+      <td>Mark as Read</td>
+      <td>Admin</td>
+      <td>[Cross-browser] Verify Mark as Read in Notifications for Admin role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.275s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>SEL-0120</td>
+      <td>Accessibility</td>
+      <td>Bot / AI Chat</td>
+      <td>Error Fallback</td>
+      <td>Anonymous</td>
+      <td>[Accessibility] Verify Error Fallback in Bot / AI Chat for Anonymous role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>0.813s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>SEL-0121</td>
+      <td>UI/UX</td>
+      <td>Authentication</td>
+      <td>Login</td>
+      <td>Student</td>
+      <td>[UI/UX] Verify Login in Authentication for Student role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.279s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>SEL-0122</td>
+      <td>Navigation</td>
+      <td>Student Portal</td>
+      <td>Job Search</td>
+      <td>Agent</td>
+      <td>[Navigation] Verify Job Search in Student Portal for Agent role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>0.207s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>SEL-0123</td>
+      <td>Form Interaction</td>
+      <td>Agent Portal</td>
+      <td>Application Management</td>
+      <td>Employer</td>
+      <td>[Form Interaction] Verify Application Management in Agent Portal for Employer role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>0.642s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>SEL-0124</td>
+      <td>Responsive Design</td>
+      <td>Employer Portal</td>
+      <td>Messaging</td>
+      <td>Admin</td>
+      <td>[Responsive Design] Verify Messaging in Employer Portal for Admin role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>0.519s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>SEL-0125</td>
+      <td>Cross-browser</td>
+      <td>Admin Panel</td>
+      <td>Reports</td>
+      <td>Anonymous</td>
+      <td>[Cross-browser] Verify Reports in Admin Panel for Anonymous role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>2.269s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>SEL-0126</td>
+      <td>Accessibility</td>
+      <td>Payments</td>
+      <td>Stripe Checkout</td>
+      <td>Student</td>
+      <td>[Accessibility] Verify Stripe Checkout in Payments for Student role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>0.999s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>SEL-0127</td>
+      <td>UI/UX</td>
+      <td>Messaging</td>
+      <td>Receive Message</td>
+      <td>Agent</td>
+      <td>[UI/UX] Verify Receive Message in Messaging for Agent role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>0.112s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>SEL-0128</td>
+      <td>Navigation</td>
+      <td>Search & Filter</td>
+      <td>Filter by Category</td>
+      <td>Employer</td>
+      <td>[Navigation] Verify Filter by Category in Search & Filter for Employer role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.254s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>SEL-0129</td>
+      <td>Form Interaction</td>
+      <td>Notifications</td>
+      <td>Mark as Read</td>
+      <td>Admin</td>
+      <td>[Form Interaction] Verify Mark as Read in Notifications for Admin role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>0.148s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>SEL-0130</td>
+      <td>Responsive Design</td>
+      <td>Bot / AI Chat</td>
+      <td>Error Fallback</td>
+      <td>Anonymous</td>
+      <td>[Responsive Design] Verify Error Fallback in Bot / AI Chat for Anonymous role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>0.265s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>SEL-0131</td>
+      <td>Cross-browser</td>
+      <td>Authentication</td>
+      <td>Session Management</td>
+      <td>Student</td>
+      <td>[Cross-browser] Verify Session Management in Authentication for Student role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>2.329s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>SEL-0132</td>
+      <td>Accessibility</td>
+      <td>Student Portal</td>
+      <td>Earnings View</td>
+      <td>Agent</td>
+      <td>[Accessibility] Verify Earnings View in Student Portal for Agent role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>0.483s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>SEL-0133</td>
+      <td>UI/UX</td>
+      <td>Agent Portal</td>
+      <td>Dashboard</td>
+      <td>Employer</td>
+      <td>[UI/UX] Verify Dashboard in Agent Portal for Employer role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.117s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>SEL-0134</td>
+      <td>Navigation</td>
+      <td>Employer Portal</td>
+      <td>Dashboard</td>
+      <td>Admin</td>
+      <td>[Navigation] Verify Dashboard in Employer Portal for Admin role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>0.284s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>SEL-0135</td>
+      <td>Form Interaction</td>
+      <td>Admin Panel</td>
+      <td>User Management</td>
+      <td>Anonymous</td>
+      <td>[Form Interaction] Verify User Management in Admin Panel for Anonymous role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.219s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>SEL-0136</td>
+      <td>Responsive Design</td>
+      <td>Payments</td>
+      <td>Stripe Checkout</td>
+      <td>Student</td>
+      <td>[Responsive Design] Verify Stripe Checkout in Payments for Student role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>2.231s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>SEL-0137</td>
+      <td>Cross-browser</td>
+      <td>Messaging</td>
+      <td>Receive Message</td>
+      <td>Agent</td>
+      <td>[Cross-browser] Verify Receive Message in Messaging for Agent role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>2.321s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>SEL-0138</td>
+      <td>Accessibility</td>
+      <td>Search & Filter</td>
+      <td>Location Filter</td>
+      <td>Employer</td>
+      <td>[Accessibility] Verify Location Filter in Search & Filter for Employer role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>2.464s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>SEL-0139</td>
+      <td>UI/UX</td>
+      <td>Notifications</td>
+      <td>Mark as Read</td>
+      <td>Admin</td>
+      <td>[UI/UX] Verify Mark as Read in Notifications for Admin role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.41s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>SEL-0140</td>
+      <td>Navigation</td>
+      <td>Bot / AI Chat</td>
+      <td>Error Fallback</td>
+      <td>Anonymous</td>
+      <td>[Navigation] Verify Error Fallback in Bot / AI Chat for Anonymous role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.339s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>SEL-0141</td>
+      <td>Form Interaction</td>
+      <td>Authentication</td>
+      <td>OTP Verification</td>
+      <td>Student</td>
+      <td>[Form Interaction] Verify OTP Verification in Authentication for Student role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>0.78s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>SEL-0142</td>
+      <td>Responsive Design</td>
+      <td>Student Portal</td>
+      <td>Profile Setup</td>
+      <td>Agent</td>
+      <td>[Responsive Design] Verify Profile Setup in Student Portal for Agent role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.339s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>SEL-0143</td>
+      <td>Cross-browser</td>
+      <td>Agent Portal</td>
+      <td>Student Onboarding</td>
+      <td>Employer</td>
+      <td>[Cross-browser] Verify Student Onboarding in Agent Portal for Employer role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>0.882s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>SEL-0144</td>
+      <td>Accessibility</td>
+      <td>Employer Portal</td>
+      <td>Applicant Review</td>
+      <td>Admin</td>
+      <td>[Accessibility] Verify Applicant Review in Employer Portal for Admin role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>0.607s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>SEL-0145</td>
+      <td>UI/UX</td>
+      <td>Admin Panel</td>
+      <td>Analytics</td>
+      <td>Anonymous</td>
+      <td>[UI/UX] Verify Analytics in Admin Panel for Anonymous role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>2.587s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>SEL-0146</td>
+      <td>Navigation</td>
+      <td>Payments</td>
+      <td>Stripe Checkout</td>
+      <td>Student</td>
+      <td>[Navigation] Verify Stripe Checkout in Payments for Student role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.351s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>SEL-0147</td>
+      <td>Form Interaction</td>
+      <td>Messaging</td>
+      <td>Receive Message</td>
+      <td>Agent</td>
+      <td>[Form Interaction] Verify Receive Message in Messaging for Agent role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>2.515s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>SEL-0148</td>
+      <td>Responsive Design</td>
+      <td>Search & Filter</td>
+      <td>Sort Results</td>
+      <td>Employer</td>
+      <td>[Responsive Design] Verify Sort Results in Search & Filter for Employer role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.379s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>SEL-0149</td>
+      <td>Cross-browser</td>
+      <td>Notifications</td>
+      <td>Mark as Read</td>
+      <td>Admin</td>
+      <td>[Cross-browser] Verify Mark as Read in Notifications for Admin role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>2.004s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>SEL-0150</td>
+      <td>Accessibility</td>
+      <td>Bot / AI Chat</td>
+      <td>Error Fallback</td>
+      <td>Anonymous</td>
+      <td>[Accessibility] Verify Error Fallback in Bot / AI Chat for Anonymous role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.443s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>SEL-0151</td>
+      <td>UI/UX</td>
+      <td>Authentication</td>
+      <td>Login</td>
+      <td>Student</td>
+      <td>[UI/UX] Verify Login in Authentication for Student role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>0.184s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>SEL-0152</td>
+      <td>Navigation</td>
+      <td>Student Portal</td>
+      <td>Application Track</td>
+      <td>Agent</td>
+      <td>[Navigation] Verify Application Track in Student Portal for Agent role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>0.923s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>SEL-0153</td>
+      <td>Form Interaction</td>
+      <td>Agent Portal</td>
+      <td>Application Management</td>
+      <td>Employer</td>
+      <td>[Form Interaction] Verify Application Management in Agent Portal for Employer role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>0.12s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>SEL-0154</td>
+      <td>Responsive Design</td>
+      <td>Employer Portal</td>
+      <td>Ratings</td>
+      <td>Admin</td>
+      <td>[Responsive Design] Verify Ratings in Employer Portal for Admin role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>2.47s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>SEL-0155</td>
+      <td>Cross-browser</td>
+      <td>Admin Panel</td>
+      <td>Dashboard</td>
+      <td>Anonymous</td>
+      <td>[Cross-browser] Verify Dashboard in Admin Panel for Anonymous role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>2.108s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>SEL-0156</td>
+      <td>Accessibility</td>
+      <td>Payments</td>
+      <td>Stripe Checkout</td>
+      <td>Student</td>
+      <td>[Accessibility] Verify Stripe Checkout in Payments for Student role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>2.241s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>SEL-0157</td>
+      <td>UI/UX</td>
+      <td>Messaging</td>
+      <td>Receive Message</td>
+      <td>Agent</td>
+      <td>[UI/UX] Verify Receive Message in Messaging for Agent role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>0.377s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>SEL-0158</td>
+      <td>Navigation</td>
+      <td>Search & Filter</td>
+      <td>Filter by Category</td>
+      <td>Employer</td>
+      <td>[Navigation] Verify Filter by Category in Search & Filter for Employer role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>0.698s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>SEL-0159</td>
+      <td>Form Interaction</td>
+      <td>Notifications</td>
+      <td>Mark as Read</td>
+      <td>Admin</td>
+      <td>[Form Interaction] Verify Mark as Read in Notifications for Admin role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.353s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>SEL-0160</td>
+      <td>Responsive Design</td>
+      <td>Bot / AI Chat</td>
+      <td>Error Fallback</td>
+      <td>Anonymous</td>
+      <td>[Responsive Design] Verify Error Fallback in Bot / AI Chat for Anonymous role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>2.133s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>SEL-0161</td>
+      <td>Cross-browser</td>
+      <td>Authentication</td>
+      <td>Session Management</td>
+      <td>Student</td>
+      <td>[Cross-browser] Verify Session Management in Authentication for Student role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>0.147s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>SEL-0162</td>
+      <td>Accessibility</td>
+      <td>Student Portal</td>
+      <td>Dashboard</td>
+      <td>Agent</td>
+      <td>[Accessibility] Verify Dashboard in Student Portal for Agent role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>0.196s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>SEL-0163</td>
+      <td>UI/UX</td>
+      <td>Agent Portal</td>
+      <td>Dashboard</td>
+      <td>Employer</td>
+      <td>[UI/UX] Verify Dashboard in Agent Portal for Employer role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>0.458s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>SEL-0164</td>
+      <td>Navigation</td>
+      <td>Employer Portal</td>
+      <td>Job Posting</td>
+      <td>Admin</td>
+      <td>[Navigation] Verify Job Posting in Employer Portal for Admin role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.494s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>SEL-0165</td>
+      <td>Form Interaction</td>
+      <td>Admin Panel</td>
+      <td>System Settings</td>
+      <td>Anonymous</td>
+      <td>[Form Interaction] Verify System Settings in Admin Panel for Anonymous role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.428s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>SEL-0166</td>
+      <td>Responsive Design</td>
+      <td>Payments</td>
+      <td>Stripe Checkout</td>
+      <td>Student</td>
+      <td>[Responsive Design] Verify Stripe Checkout in Payments for Student role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>0.722s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>SEL-0167</td>
+      <td>Cross-browser</td>
+      <td>Messaging</td>
+      <td>Receive Message</td>
+      <td>Agent</td>
+      <td>[Cross-browser] Verify Receive Message in Messaging for Agent role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>2.429s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>SEL-0168</td>
+      <td>Accessibility</td>
+      <td>Search & Filter</td>
+      <td>Location Filter</td>
+      <td>Employer</td>
+      <td>[Accessibility] Verify Location Filter in Search & Filter for Employer role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.96s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>SEL-0169</td>
+      <td>UI/UX</td>
+      <td>Notifications</td>
+      <td>Mark as Read</td>
+      <td>Admin</td>
+      <td>[UI/UX] Verify Mark as Read in Notifications for Admin role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>2.077s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>SEL-0170</td>
+      <td>Navigation</td>
+      <td>Bot / AI Chat</td>
+      <td>Error Fallback</td>
+      <td>Anonymous</td>
+      <td>[Navigation] Verify Error Fallback in Bot / AI Chat for Anonymous role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>2.567s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>SEL-0171</td>
+      <td>Form Interaction</td>
+      <td>Authentication</td>
+      <td>OTP Verification</td>
+      <td>Student</td>
+      <td>[Form Interaction] Verify OTP Verification in Authentication for Student role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>2.306s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>SEL-0172</td>
+      <td>Responsive Design</td>
+      <td>Student Portal</td>
+      <td>Application Submit</td>
+      <td>Agent</td>
+      <td>[Responsive Design] Verify Application Submit in Student Portal for Agent role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>2.302s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>SEL-0173</td>
+      <td>Cross-browser</td>
+      <td>Agent Portal</td>
+      <td>Student Onboarding</td>
+      <td>Employer</td>
+      <td>[Cross-browser] Verify Student Onboarding in Agent Portal for Employer role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.257s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>SEL-0174</td>
+      <td>Accessibility</td>
+      <td>Employer Portal</td>
+      <td>Payment History</td>
+      <td>Admin</td>
+      <td>[Accessibility] Verify Payment History in Employer Portal for Admin role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.408s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>SEL-0175</td>
+      <td>UI/UX</td>
+      <td>Admin Panel</td>
+      <td>Agent Management</td>
+      <td>Anonymous</td>
+      <td>[UI/UX] Verify Agent Management in Admin Panel for Anonymous role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.725s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>SEL-0176</td>
+      <td>Navigation</td>
+      <td>Payments</td>
+      <td>Stripe Checkout</td>
+      <td>Student</td>
+      <td>[Navigation] Verify Stripe Checkout in Payments for Student role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>2.228s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>SEL-0177</td>
+      <td>Form Interaction</td>
+      <td>Messaging</td>
+      <td>Receive Message</td>
+      <td>Agent</td>
+      <td>[Form Interaction] Verify Receive Message in Messaging for Agent role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>2.287s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>SEL-0178</td>
+      <td>Responsive Design</td>
+      <td>Search & Filter</td>
+      <td>Sort Results</td>
+      <td>Employer</td>
+      <td>[Responsive Design] Verify Sort Results in Search & Filter for Employer role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>2.051s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>SEL-0179</td>
+      <td>Cross-browser</td>
+      <td>Notifications</td>
+      <td>Mark as Read</td>
+      <td>Admin</td>
+      <td>[Cross-browser] Verify Mark as Read in Notifications for Admin role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>0.737s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>SEL-0180</td>
+      <td>Accessibility</td>
+      <td>Bot / AI Chat</td>
+      <td>Error Fallback</td>
+      <td>Anonymous</td>
+      <td>[Accessibility] Verify Error Fallback in Bot / AI Chat for Anonymous role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>0.235s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>SEL-0181</td>
+      <td>UI/UX</td>
+      <td>Authentication</td>
+      <td>Login</td>
+      <td>Student</td>
+      <td>[UI/UX] Verify Login in Authentication for Student role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.182s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>SEL-0182</td>
+      <td>Navigation</td>
+      <td>Student Portal</td>
+      <td>Notifications</td>
+      <td>Agent</td>
+      <td>[Navigation] Verify Notifications in Student Portal for Agent role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.028s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>SEL-0183</td>
+      <td>Form Interaction</td>
+      <td>Agent Portal</td>
+      <td>Application Management</td>
+      <td>Employer</td>
+      <td>[Form Interaction] Verify Application Management in Agent Portal for Employer role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>0.91s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>SEL-0184</td>
+      <td>Responsive Design</td>
+      <td>Employer Portal</td>
+      <td>Profile Setup</td>
+      <td>Admin</td>
+      <td>[Responsive Design] Verify Profile Setup in Employer Portal for Admin role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>0.111s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>SEL-0185</td>
+      <td>Cross-browser</td>
+      <td>Admin Panel</td>
+      <td>Job Moderation</td>
+      <td>Anonymous</td>
+      <td>[Cross-browser] Verify Job Moderation in Admin Panel for Anonymous role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>2.376s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>SEL-0186</td>
+      <td>Accessibility</td>
+      <td>Payments</td>
+      <td>Stripe Checkout</td>
+      <td>Student</td>
+      <td>[Accessibility] Verify Stripe Checkout in Payments for Student role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>0.859s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>SEL-0187</td>
+      <td>UI/UX</td>
+      <td>Messaging</td>
+      <td>Receive Message</td>
+      <td>Agent</td>
+      <td>[UI/UX] Verify Receive Message in Messaging for Agent role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>0.541s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>SEL-0188</td>
+      <td>Navigation</td>
+      <td>Search & Filter</td>
+      <td>Filter by Category</td>
+      <td>Employer</td>
+      <td>[Navigation] Verify Filter by Category in Search & Filter for Employer role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.406s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>SEL-0189</td>
+      <td>Form Interaction</td>
+      <td>Notifications</td>
+      <td>Mark as Read</td>
+      <td>Admin</td>
+      <td>[Form Interaction] Verify Mark as Read in Notifications for Admin role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>2.319s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>SEL-0190</td>
+      <td>Responsive Design</td>
+      <td>Bot / AI Chat</td>
+      <td>Error Fallback</td>
+      <td>Anonymous</td>
+      <td>[Responsive Design] Verify Error Fallback in Bot / AI Chat for Anonymous role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.149s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>SEL-0191</td>
+      <td>Cross-browser</td>
+      <td>Authentication</td>
+      <td>Session Management</td>
+      <td>Student</td>
+      <td>[Cross-browser] Verify Session Management in Authentication for Student role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>0.664s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>SEL-0192</td>
+      <td>Accessibility</td>
+      <td>Student Portal</td>
+      <td>Job Search</td>
+      <td>Agent</td>
+      <td>[Accessibility] Verify Job Search in Student Portal for Agent role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>0.695s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>SEL-0193</td>
+      <td>UI/UX</td>
+      <td>Agent Portal</td>
+      <td>Dashboard</td>
+      <td>Employer</td>
+      <td>[UI/UX] Verify Dashboard in Agent Portal for Employer role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.037s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>SEL-0194</td>
+      <td>Navigation</td>
+      <td>Employer Portal</td>
+      <td>Messaging</td>
+      <td>Admin</td>
+      <td>[Navigation] Verify Messaging in Employer Portal for Admin role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>0.67s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>SEL-0195</td>
+      <td>Form Interaction</td>
+      <td>Admin Panel</td>
+      <td>Reports</td>
+      <td>Anonymous</td>
+      <td>[Form Interaction] Verify Reports in Admin Panel for Anonymous role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>2.288s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>SEL-0196</td>
+      <td>Responsive Design</td>
+      <td>Payments</td>
+      <td>Stripe Checkout</td>
+      <td>Student</td>
+      <td>[Responsive Design] Verify Stripe Checkout in Payments for Student role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.884s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>SEL-0197</td>
+      <td>Cross-browser</td>
+      <td>Messaging</td>
+      <td>Receive Message</td>
+      <td>Agent</td>
+      <td>[Cross-browser] Verify Receive Message in Messaging for Agent role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.064s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>SEL-0198</td>
+      <td>Accessibility</td>
+      <td>Search & Filter</td>
+      <td>Location Filter</td>
+      <td>Employer</td>
+      <td>[Accessibility] Verify Location Filter in Search & Filter for Employer role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>2.131s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>SEL-0199</td>
+      <td>UI/UX</td>
+      <td>Notifications</td>
+      <td>Mark as Read</td>
+      <td>Admin</td>
+      <td>[UI/UX] Verify Mark as Read in Notifications for Admin role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>2.047s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>SEL-0200</td>
+      <td>Navigation</td>
+      <td>Bot / AI Chat</td>
+      <td>Error Fallback</td>
+      <td>Anonymous</td>
+      <td>[Navigation] Verify Error Fallback in Bot / AI Chat for Anonymous role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>2.592s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>SEL-0201</td>
+      <td>Form Interaction</td>
+      <td>Authentication</td>
+      <td>OTP Verification</td>
+      <td>Student</td>
+      <td>[Form Interaction] Verify OTP Verification in Authentication for Student role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>0.213s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>SEL-0202</td>
+      <td>Responsive Design</td>
+      <td>Student Portal</td>
+      <td>Earnings View</td>
+      <td>Agent</td>
+      <td>[Responsive Design] Verify Earnings View in Student Portal for Agent role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.811s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>SEL-0203</td>
+      <td>Cross-browser</td>
+      <td>Agent Portal</td>
+      <td>Student Onboarding</td>
+      <td>Employer</td>
+      <td>[Cross-browser] Verify Student Onboarding in Agent Portal for Employer role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>0.859s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>SEL-0204</td>
+      <td>Accessibility</td>
+      <td>Employer Portal</td>
+      <td>Dashboard</td>
+      <td>Admin</td>
+      <td>[Accessibility] Verify Dashboard in Employer Portal for Admin role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>0.912s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>SEL-0205</td>
+      <td>UI/UX</td>
+      <td>Admin Panel</td>
+      <td>User Management</td>
+      <td>Anonymous</td>
+      <td>[UI/UX] Verify User Management in Admin Panel for Anonymous role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>2.548s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>SEL-0206</td>
+      <td>Navigation</td>
+      <td>Payments</td>
+      <td>Stripe Checkout</td>
+      <td>Student</td>
+      <td>[Navigation] Verify Stripe Checkout in Payments for Student role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>2.327s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>SEL-0207</td>
+      <td>Form Interaction</td>
+      <td>Messaging</td>
+      <td>Receive Message</td>
+      <td>Agent</td>
+      <td>[Form Interaction] Verify Receive Message in Messaging for Agent role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>2.296s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>SEL-0208</td>
+      <td>Responsive Design</td>
+      <td>Search & Filter</td>
+      <td>Sort Results</td>
+      <td>Employer</td>
+      <td>[Responsive Design] Verify Sort Results in Search & Filter for Employer role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.34s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>SEL-0209</td>
+      <td>Cross-browser</td>
+      <td>Notifications</td>
+      <td>Mark as Read</td>
+      <td>Admin</td>
+      <td>[Cross-browser] Verify Mark as Read in Notifications for Admin role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>2.049s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>SEL-0210</td>
+      <td>Accessibility</td>
+      <td>Bot / AI Chat</td>
+      <td>Error Fallback</td>
+      <td>Anonymous</td>
+      <td>[Accessibility] Verify Error Fallback in Bot / AI Chat for Anonymous role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>2.051s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>SEL-0211</td>
+      <td>UI/UX</td>
+      <td>Authentication</td>
+      <td>Login</td>
+      <td>Student</td>
+      <td>[UI/UX] Verify Login in Authentication for Student role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>0.949s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>SEL-0212</td>
+      <td>Navigation</td>
+      <td>Student Portal</td>
+      <td>Profile Setup</td>
+      <td>Agent</td>
+      <td>[Navigation] Verify Profile Setup in Student Portal for Agent role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>0.779s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>SEL-0213</td>
+      <td>Form Interaction</td>
+      <td>Agent Portal</td>
+      <td>Application Management</td>
+      <td>Employer</td>
+      <td>[Form Interaction] Verify Application Management in Agent Portal for Employer role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>0.865s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>SEL-0214</td>
+      <td>Responsive Design</td>
+      <td>Employer Portal</td>
+      <td>Applicant Review</td>
+      <td>Admin</td>
+      <td>[Responsive Design] Verify Applicant Review in Employer Portal for Admin role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>2.198s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>SEL-0215</td>
+      <td>Cross-browser</td>
+      <td>Admin Panel</td>
+      <td>Analytics</td>
+      <td>Anonymous</td>
+      <td>[Cross-browser] Verify Analytics in Admin Panel for Anonymous role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>0.714s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>SEL-0216</td>
+      <td>Accessibility</td>
+      <td>Payments</td>
+      <td>Stripe Checkout</td>
+      <td>Student</td>
+      <td>[Accessibility] Verify Stripe Checkout in Payments for Student role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.582s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>SEL-0217</td>
+      <td>UI/UX</td>
+      <td>Messaging</td>
+      <td>Receive Message</td>
+      <td>Agent</td>
+      <td>[UI/UX] Verify Receive Message in Messaging for Agent role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>0.824s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>SEL-0218</td>
+      <td>Navigation</td>
+      <td>Search & Filter</td>
+      <td>Filter by Category</td>
+      <td>Employer</td>
+      <td>[Navigation] Verify Filter by Category in Search & Filter for Employer role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.508s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>SEL-0219</td>
+      <td>Form Interaction</td>
+      <td>Notifications</td>
+      <td>Mark as Read</td>
+      <td>Admin</td>
+      <td>[Form Interaction] Verify Mark as Read in Notifications for Admin role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.022s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>SEL-0220</td>
+      <td>Responsive Design</td>
+      <td>Bot / AI Chat</td>
+      <td>Error Fallback</td>
+      <td>Anonymous</td>
+      <td>[Responsive Design] Verify Error Fallback in Bot / AI Chat for Anonymous role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.756s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>SEL-0221</td>
+      <td>Cross-browser</td>
+      <td>Authentication</td>
+      <td>Session Management</td>
+      <td>Student</td>
+      <td>[Cross-browser] Verify Session Management in Authentication for Student role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.921s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>SEL-0222</td>
+      <td>Accessibility</td>
+      <td>Student Portal</td>
+      <td>Application Track</td>
+      <td>Agent</td>
+      <td>[Accessibility] Verify Application Track in Student Portal for Agent role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.157s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>SEL-0223</td>
+      <td>UI/UX</td>
+      <td>Agent Portal</td>
+      <td>Dashboard</td>
+      <td>Employer</td>
+      <td>[UI/UX] Verify Dashboard in Agent Portal for Employer role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>0.105s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>SEL-0224</td>
+      <td>Navigation</td>
+      <td>Employer Portal</td>
+      <td>Ratings</td>
+      <td>Admin</td>
+      <td>[Navigation] Verify Ratings in Employer Portal for Admin role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>0.79s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>SEL-0225</td>
+      <td>Form Interaction</td>
+      <td>Admin Panel</td>
+      <td>Dashboard</td>
+      <td>Anonymous</td>
+      <td>[Form Interaction] Verify Dashboard in Admin Panel for Anonymous role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>2.23s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>SEL-0226</td>
+      <td>Responsive Design</td>
+      <td>Payments</td>
+      <td>Stripe Checkout</td>
+      <td>Student</td>
+      <td>[Responsive Design] Verify Stripe Checkout in Payments for Student role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.488s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>SEL-0227</td>
+      <td>Cross-browser</td>
+      <td>Messaging</td>
+      <td>Receive Message</td>
+      <td>Agent</td>
+      <td>[Cross-browser] Verify Receive Message in Messaging for Agent role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>0.455s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>SEL-0228</td>
+      <td>Accessibility</td>
+      <td>Search & Filter</td>
+      <td>Location Filter</td>
+      <td>Employer</td>
+      <td>[Accessibility] Verify Location Filter in Search & Filter for Employer role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.756s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>SEL-0229</td>
+      <td>UI/UX</td>
+      <td>Notifications</td>
+      <td>Mark as Read</td>
+      <td>Admin</td>
+      <td>[UI/UX] Verify Mark as Read in Notifications for Admin role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>2.512s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>SEL-0230</td>
+      <td>Navigation</td>
+      <td>Bot / AI Chat</td>
+      <td>Error Fallback</td>
+      <td>Anonymous</td>
+      <td>[Navigation] Verify Error Fallback in Bot / AI Chat for Anonymous role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.108s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>SEL-0231</td>
+      <td>Form Interaction</td>
+      <td>Authentication</td>
+      <td>OTP Verification</td>
+      <td>Student</td>
+      <td>[Form Interaction] Verify OTP Verification in Authentication for Student role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.124s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>SEL-0232</td>
+      <td>Responsive Design</td>
+      <td>Student Portal</td>
+      <td>Dashboard</td>
+      <td>Agent</td>
+      <td>[Responsive Design] Verify Dashboard in Student Portal for Agent role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>2.562s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>SEL-0233</td>
+      <td>Cross-browser</td>
+      <td>Agent Portal</td>
+      <td>Student Onboarding</td>
+      <td>Employer</td>
+      <td>[Cross-browser] Verify Student Onboarding in Agent Portal for Employer role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>0.7s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>SEL-0234</td>
+      <td>Accessibility</td>
+      <td>Employer Portal</td>
+      <td>Job Posting</td>
+      <td>Admin</td>
+      <td>[Accessibility] Verify Job Posting in Employer Portal for Admin role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>0.185s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>SEL-0235</td>
+      <td>UI/UX</td>
+      <td>Admin Panel</td>
+      <td>System Settings</td>
+      <td>Anonymous</td>
+      <td>[UI/UX] Verify System Settings in Admin Panel for Anonymous role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>2.191s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>SEL-0236</td>
+      <td>Navigation</td>
+      <td>Payments</td>
+      <td>Stripe Checkout</td>
+      <td>Student</td>
+      <td>[Navigation] Verify Stripe Checkout in Payments for Student role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.99s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>SEL-0237</td>
+      <td>Form Interaction</td>
+      <td>Messaging</td>
+      <td>Receive Message</td>
+      <td>Agent</td>
+      <td>[Form Interaction] Verify Receive Message in Messaging for Agent role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>0.81s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>SEL-0238</td>
+      <td>Responsive Design</td>
+      <td>Search & Filter</td>
+      <td>Sort Results</td>
+      <td>Employer</td>
+      <td>[Responsive Design] Verify Sort Results in Search & Filter for Employer role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.225s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>SEL-0239</td>
+      <td>Cross-browser</td>
+      <td>Notifications</td>
+      <td>Mark as Read</td>
+      <td>Admin</td>
+      <td>[Cross-browser] Verify Mark as Read in Notifications for Admin role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>0.769s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>SEL-0240</td>
+      <td>Accessibility</td>
+      <td>Bot / AI Chat</td>
+      <td>Error Fallback</td>
+      <td>Anonymous</td>
+      <td>[Accessibility] Verify Error Fallback in Bot / AI Chat for Anonymous role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>0.236s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>SEL-0241</td>
+      <td>UI/UX</td>
+      <td>Authentication</td>
+      <td>Login</td>
+      <td>Student</td>
+      <td>[UI/UX] Verify Login in Authentication for Student role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.436s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>SEL-0242</td>
+      <td>Navigation</td>
+      <td>Student Portal</td>
+      <td>Application Submit</td>
+      <td>Agent</td>
+      <td>[Navigation] Verify Application Submit in Student Portal for Agent role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>2.516s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>SEL-0243</td>
+      <td>Form Interaction</td>
+      <td>Agent Portal</td>
+      <td>Application Management</td>
+      <td>Employer</td>
+      <td>[Form Interaction] Verify Application Management in Agent Portal for Employer role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.324s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>SEL-0244</td>
+      <td>Responsive Design</td>
+      <td>Employer Portal</td>
+      <td>Payment History</td>
+      <td>Admin</td>
+      <td>[Responsive Design] Verify Payment History in Employer Portal for Admin role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.789s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>SEL-0245</td>
+      <td>Cross-browser</td>
+      <td>Admin Panel</td>
+      <td>Agent Management</td>
+      <td>Anonymous</td>
+      <td>[Cross-browser] Verify Agent Management in Admin Panel for Anonymous role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.703s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>SEL-0246</td>
+      <td>Accessibility</td>
+      <td>Payments</td>
+      <td>Stripe Checkout</td>
+      <td>Student</td>
+      <td>[Accessibility] Verify Stripe Checkout in Payments for Student role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.118s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>SEL-0247</td>
+      <td>UI/UX</td>
+      <td>Messaging</td>
+      <td>Receive Message</td>
+      <td>Agent</td>
+      <td>[UI/UX] Verify Receive Message in Messaging for Agent role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>0.254s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>SEL-0248</td>
+      <td>Navigation</td>
+      <td>Search & Filter</td>
+      <td>Filter by Category</td>
+      <td>Employer</td>
+      <td>[Navigation] Verify Filter by Category in Search & Filter for Employer role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>0.145s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>SEL-0249</td>
+      <td>Form Interaction</td>
+      <td>Notifications</td>
+      <td>Mark as Read</td>
+      <td>Admin</td>
+      <td>[Form Interaction] Verify Mark as Read in Notifications for Admin role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.285s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>SEL-0250</td>
+      <td>Responsive Design</td>
+      <td>Bot / AI Chat</td>
+      <td>Error Fallback</td>
+      <td>Anonymous</td>
+      <td>[Responsive Design] Verify Error Fallback in Bot / AI Chat for Anonymous role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>2.112s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>SEL-0251</td>
+      <td>Cross-browser</td>
+      <td>Authentication</td>
+      <td>Session Management</td>
+      <td>Student</td>
+      <td>[Cross-browser] Verify Session Management in Authentication for Student role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>2.125s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>SEL-0252</td>
+      <td>Accessibility</td>
+      <td>Student Portal</td>
+      <td>Notifications</td>
+      <td>Agent</td>
+      <td>[Accessibility] Verify Notifications in Student Portal for Agent role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>0.489s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>SEL-0253</td>
+      <td>UI/UX</td>
+      <td>Agent Portal</td>
+      <td>Dashboard</td>
+      <td>Employer</td>
+      <td>[UI/UX] Verify Dashboard in Agent Portal for Employer role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>0.967s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>SEL-0254</td>
+      <td>Navigation</td>
+      <td>Employer Portal</td>
+      <td>Profile Setup</td>
+      <td>Admin</td>
+      <td>[Navigation] Verify Profile Setup in Employer Portal for Admin role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.415s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>SEL-0255</td>
+      <td>Form Interaction</td>
+      <td>Admin Panel</td>
+      <td>Job Moderation</td>
+      <td>Anonymous</td>
+      <td>[Form Interaction] Verify Job Moderation in Admin Panel for Anonymous role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.025s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>SEL-0256</td>
+      <td>Responsive Design</td>
+      <td>Payments</td>
+      <td>Stripe Checkout</td>
+      <td>Student</td>
+      <td>[Responsive Design] Verify Stripe Checkout in Payments for Student role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.626s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>SEL-0257</td>
+      <td>Cross-browser</td>
+      <td>Messaging</td>
+      <td>Receive Message</td>
+      <td>Agent</td>
+      <td>[Cross-browser] Verify Receive Message in Messaging for Agent role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>2.402s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>SEL-0258</td>
+      <td>Accessibility</td>
+      <td>Search & Filter</td>
+      <td>Location Filter</td>
+      <td>Employer</td>
+      <td>[Accessibility] Verify Location Filter in Search & Filter for Employer role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.084s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>SEL-0259</td>
+      <td>UI/UX</td>
+      <td>Notifications</td>
+      <td>Mark as Read</td>
+      <td>Admin</td>
+      <td>[UI/UX] Verify Mark as Read in Notifications for Admin role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>2.227s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>SEL-0260</td>
+      <td>Navigation</td>
+      <td>Bot / AI Chat</td>
+      <td>Error Fallback</td>
+      <td>Anonymous</td>
+      <td>[Navigation] Verify Error Fallback in Bot / AI Chat for Anonymous role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.391s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>SEL-0261</td>
+      <td>Form Interaction</td>
+      <td>Authentication</td>
+      <td>OTP Verification</td>
+      <td>Student</td>
+      <td>[Form Interaction] Verify OTP Verification in Authentication for Student role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>2.106s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>SEL-0262</td>
+      <td>Responsive Design</td>
+      <td>Student Portal</td>
+      <td>Job Search</td>
+      <td>Agent</td>
+      <td>[Responsive Design] Verify Job Search in Student Portal for Agent role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>2.52s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>SEL-0263</td>
+      <td>Cross-browser</td>
+      <td>Agent Portal</td>
+      <td>Student Onboarding</td>
+      <td>Employer</td>
+      <td>[Cross-browser] Verify Student Onboarding in Agent Portal for Employer role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.938s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>SEL-0264</td>
+      <td>Accessibility</td>
+      <td>Employer Portal</td>
+      <td>Messaging</td>
+      <td>Admin</td>
+      <td>[Accessibility] Verify Messaging in Employer Portal for Admin role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>2.595s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>SEL-0265</td>
+      <td>UI/UX</td>
+      <td>Admin Panel</td>
+      <td>Reports</td>
+      <td>Anonymous</td>
+      <td>[UI/UX] Verify Reports in Admin Panel for Anonymous role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>0.8s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>SEL-0266</td>
+      <td>Navigation</td>
+      <td>Payments</td>
+      <td>Stripe Checkout</td>
+      <td>Student</td>
+      <td>[Navigation] Verify Stripe Checkout in Payments for Student role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>0.254s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>SEL-0267</td>
+      <td>Form Interaction</td>
+      <td>Messaging</td>
+      <td>Receive Message</td>
+      <td>Agent</td>
+      <td>[Form Interaction] Verify Receive Message in Messaging for Agent role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.68s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>SEL-0268</td>
+      <td>Responsive Design</td>
+      <td>Search & Filter</td>
+      <td>Sort Results</td>
+      <td>Employer</td>
+      <td>[Responsive Design] Verify Sort Results in Search & Filter for Employer role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.788s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>SEL-0269</td>
+      <td>Cross-browser</td>
+      <td>Notifications</td>
+      <td>Mark as Read</td>
+      <td>Admin</td>
+      <td>[Cross-browser] Verify Mark as Read in Notifications for Admin role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.304s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>SEL-0270</td>
+      <td>Accessibility</td>
+      <td>Bot / AI Chat</td>
+      <td>Error Fallback</td>
+      <td>Anonymous</td>
+      <td>[Accessibility] Verify Error Fallback in Bot / AI Chat for Anonymous role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>0.766s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>SEL-0271</td>
+      <td>UI/UX</td>
+      <td>Authentication</td>
+      <td>Login</td>
+      <td>Student</td>
+      <td>[UI/UX] Verify Login in Authentication for Student role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.003s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>SEL-0272</td>
+      <td>Navigation</td>
+      <td>Student Portal</td>
+      <td>Earnings View</td>
+      <td>Agent</td>
+      <td>[Navigation] Verify Earnings View in Student Portal for Agent role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.51s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>SEL-0273</td>
+      <td>Form Interaction</td>
+      <td>Agent Portal</td>
+      <td>Application Management</td>
+      <td>Employer</td>
+      <td>[Form Interaction] Verify Application Management in Agent Portal for Employer role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.354s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>SEL-0274</td>
+      <td>Responsive Design</td>
+      <td>Employer Portal</td>
+      <td>Dashboard</td>
+      <td>Admin</td>
+      <td>[Responsive Design] Verify Dashboard in Employer Portal for Admin role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>2.598s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>SEL-0275</td>
+      <td>Cross-browser</td>
+      <td>Admin Panel</td>
+      <td>User Management</td>
+      <td>Anonymous</td>
+      <td>[Cross-browser] Verify User Management in Admin Panel for Anonymous role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.893s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>SEL-0276</td>
+      <td>Accessibility</td>
+      <td>Payments</td>
+      <td>Stripe Checkout</td>
+      <td>Student</td>
+      <td>[Accessibility] Verify Stripe Checkout in Payments for Student role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>0.885s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>SEL-0277</td>
+      <td>UI/UX</td>
+      <td>Messaging</td>
+      <td>Receive Message</td>
+      <td>Agent</td>
+      <td>[UI/UX] Verify Receive Message in Messaging for Agent role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.309s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>SEL-0278</td>
+      <td>Navigation</td>
+      <td>Search & Filter</td>
+      <td>Filter by Category</td>
+      <td>Employer</td>
+      <td>[Navigation] Verify Filter by Category in Search & Filter for Employer role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.676s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>SEL-0279</td>
+      <td>Form Interaction</td>
+      <td>Notifications</td>
+      <td>Mark as Read</td>
+      <td>Admin</td>
+      <td>[Form Interaction] Verify Mark as Read in Notifications for Admin role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.056s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>SEL-0280</td>
+      <td>Responsive Design</td>
+      <td>Bot / AI Chat</td>
+      <td>Error Fallback</td>
+      <td>Anonymous</td>
+      <td>[Responsive Design] Verify Error Fallback in Bot / AI Chat for Anonymous role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>0.127s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>SEL-0281</td>
+      <td>Cross-browser</td>
+      <td>Authentication</td>
+      <td>Session Management</td>
+      <td>Student</td>
+      <td>[Cross-browser] Verify Session Management in Authentication for Student role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.467s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>SEL-0282</td>
+      <td>Accessibility</td>
+      <td>Student Portal</td>
+      <td>Profile Setup</td>
+      <td>Agent</td>
+      <td>[Accessibility] Verify Profile Setup in Student Portal for Agent role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>2.068s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>SEL-0283</td>
+      <td>UI/UX</td>
+      <td>Agent Portal</td>
+      <td>Dashboard</td>
+      <td>Employer</td>
+      <td>[UI/UX] Verify Dashboard in Agent Portal for Employer role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.427s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>SEL-0284</td>
+      <td>Navigation</td>
+      <td>Employer Portal</td>
+      <td>Applicant Review</td>
+      <td>Admin</td>
+      <td>[Navigation] Verify Applicant Review in Employer Portal for Admin role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>0.433s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>SEL-0285</td>
+      <td>Form Interaction</td>
+      <td>Admin Panel</td>
+      <td>Analytics</td>
+      <td>Anonymous</td>
+      <td>[Form Interaction] Verify Analytics in Admin Panel for Anonymous role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>2.002s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>SEL-0286</td>
+      <td>Responsive Design</td>
+      <td>Payments</td>
+      <td>Stripe Checkout</td>
+      <td>Student</td>
+      <td>[Responsive Design] Verify Stripe Checkout in Payments for Student role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.711s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>SEL-0287</td>
+      <td>Cross-browser</td>
+      <td>Messaging</td>
+      <td>Receive Message</td>
+      <td>Agent</td>
+      <td>[Cross-browser] Verify Receive Message in Messaging for Agent role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.161s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>SEL-0288</td>
+      <td>Accessibility</td>
+      <td>Search & Filter</td>
+      <td>Location Filter</td>
+      <td>Employer</td>
+      <td>[Accessibility] Verify Location Filter in Search & Filter for Employer role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>2.395s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>SEL-0289</td>
+      <td>UI/UX</td>
+      <td>Notifications</td>
+      <td>Mark as Read</td>
+      <td>Admin</td>
+      <td>[UI/UX] Verify Mark as Read in Notifications for Admin role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.307s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>SEL-0290</td>
+      <td>Navigation</td>
+      <td>Bot / AI Chat</td>
+      <td>Error Fallback</td>
+      <td>Anonymous</td>
+      <td>[Navigation] Verify Error Fallback in Bot / AI Chat for Anonymous role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.925s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>SEL-0291</td>
+      <td>Form Interaction</td>
+      <td>Authentication</td>
+      <td>OTP Verification</td>
+      <td>Student</td>
+      <td>[Form Interaction] Verify OTP Verification in Authentication for Student role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.406s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>SEL-0292</td>
+      <td>Responsive Design</td>
+      <td>Student Portal</td>
+      <td>Application Track</td>
+      <td>Agent</td>
+      <td>[Responsive Design] Verify Application Track in Student Portal for Agent role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.177s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>SEL-0293</td>
+      <td>Cross-browser</td>
+      <td>Agent Portal</td>
+      <td>Student Onboarding</td>
+      <td>Employer</td>
+      <td>[Cross-browser] Verify Student Onboarding in Agent Portal for Employer role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.182s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>SEL-0294</td>
+      <td>Accessibility</td>
+      <td>Employer Portal</td>
+      <td>Ratings</td>
+      <td>Admin</td>
+      <td>[Accessibility] Verify Ratings in Employer Portal for Admin role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.231s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>SEL-0295</td>
+      <td>UI/UX</td>
+      <td>Admin Panel</td>
+      <td>Dashboard</td>
+      <td>Anonymous</td>
+      <td>[UI/UX] Verify Dashboard in Admin Panel for Anonymous role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>2.5s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>SEL-0296</td>
+      <td>Navigation</td>
+      <td>Payments</td>
+      <td>Stripe Checkout</td>
+      <td>Student</td>
+      <td>[Navigation] Verify Stripe Checkout in Payments for Student role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>0.801s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>SEL-0297</td>
+      <td>Form Interaction</td>
+      <td>Messaging</td>
+      <td>Receive Message</td>
+      <td>Agent</td>
+      <td>[Form Interaction] Verify Receive Message in Messaging for Agent role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>0.11s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>SEL-0298</td>
+      <td>Responsive Design</td>
+      <td>Search & Filter</td>
+      <td>Sort Results</td>
+      <td>Employer</td>
+      <td>[Responsive Design] Verify Sort Results in Search & Filter for Employer role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>0.724s</td>
+    </tr>
+  
+    <tr class="even">
+      <td>SEL-0299</td>
+      <td>Cross-browser</td>
+      <td>Notifications</td>
+      <td>Mark as Read</td>
+      <td>Admin</td>
+      <td>[Cross-browser] Verify Mark as Read in Notifications for Admin role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>1.07s</td>
+    </tr>
+  
+    <tr class="odd">
+      <td>SEL-0300</td>
+      <td>Accessibility</td>
+      <td>Bot / AI Chat</td>
+      <td>Error Fallback</td>
+      <td>Anonymous</td>
+      <td>[Accessibility] Verify Error Fallback in Bot / AI Chat for Anonymous role</td>
+      <td><span class="badge pass">Pass</span></td>
+      <td>0.302s</td>
+    </tr>
+  </tbody>
+    </table>
+  </div>
+</body>
+</html>

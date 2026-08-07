@@ -1,10 +1,10 @@
 import { auth } from "@/lib/auth";
 import { NextResponse } from "next/server";
 import Stripe from "stripe";
-import prisma from "@/lib/prisma";
+import { supabaseAdmin } from "@/lib/supabaseClient";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || "sk_test_mock_key", {
-  apiVersion: "2024-12-18.acacia" as any, // Using type any to bypass strictly typed version if mismatched
+  apiVersion: "2024-12-18.acacia" as any,
 });
 
 export async function POST(req: Request) {
@@ -24,42 +24,95 @@ export async function POST(req: Request) {
     if (!process.env.STRIPE_SECRET_KEY || process.env.STRIPE_SECRET_KEY.includes("mock_key")) {
       console.log("⚠️ No Stripe key found. Bypassing Stripe and simulating successful payment...");
       
-      const app = await prisma.application.findUnique({
-        where: { id: applicationId },
-        include: { student: true, job: true }
-      });
-      
+      const { data: app, error } = await supabaseAdmin
+        .from("Application")
+        .select("*, Student(*), Job(*)")
+        .eq("id", applicationId)
+        .single();
+        
       if (app && app.status !== "selected") {
-        await prisma.$transaction([
-          prisma.application.update({ where: { id: applicationId }, data: { status: "selected" } }),
-          prisma.student.update({
-            where: { id: app.studentId },
-            data: { totalEarnings: { increment: amount }, completedJobs: { increment: 1 } }
-          }),
-          prisma.job.update({
-            where: { id: app.jobId },
-            data: { spotsAvailable: { decrement: 1 }, hiredCount: { increment: 1 } }
-          }),
-          prisma.payment.create({
-            data: { applicationId: applicationId, employerId: app.employerId, amount: amount, status: "PAID", stripeId: "simulated_payment_id", paidAt: new Date() }
-          }),
-          prisma.earning.create({
-            data: { studentId: app.studentId, amount: amount, description: `Payment for job: ${app.job.title}` }
-          })
-        ]);
+        // We'll execute sequential updates since there's no transaction in REST
+        // 1. Update application
+        await supabaseAdmin
+          .from("Application")
+          .update({ status: "selected" })
+          .eq("id", applicationId);
+          
+        // 2. Update student earnings
+        if (app.Student) {
+          const { data: currentStudent } = await supabaseAdmin
+            .from("Student")
+            .select("totalEarnings, completedJobs")
+            .eq("id", app.studentId)
+            .single();
+            
+          if (currentStudent) {
+            await supabaseAdmin
+              .from("Student")
+              .update({
+                totalEarnings: currentStudent.totalEarnings + amount,
+                completedJobs: currentStudent.completedJobs + 1
+              })
+              .eq("id", app.studentId);
+          }
+        }
         
-        // Dynamic import for createNotification/logActivity to avoid top-level issues if any
-        const { createNotification } = await import("@/lib/notifications");
-        const { logActivity } = await import("@/lib/activity");
+        // 3. Update job spots
+        if (app.Job) {
+          const { data: currentJob } = await supabaseAdmin
+            .from("Job")
+            .select("spotsAvailable, hiredCount")
+            .eq("id", app.jobId)
+            .single();
+            
+          if (currentJob) {
+            await supabaseAdmin
+              .from("Job")
+              .update({
+                spotsAvailable: Math.max(0, currentJob.spotsAvailable - 1),
+                hiredCount: currentJob.hiredCount + 1
+              })
+              .eq("id", app.jobId);
+          }
+        }
         
-        await createNotification(
-          app.student.userId,
-          "🎉 You're Hired!",
-          `Congratulations! You've been hired for "${app.job.title}" and ₹${amount} has been credited to your account.`,
-          "success",
-          "/student/earnings"
-        );
-        await logActivity("payment_received", `Student ${app.student.name} received ₹${amount} for ${app.job.title}`, app.student.userId, { amount, jobId: app.jobId });
+        // 4. Create payment
+        await supabaseAdmin
+          .from("Payment")
+          .insert({
+            id: crypto.randomUUID(),
+            applicationId: applicationId,
+            employerId: app.employerId,
+            amount: amount,
+            status: "PAID",
+            stripeId: "simulated_payment_id",
+            paidAt: new Date().toISOString()
+          });
+          
+        // 5. Create earning
+        await supabaseAdmin
+          .from("Earning")
+          .insert({
+            id: crypto.randomUUID(),
+            studentId: app.studentId,
+            amount: amount,
+            description: `Payment for job: ${app.Job?.title || "Unknown"}`
+          });
+        
+        // Notifications
+        if (app.Student?.userId) {
+          const { createNotification } = await import("@/lib/notifications");
+          const { logActivity } = await import("@/lib/activity");
+          
+          await createNotification(
+            app.Student.userId,
+            "🎉 You're Hired!",
+            `Congratulations! You've been hired for "${app.Job?.title || "Unknown"}" and ₹${amount} has been credited to your account.`,
+            "success",
+            "/student/earnings"
+          );
+          await logActivity("payment_received", `Student ${app.Student.name} received ₹${amount} for ${app.Job?.title}`, app.Student.userId, { amount, jobId: app.jobId });
+        }
       }
 
       return NextResponse.json({ url: `${process.env.NEXTAUTH_URL}/employer/billing?success=true&jobId=${jobId || ""}` });

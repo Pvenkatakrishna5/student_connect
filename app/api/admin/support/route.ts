@@ -1,6 +1,6 @@
 import { auth } from "@/lib/auth";
 import { NextResponse } from "next/server";
-import prisma from "@/lib/prisma";
+import { supabaseAdmin } from "@/lib/supabaseClient";
 
 export async function GET() {
   try {
@@ -8,12 +8,14 @@ export async function GET() {
     if (!session?.user?.id) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
     // Find the primary admin user
-    const admin = await prisma.user.findFirst({
-      where: { role: "admin" },
-      select: { id: true, email: true }
-    });
+    const { data: admin, error } = await supabaseAdmin
+      .from("User")
+      .select("id, email")
+      .eq("role", "admin")
+      .limit(1)
+      .single();
 
-    if (!admin) {
+    if (error || !admin) {
       return NextResponse.json({ error: "Support system is currently offline" }, { status: 404 });
     }
 

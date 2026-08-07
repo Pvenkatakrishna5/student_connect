@@ -161,7 +161,7 @@ export default function LandingPage() {
             </TiltCard>
             
             <TiltCard className="w-full sm:w-auto h-[64px]">
-              <Link href="/employer/register" className="w-full h-full flex items-center justify-center px-10 bg-black/40 backdrop-blur-xl border border-white/[0.1] text-white font-bold rounded-2xl text-lg hover:bg-white/[0.05] transition-all gap-3 shadow-[0_0_30px_rgba(0,0,0,0.5)]" style={{ transform: "translateZ(20px)" }}>
+              <Link href="/register?role=employer" className="w-full h-full flex items-center justify-center px-10 bg-black/40 backdrop-blur-xl border border-white/[0.1] text-white font-bold rounded-2xl text-lg hover:bg-white/[0.05] transition-all gap-3 shadow-[0_0_30px_rgba(0,0,0,0.5)]" style={{ transform: "translateZ(20px)" }}>
                 <Star className="w-5 h-5 text-indigo-400" /> Hire Top Talent
               </Link>
             </TiltCard>
@@ -237,7 +237,7 @@ export default function LandingPage() {
                 <Link href="/register" className="w-full sm:w-auto px-12 py-6 bg-white text-black font-black rounded-2xl text-lg hover:scale-105 transition-transform shadow-xl shadow-black/20">
                   Create Free Account
                 </Link>
-                <Link href="/employer/register" className="w-full sm:w-auto px-12 py-6 bg-transparent border border-white/30 text-white font-bold rounded-2xl text-lg hover:bg-white/10 transition-all">
+                <Link href="/register?role=employer" className="w-full sm:w-auto px-12 py-6 bg-transparent border border-white/30 text-white font-bold rounded-2xl text-lg hover:bg-white/10 transition-all">
                   Post a Job Instead
                 </Link>
               </div>

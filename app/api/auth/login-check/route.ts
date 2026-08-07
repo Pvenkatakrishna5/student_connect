@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import bcrypt from "bcryptjs";
-import prisma from "@/lib/prisma";
+import { supabaseAdmin } from "@/lib/supabaseClient";
 
 export async function POST(req: NextRequest) {
   try {
@@ -14,9 +14,13 @@ export async function POST(req: NextRequest) {
 
     let user = null;
     try {
-      user = await prisma.user.findUnique({
-        where: { email: emailLower },
-      });
+      const { data, error } = await supabaseAdmin
+        .from("User")
+        .select("*")
+        .eq("email", emailLower)
+        .single();
+      if (error && error.code !== "PGRST116") throw error;
+      user = data;
     } catch (dbErr: any) {
       console.error("Database connection failure during login-check:", dbErr);
       return NextResponse.json({ error: "Database unavailable" }, { status: 500 });
